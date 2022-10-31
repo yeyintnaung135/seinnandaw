@@ -16,13 +16,18 @@ use App\Http\Controllers\FrontController;
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['middleware' => ['web']], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/', 'FrontController@index');
-Route::get('/shop', 'FrontController@shop');
-Route::get('/product-category/{category}', 'FrontController@showbycategory');
+    Route::get('/', 'FrontController@index');
+    Route::get('/shop', 'FrontController@shop');
+    Route::get('/product-category/{category}', 'FrontController@showbycategory');
 
-Route::get('/product/{id}', 'FrontController@product_detail');
+    Route::get('/product/{id}', 'FrontController@product_detail');
 
-Route::get('/cart', 'FrontController@cart');
-Route::get('/checkout', 'FrontController@checkout');
+    Route::get('/cart', 'FrontController@cart');
+    Route::get('/checkout', 'FrontController@checkout');
+
+    require "backend.php";
+
+});
