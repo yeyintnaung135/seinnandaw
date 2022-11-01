@@ -13,6 +13,15 @@ Route::group(['prefix' => '/backend/categories'],function (){
     Route::post('/edit', 'CategoriesController@update');
     Route::post('/delete', 'CategoriesController@delete');
     Route::get('/detail/{id}', 'CategoriesController@detail');
-})
+});
+Route::group(['prefix' => '/backend/products'],function (){
+    Route::get('/list', 'ProductsController@list');
+    Route::get('/add', 'ProductsController@add');
+    Route::get('/edit/{id}', 'ProductsController@edit');
+    Route::post('/add', 'ProductsController@save');
+    Route::post('/edit', 'ProductsController@update');
+    Route::post('/delete', 'ProductsController@delete');
+    Route::get('/detail/{id}', 'ProductsController@detail');
+});
 ?>
 

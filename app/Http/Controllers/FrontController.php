@@ -1,6 +1,9 @@
 <?php
- 
+
 namespace App\Http\Controllers;
+
+use App\Categories;
+use App\Products;
 
 class FrontController extends Controller
 {
@@ -25,7 +28,9 @@ class FrontController extends Controller
     }
 
     public function product_detail($id) {
-      return view('frontend.product_detail', ['data' => $id]);
+        $data=Products::findOrFail($id);
+        $cat=Categories::where('id',$data->category_id)->first();
+      return view('frontend.product_detail', ['data' => $data,'cat'=>$cat]);
     }
 
     public function cart() {

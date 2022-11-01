@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/shop', 'FrontController@shop');
     Route::get('/product-category/{category}', 'FrontController@showbycategory');
 
-    Route::get('/product/{id}', 'FrontController@product_detail');
+    Route::get('/product/detail/{id}', 'FrontController@product_detail');
 
     Route::get('/cart', 'FrontController@cart');
     Route::get('/checkout', 'FrontController@checkout');
