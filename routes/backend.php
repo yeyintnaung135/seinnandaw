@@ -19,7 +19,7 @@ Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/add', 'ProductsController@add');
     Route::get('/edit/{id}', 'ProductsController@edit');
     Route::post('/add', 'ProductsController@save');
-    Route::post('/edit', 'ProductsController@update');
+    Route::post('/edit/{id}', 'ProductsController@update');
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
 });

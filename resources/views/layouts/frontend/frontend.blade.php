@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     <link rel="stylesheet" href="{{url('test/css/fancybox.css')}}" />
     <link rel="stylesheet" href="{{url('test/css/swiper-bundle.min.css')}}" />
+      <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{url('test/js/fancybox.js')}}"></script>
@@ -58,13 +59,13 @@
         font-weight: 600;
       }
 
-      .sn-cart-table button:hover, 
-      .sn-cart-total-table .sn-to-checkout:hover, 
+      .sn-cart-table button:hover,
+      .sn-cart-total-table .sn-to-checkout:hover,
       .sn-pd-input button:hover,
       .sn-place-order-button:hover {
         background: #000;
       }
-      
+
       .form-control {
         border-radius: 0 !important;
         padding: 20px 15px;
@@ -74,7 +75,7 @@
         padding: 12px 7px;
         width: 100%
       }
-      
+
       /* Swiper */
 
       .swiper-slide img {
@@ -219,7 +220,7 @@
           delay: 2500,
           disableOnInteraction: false,
         },
-        breakpoints: {  
+        breakpoints: {
           '480': {
             slidesPerView: 3,},
           '640': {

@@ -45,7 +45,7 @@
                                             <td>{{$d->name}}</td>
                                             <td><img style="width:100px;height:100px;" src="{{url($d->photo)}}"></td>
 
-                                            <td>{{$d->price}} Lakh</td>
+                                            <td>{{$d->price}} Ks</td>
 
                                             <td>
                                                 <x-beautydate :date="'{{$d->created_at}}'"></x-beautydate>
