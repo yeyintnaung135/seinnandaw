@@ -12,11 +12,17 @@ use Illuminate\Support\Facades\Validator;
 class ProductsController extends Controller
 {
     //
-    public function construct(){
-        $this->middleware('auth');
+    public function __construct(){
+        $this->middleware(['auth','isadmin']);
+    }
+    public function delete(Request $request){
+        Products::where('id',$request->id)->delete();
+        Session::flash('message', 'Your category was successfully Deleted');
+
+        return redirect(url('backend/products/list'));
     }
     public function list(){
-        $products=Products::all();
+        $products=Products::orderBy('id','desc')->get();
 
         return view('backend.products.list',['data'=>$products]);
 
@@ -37,7 +43,7 @@ class ProductsController extends Controller
         $input=$request->except('_token');
         $product=Products::where('id',$input['id'])->first();
 
-        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'description'=>['required']]);
+        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000']]);
         if($validator->fails()){
 //            return $validator->errors();
             return redirect()->back()->withErrors($validator)->withInput();
@@ -56,7 +62,7 @@ class ProductsController extends Controller
             $input['photo']=$product->photo;
         }
 
-        Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],'photo'=>$input['photo']]);
+        Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],'photo'=>$input['photo'],'feature'=>$input['feature'],'category_id'=>$input['category_id']]);
         Session::flash('message', 'Your product was successfully edited');
 
         return redirect(url('backend/products/list'));
@@ -65,7 +71,7 @@ class ProductsController extends Controller
     public function save(Request $request){
         $input=$request->except('_token');
 
-        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg'],'description'=>['required']]);
+        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg']]);
         if($validator->fails()){
 //            return $validator->errors();
             return redirect()->back()->withErrors($validator)->withInput();

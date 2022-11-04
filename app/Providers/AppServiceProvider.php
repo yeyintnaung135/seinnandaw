@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Categories;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +26,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $catlist=Categories::where('name','!=','all')->get();
+        View::share('catlist', $catlist);
+        //for chat
     }
 }

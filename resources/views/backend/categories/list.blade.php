@@ -44,7 +44,7 @@
 
 
                                             <td>
-                                                <x-beautydate :date="'{{$d->created_at}}'"></x-beautydate>
+                                                {{date('F d, Y ( h:i A )', strtotime($d->created_at))}}
                                             </td>
                                             <td>
                                                 <a href="{{url('backend/categories/detail/'.$d->id)}}" type="button" style=" width: 81px;" class="btn btn-primary btn-sm btn-block">

@@ -81,7 +81,7 @@
                                             <label>Category</label>
                                             <select class="form-control" name="category_id">
                                                 @foreach($catlist as $c)
-                                                    @if($c->id==$data->category_id)
+                                                    @if($c->id==$data->category_id or (old('category_id') and old('category_id')==$c->id))
                                                         <option value="{{$c->id}}" selected>{{$c->name}}</option>
                                                     @else
                                                         <option value="{{$c->id}}">{{$c->name}}</option>
@@ -113,7 +113,7 @@
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
-                                                         <textarea id="summernote" name="description" required>
+                                                         <textarea id="summernote" name="description" >
                                                          {!!old('description',$data->description)!!}
                                                          </textarea>
 
@@ -129,7 +129,25 @@
                                         </section>
                                     </div>
 
+                                    <div class="form-group row no-gutters">
+                                        <div class="col-12 col-md-6">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Feature Product</label>
+                                                <select class="form-control" name="feature" required>
+                                                    @if((old('feature') and old('feature') == 'yes') or ($data->feature == 'yes'))
+                                                        <option value="yes" selected>Yes</option>
+                                                        <option value="no">No</option>
 
+                                                    @else
+                                                        <option value="yes" >Yes</option>
+                                                        <option value="no" selected>No</option>
+                                                    @endif
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /.card-body -->
 

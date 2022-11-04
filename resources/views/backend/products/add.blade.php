@@ -25,7 +25,8 @@
                                             <label for="exampleInputEmail1">Name
                                                 @error('name')
 
-                                                <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                 @enderror
                                             </label>
@@ -33,7 +34,7 @@
                                                    class="form-control  @error('name') is-invalid @enderror "
                                                    id="exampleInputEmail1" value="{{old('name')}}"
                                                    placeholder="Enter Name" required
-                                                   >
+                                            >
 
 
                                         </div>
@@ -42,14 +43,16 @@
                                             <label for="customFile">Photo
                                                 @error('photo')
 
-                                                <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                 @enderror
                                             </label>
 
                                             <div class="custom-file">
 
-                                                <input type="file" name="photo" class="custom-file-input" id="customFile" required>
+                                                <input type="file" name="photo" class="custom-file-input"
+                                                       id="customFile" required>
                                                 <label class="custom-file-label" for="customFile">Choose Photo</label>
                                                 @error('photo')
                                                 <span class="invalid-feedback" role="alert">
@@ -64,7 +67,8 @@
                                             <label for="exampleInputEmail1">Price (Ks)
                                                 @error('price')
 
-                                                <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                 @enderror
                                             </label>
@@ -80,7 +84,8 @@
                                             <label>Category</label>
                                             <select class="form-control" name="category_id">
                                                 @foreach($catlist as $c)
-                                                    @if($c->name=='all')
+                                                    @if((old('category_id') and old('category_id') == $c->id) or $c->name=='all' )
+
                                                         <option value="{{$c->id}}" selected>{{$c->name}}</option>
                                                     @else
                                                         <option value="{{$c->id}}">{{$c->name}}</option>
@@ -104,7 +109,8 @@
                                                                 Description
                                                                 @error('description')
 
-                                                               <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                                <span
+                                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                                 @enderror
 
@@ -126,7 +132,25 @@
                                             <!-- ./row -->
                                         </section>
                                     </div>
+                                    <div class="form-group row no-gutters">
+                                        <div class="col-12 col-md-6">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Feature Product</label>
+                                                <select class="form-control" name="feature" required>
+                                                    @if(old('feature') and old('feature') == 'yes')
+                                                        <option value="yes" selected>Yes</option>
+                                                        <option value="no">No</option>
 
+                                                    @else
+                                                        <option value="yes" >Yes</option>
+                                                        <option value="no" selected>No</option>
+                                                        @endif
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
 
                                 </div>
                                 <!-- /.card-body -->

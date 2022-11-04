@@ -23,5 +23,6 @@ Route::group(['prefix' => '/backend/products'],function (){
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
 });
+
 ?>
 

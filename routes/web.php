@@ -21,12 +21,15 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', 'FrontController@index');
     Route::get('/shop', 'FrontController@shop');
-    Route::get('/product-category/{category}', 'FrontController@showbycategory');
+    Route::get('/category/{category}/{id}', 'FrontController@showbycategory');
 
     Route::get('/product/detail/{id}', 'FrontController@product_detail');
 
     Route::get('/cart', 'FrontController@cart');
     Route::get('/checkout', 'FrontController@checkout');
+    Route::get('/account', 'FrontController@account');
+    Route::post('/user/login', 'UserauthController@login');
+    Route::post('/user/register', 'UserauthController@register');
 
     require "backend.php";
 
