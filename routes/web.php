@@ -29,7 +29,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkout', 'FrontController@checkout');
     Route::get('/account', 'FrontController@account');
     Route::post('/user/login', 'UserauthController@login');
+    Route::get('/user/login', 'UserauthController@getlogin');
+    Route::get('/getatccounts','FrontprivateController@getatccounts' );
     Route::post('/user/register', 'UserauthController@register');
+    Route::post('/storeproducttocart', 'FrontprivateController@storeproducttocart');
+    Route::post('/changecount', 'FrontprivateController@changecount');
+    Route::post('/removecartitem', 'FrontprivateController@removecartitem');
+    Route::post('/checkoutform', 'FrontController@checkoutform');
+    Route::get('/checkoutform', 'FrontController@getcheckout');
 
     require "backend.php";
 

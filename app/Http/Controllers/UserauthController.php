@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Addtocart;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,11 +13,37 @@ use Illuminate\Support\Facades\Validator;
 class UserauthController extends Controller
 {
     //
+    public function getlogin(){
+        if(Auth::check() and Auth::user()->role == 'user'){
+            return redirect(url('/'));
+        }else{
+            return redirect(url('/account'));
+
+        }
+    }
     public function login(Request $request){
+
         $input=$request->except('_token');
-       if(Auth::attempt(['email'=>$input['usernameoremail'],'password'=>$input['password']])){
-           return 'yes';
+       if(Auth::attempt(['email'=>$input['usernameoremail'],'password'=>$input['password'],'role'=>'user'])){
+           if(!empty($input['addtocart'])){
+               foreach (json_decode($input['addtocart'],true) as $atc){
+                   if(count(Addtocart::where('userid',Auth::user()->id)->where('product_id',$atc['id'])->get()) == 0){
+                       Addtocart::create(['userid'=>Auth::user()->id,'product_id'=>$atc['id'],'count'=>$atc['count']]);
+
+                   }else{
+                       $getoldata=Addtocart::where('userid',Auth::user()->id)->where('product_id',$atc['id']);
+                       $combineoldandnewcount=$getoldata->first()->count + $atc['count'];
+                       $getoldata->update(['count'=>$combineoldandnewcount]);
+                   }
+               }
+           }
+           if(!empty($input['url'])){
+               return redirect($input['url']);
+
+           }
+           return redirect(url('/'));
        }else{
+
            return redirect()->back()->withInput()->withErrors(['login'=>'wrong credential']);
        }
     }

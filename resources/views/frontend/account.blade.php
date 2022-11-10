@@ -4,6 +4,9 @@
     <section>
         <div class="container-fluid px-3 py-4 px-md-4 py-md-5">
             <div class="p-1 p-md-4 row">
+                @if(Auth::check() and Auth::user()->role='user')
+                    You Are login
+                @else
 
                 <form class="mt-5 col-6" action="{{url('user/login')}}" method="post">
                     <div class="col-12 ">
@@ -12,6 +15,9 @@
                         @enderror
                         <h4 class="h4 font-weight-bold border-bottom mb-4 pb-3">LOGIN</h4>
                         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                        <input type="hidden" name="url" value="{{url()->previous()}}"/>
+                        <input type="hidden" name="addtocart" value=""/>
+
                         <div class="form-group">
                             <label for="inputAddress">Email</label>
                             <input type="text" name='usernameoremail' value="{{old('usernameoremail')}}" class="form-control" id="inputAddress">
@@ -36,6 +42,9 @@
 
                         <h4 class="h4 font-weight-bold border-bottom mb-4 pb-3">Register</h4>
                         <input type="hidden" name="_token" value="{{csrf_token()}}"/>
+                        <input type="hidden" name="url" value="{{url()->previous()}}"/>
+                        <input type="hidden" name="addtocart" value=""/>
+
                         <div class="form-group">
                             <label for="inputAddress">Name</label>
                             <input type="text" name='name' value="{{old('name')}}" class="form-control" id="inputAddress">
@@ -68,11 +77,22 @@
 
                     </div>
                 </form>
+                @endif
             </div>
         </div>
     </section>
 @endsection
 
 @push('scripts')
+    <script>
+        $(document).ready(function(){
+            console.log(JSON.parse(localStorage.getItem('addtocartlist')));
+
+            $('[name="addtocart"]').val(localStorage.getItem('addtocartlist'));
+        });
+
+
+
+    </script>
 
 @endpush
