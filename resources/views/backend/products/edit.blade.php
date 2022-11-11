@@ -92,6 +92,41 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+
+                                        <section class="content">
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    <div class="card card-outline card-info">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">
+                                                                Short Description
+                                                                @error('short_desc')
+
+                                                                <span
+                                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+
+                                                                @enderror
+
+                                                            </h3>
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                         <textarea id="summernote1" name="short_desc" >
+                                                         {{old('short_desc',$data->short_desc)}}</textarea>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                                <!-- /.col-->
+                                            </div>
+                                            <!-- ./row -->
+                                            <!-- ./row -->
+                                        </section>
+                                    </div>
 
                                     <div class="form-group">
 
@@ -175,6 +210,27 @@
         $(function () {
             // Summernote
             $('#summernote').summernote({
+                height: 300,
+
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'italic', 'underline', 'clear']],
+                    ['fontname', ['fontname']],
+                    ['fontsize', ['fontsize']],
+
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'hr']],
+                    ['view', ['fullscreen', 'codeview']],
+                    ['help', ['help']],
+
+
+                ]
+
+            });
+            $('#summernote1').summernote({
                 height: 300,
 
                 toolbar: [

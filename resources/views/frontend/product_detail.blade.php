@@ -8,7 +8,7 @@
                     <div class="col-12 col-md-6">
                         <div>
                             <div
-                                class="swiper productDetailSwiper"
+                                class="productDetailSwiper"
                             >
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide" data-src="{{ url($data->photo) }}"
@@ -50,15 +50,20 @@
                             <h4 class="font-weight-bold">{{$data->name}}</h4>
                             <p class="sn-pd-price font-weight-bold mt-3">{{$data->price}} <span>Ks</span></p>
                             <p class="sn-pd-desc pb-2">
-                                {!! $data->description !!}
+                                {!! $data->short_desc !!}
                             </p>
-                            <div class="sn-pd-input d-flex">
-                                <input type="number" name="" id="" value="1">
-                                <button>ADD TO CART</button>
-                            </div>
+                            @if(\Illuminate\Support\Facades\Auth::guard('web')->check() and Auth::guard('web')->user()->role != 'user')
+
+                                <atc-component :pid="'{{$data->id}}'" :logined="'yes'"></atc-component>
+                            @else
+                                <atc-component :product="{{$data}}" :logined="'no'"></atc-component>
+
+                            @endif
                             <p class="border-top mt-4 pt-2">Category: <a href="#" class="sn-pd-cat"
-                                                                         style="font-size: 16px;">{{strtoupper($cat->name)}}</a></p>
-                            @if(\Illuminate\Support\Facades\Auth::check() and Auth::user()->role != 'user')
+                                                                         style="font-size: 16px;">{{strtoupper($cat->name)}}</a>
+                            </p>
+
+                            @if(\Illuminate\Support\Facades\Auth::guard('admins')->check())
                                 <div class="d-inline-flex">
                                     <div class="mr-2">
                                         <a href="{{url('backend/products/edit/'.$data->id)}}"

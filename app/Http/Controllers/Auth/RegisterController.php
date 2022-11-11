@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Admins;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegisterController extends Controller
 {
@@ -39,6 +41,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->middleware('guest:admins');
+
     }
 
     /**
@@ -69,6 +73,24 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'role'=>'superadmin',
         ]);
+    }
+    public function showAdminRegisterForm()
+    {
+        return view('auth.register', ['url' => 'adminregister']);
+    }
+    public function adminregister(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+       Admins::create([
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+            'role'=>'admin',
+        ]);
+        return redirect()->intended('adminlogin');
+
     }
 }

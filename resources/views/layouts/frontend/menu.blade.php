@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand sn-brand-logo" href="#"><img src="{{url('images/logo.png')}}" alt="SeinNanDaw"></a>
-        @if(Auth::check())
+        @if(Auth::check() and Auth::user()->role='user')
             <span class="color:red;">{{Auth::user()->name}}</span>
         @endif
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -41,10 +41,13 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="#"><i class="fa fa-search"></i></a>
                     </li>
-                    <li class="nav-item active">
+
+                    <li class="nav-item active" >
                         <a class="nav-link" href="{{url('/cart')}}"><i
-                                class="fa fa-shopping-bag position-relative"><span
-                                    class="shopping-bag-badge">1</span></i></a>
+                                class="fa fa-shopping-bag position-relative"><span v-if="addtocartcount > 0"
+                                    class="shopping-bag-badge">@{{ addtocartcount }}</span>
+                                <span v-else
+                                      class="shopping-bag-badge">0</span></i></a>
                     </li>
                 </ul>
             </div> --}}

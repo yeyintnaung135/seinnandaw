@@ -16,13 +16,13 @@
       <div class="col-12 col-md-6 col-lg-3 mb-4 mt-1 mt-md-5">
         <h3>QUICK LINKS</h3>
         <ul>
-          <li><a href="{{url('/')}}">Home</a></li>
-          <li><a href="{{url('/product-category/necklace')}}">Necklace</a></li>
-          <li><a href="{{url('/product-category/earrings')}}">Earrings</a></li>
-          <li><a href="{{url('/product-category/ring')}}">Ring</a></li>
-          <li><a href="{{url('/product-category/pendant')}}">Pendants</a></li>
-          <li><a href="{{url('/product-category/bracelet')}}">Bracelet</a></li>
-          <li><a href="{{url('/product-category/bangle')}}">Bangle</a></li>
+          <li><a href="{{url('/')}}">HOME</a></li>
+            @foreach($catlist as $c)
+
+                <li><a href="{{url('/category/'.strtolower($c->name).'/'.$c->id)}}">{{strtoupper($c->name)}}</a></li>
+
+            @endforeach
+
         </ul>
       </div>
       <div class="sn-social col-12 col-md-6 col-lg-2 mt-1 mt-md-5">

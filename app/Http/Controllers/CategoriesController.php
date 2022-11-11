@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
-    //
+
     public function __construct(){
-        $this->middleware(['auth','isadmin']);
+        $this->middleware('auth:admins');
     }
     public function list(){
         $cat=Categories::all();
