@@ -10,16 +10,17 @@
     <link rel="stylesheet" type="text/css" href="{{ url('/css/style.css') }}" />
     <link rel="stylesheet" href="{{url('test/css/fancybox.css')}}" />
     <link rel="stylesheet" href="{{url('test/css/swiper-bundle.min.css')}}" />
-      <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{url('test/js/fancybox.js')}}"></script>
     <script src="{{url('test/js/swiper-bundle.min.js')}}"></script>
     <style>
-      .active {
+
+      /* Menu */
+      .active a {
         color: #8d021f !important;
       }
-
+      /* end of Menu */
       .shopping-bag-badge {
         background: #fff;
         box-shadow: 1px 1px 2px 0px #b9b9b9;
@@ -59,13 +60,13 @@
         font-weight: 600;
       }
 
-      .sn-cart-table button:hover,
-      .sn-cart-total-table .sn-to-checkout:hover,
+      .sn-cart-table button:hover, 
+      .sn-cart-total-table .sn-to-checkout:hover, 
       .sn-pd-input button:hover,
       .sn-place-order-button:hover {
         background: #000;
       }
-
+      
       .form-control {
         border-radius: 0 !important;
         padding: 20px 15px;
@@ -75,7 +76,14 @@
         padding: 12px 7px;
         width: 100%
       }
-
+      .sn-products .sn-category {
+        display: block;
+      }
+      .sn-home-products a {
+        width: 50%;
+        padding: 0 10px;
+      }
+      
       /* Swiper */
 
       .swiper-slide img {
@@ -124,14 +132,21 @@
         height: 100%;
         object-fit: cover;
       }
+      /* .sn-home-products {
+        padding: 0px 8px;
+      } */
       .sn-home-products img {
-        width: 130px;
-        height: 130px;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1/1;
+        object-fit: cover;
       }
       .sn-swiper-wrapper a {
         display: block;
         width: 130px;
       }
+
+      
 
       /* Cart */
       .ast-close-svg {
@@ -159,17 +174,50 @@
         font-weight: 600;
       }
 
+      /* For Menu Responsive */
+
+      @media only screen and (max-width: 989px) {
+        .navbar-light .navbar-toggler {
+          border-color: #0000;
+          font-size: 16px;
+        }
+        .sn-nav {
+          position: absolute;
+          top: 112px;
+          width: 100%;
+          left: 0px;
+          background: rgb(255, 255, 255);
+        }
+        .sn-nav li {
+          padding: 3px 15px;
+          border-top: 1px solid #e1e1e1;
+        }
+        .sn-menu-icon {
+          position: relative;
+          padding: 11px 8px;
+          border-top: 1px solid #e1e1e1;
+          border-bottom: 1px solid #e1e1e1;
+        }
+        .active {
+          background: #f7f7f7;
+        }
+      }
+      /* For Menu Responsive */
+
       /* Tablet Size */
       @media only screen and (min-width: 600px) {
-        .sn-home-products img {
+        /* .sn-home-products img {
           width: 140px;
           height: 140px;
-        }
+        } */
         .sn-swiper-wrapper a {
           width: 140px;
         }
         .relatedProductsSwiper {
           height: 400px;
+        }
+        .sn-home-products a {
+          width: 33%;
         }
       }
 
@@ -178,12 +226,15 @@
         .sn-pd-desc {
           font-size: 17px;
         }
-        .sn-home-products img {
+        /* .sn-home-products img {
           width: 270px;
           height: 260px;
-        }
+        } */
         .sn-swiper-wrapper a {
           width: 270px;
+        }
+        .sn-home-products a {
+          width: 25%;
         }
       }
     </style>
@@ -220,7 +271,7 @@
           delay: 2500,
           disableOnInteraction: false,
         },
-        breakpoints: {
+        breakpoints: {  
           '480': {
             slidesPerView: 3,},
           '640': {
@@ -228,6 +279,5 @@
         },
       });
     </script>
-  @stack('scripts')
   </body>
 </html>

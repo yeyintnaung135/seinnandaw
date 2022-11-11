@@ -18,10 +18,59 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+      .sn-login-banner img{
+        width: 100%;
+        height: calc(100vh);
+        object-fit: cover;
+      }
+      .sn-login-form {
+        border: 1px solid #bdbdbd;
+        box-shadow: 0px 0px 3px 0px #e1e1e1;
+      }
+      .sn-login-form #email, .sn-login-form #password {
+        width: 100%;
+        border-radius: unset;
+        border: 1px solid #ddd;
+        background: rgba(251, 251, 251, 1);
+        padding: 3px;
+        height: 40px;
+        margin-bottom: 13px;
+      }
+      .sn-login-button {
+        background: #8d021f;
+        border: 1px solid #8d021f;
+        color: #fff;
+        border-radius: 3px;
+        padding: 6px 15px;
+      }
+      .sn-login-container {
+        background-image: url("http://127.0.0.1/images/banner/login-banner.png");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center;
+      }
+
+      @media only screen and (min-width: 768px) {
+        .sn-login-container {
+          background: none;
+        }
+      }
+      
+      /* Tablet */
+      @media only screen and (min-width: 600px) {
+        .sn-login-form #email, .sn-login-form #password {
+          width: 270px;
+        }
+      }
+      @media only screen and (min-width: 768px) {
+        
+      }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm d-none">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -72,7 +121,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>
