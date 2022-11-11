@@ -9,20 +9,20 @@
         <h3>CONTACT INFO</h3>
         <ul>
           <li class="mb-3">phone : 01-371944, 01-371425</li>
-          <li class="mb-3">contact@seinnandaw.com</li>
+          <li class="mb-3">info@seinnandaw.com</li>
           <li class="mb-3">Head Office : No . 663/665 mahabandula road , ( between Latha st & 20th street ) , latha yangon.</li>
         </ul>
       </div>
       <div class="col-12 col-md-6 col-lg-3 mb-4 mt-1 mt-md-5">
         <h3>QUICK LINKS</h3>
         <ul>
-          <li><a href="{{url('/')}}">HOME</a></li>
-          <li><a href="{{url('/product-category/necklace')}}">NECKLACE</a></li>
-          <li><a href="{{url('/product-category/earrings')}}">EARRINGS</a></li>
-          <li><a href="{{url('/product-category/ring')}}">RING</a></li>
-          <li><a href="{{url('/product-category/pendant')}}">PENDANTS</a></li>
-          <li><a href="{{url('/product-category/bracelet')}}">BRACELET</a></li>
-          <li><a href="{{url('/product-category/bangle')}}">BANGLE</a></li>
+          <li><a href="{{url('/')}}">Home</a></li>
+          <li><a href="{{url('/product-category/necklace')}}">Necklace</a></li>
+          <li><a href="{{url('/product-category/earrings')}}">Earrings</a></li>
+          <li><a href="{{url('/product-category/ring')}}">Ring</a></li>
+          <li><a href="{{url('/product-category/pendant')}}">Pendants</a></li>
+          <li><a href="{{url('/product-category/bracelet')}}">Bracelet</a></li>
+          <li><a href="{{url('/product-category/bangle')}}">Bangle</a></li>
         </ul>
       </div>
       <div class="sn-social col-12 col-md-6 col-lg-2 mt-1 mt-md-5">

@@ -15,33 +15,33 @@
                                          data-fancybox="product_detail">
                                         <img src="{{ url($data->photo) }}"/>
                                     </div>
-                                    {{--                  <div class="swiper-slide" data-src="{{ url('images/products/15.jpg') }}" data-fancybox="product_detail">--}}
-                                    {{--                    <img src="{{ url('images/products/15.jpg') }}" />--}}
-                                    {{--                  </div>--}}
-                                    {{--                  <div class="swiper-slide" data-src="{{ url('images/products/16.jpg') }}" data-fancybox="product_detail">--}}
-                                    {{--                    <img src="{{ url('images/products/16.jpg') }}" />--}}
-                                    {{--                  </div>--}}
-                                    {{--                  <div class="swiper-slide" data-src="{{ url('images/products/17.jpg') }}" data-fancybox="product_detail">--}}
-                                    {{--                    <img src="{{ url('images/products/17.jpg') }}" />--}}
-                                    {{--                  </div>--}}
+                                                     {{-- <div class="swiper-slide" data-src="{{ url('images/products/15.jpg') }}" data-fancybox="product_detail">
+                                                       <img src="{{ url('images/products/15.jpg') }}" />
+                                                     </div>
+                                                     <div class="swiper-slide" data-src="{{ url('images/products/16.jpg') }}" data-fancybox="product_detail">
+                                                       <img src="{{ url('images/products/16.jpg') }}" />
+                                                     </div>
+                                                     <div class="swiper-slide" data-src="{{ url('images/products/17.jpg') }}" data-fancybox="product_detail">
+                                                       <img src="{{ url('images/products/17.jpg') }}" />
+                                                     </div> --}}
                                 </div>
                             </div>
-                            {{--              <div thumbsSlider="" class="swiper productDetailSwiperthumb">--}}
-                            {{--                <div class="swiper-wrapper">--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/14.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/15.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/16.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/17.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                </div>--}}
-                            {{--              </div>--}}
+                                         {{-- <div thumbsSlider="" class="swiper productDetailSwiperthumb">
+                                           <div class="swiper-wrapper">
+                                             <div class="swiper-slide">
+                                               <img src="{{ url('images/products/14.jpg') }}" />
+                                             </div>
+                                             <div class="swiper-slide">
+                                               <img src="{{ url('images/products/15.jpg') }}" />
+                                             </div>
+                                             <div class="swiper-slide">
+                                               <img src="{{ url('images/products/16.jpg') }}" />
+                                             </div>
+                                             <div class="swiper-slide">
+                                               <img src="{{ url('images/products/17.jpg') }}" />
+                                             </div>
+                                           </div>
+                                         </div> --}}
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
