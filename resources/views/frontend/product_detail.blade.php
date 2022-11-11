@@ -116,7 +116,7 @@
                                     <div class="swiper-slide sn-swiper-wrapper">
                                         <a href="{{url('/product/detail/'.$s->id)}}" class="mb-4">
                                             <img src="{{ url($s->photo) }}" alt="">
-                                            <span class="sn-category">
+                                            <span class="sn-category my-2">
                                                 <?php
                                                 $simcat = \App\Categories::where('id', $s->category_id)->first();
                                                 ?>
