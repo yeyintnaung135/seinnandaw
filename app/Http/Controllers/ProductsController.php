@@ -11,9 +11,8 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductsController extends Controller
 {
-    //
     public function __construct(){
-        $this->middleware(['auth','isadmin']);
+        $this->middleware('auth:admins');
     }
     public function delete(Request $request){
         Products::where('id',$request->id)->delete();

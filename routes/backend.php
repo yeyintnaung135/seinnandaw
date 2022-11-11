@@ -1,7 +1,7 @@
 <?php
 Route::get('/backend/home', function(){
 return view('backend.home');
-})->middleware('auth');
+})->middleware('auth:admins');
 Route::get('/table', function(){
     return view('backend.table');
 });
@@ -23,6 +23,10 @@ Route::group(['prefix' => '/backend/products'],function (){
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
 });
+Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('adminlogin');
+Route::post('/adminLogin', 'Auth\LoginController@adminLogin');
+Route::get('/adminregister', 'Auth\RegisterController@showAdminRegisterForm');
+Route::post('/adminregister', 'Auth\RegisterController@adminregister');
 
 ?>
 

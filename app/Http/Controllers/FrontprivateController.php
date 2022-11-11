@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Addtocart;
+use App\checkout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -63,6 +64,10 @@ class FrontprivateController extends Controller
 
         $getoldata = Addtocart::where('userid', Auth::user()->id)->where('product_id', $request->id);
         $getoldata->delete();
+        $checkoutishas=checkout::where('userid',Auth::user()->id)->where('productid',$request->id);
+        if(!empty($checkoutishas->first())){
+            $deletealso=$checkoutishas->delete();
+        }
 
         return response()->json(['message' => 'success']);
 

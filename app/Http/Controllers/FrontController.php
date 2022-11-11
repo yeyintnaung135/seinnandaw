@@ -63,11 +63,14 @@ class FrontController extends Controller
 
     public function checkoutform(Request $request)
     {
+//        return $request->all();
+
         $getprice = Products::where('id', $request->productid)->first();
         $totalprice = $getprice->price * $request->count;
 
 
         if (Auth::check() and Auth::user()->role == 'user') {
+
             $hascc = checkout::where('userid', Auth::user()->id);
             if (count($hascc->get()) > 0) {
                 $hascc->delete();
@@ -77,10 +80,17 @@ class FrontController extends Controller
 
             return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice]);
         } else {
-            return $request->guestid;
+//            return 'noo';
+
+            $hascc = checkout::where('userid', $request->guestid);
+            if (count($hascc->get()) > 0) {
+                $hascc->delete();
+
+            }
+            checkout::create(['userid' => $request->guestid, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
 
 
-            return view('frontend.account', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice]);
+            return view('frontend.account', ['addational'=>'hey from checkout']);
 
 
         }
@@ -88,6 +98,7 @@ class FrontController extends Controller
 
     public function getcheckout()
     {
+//        return 'get';
         if (Auth::user() and Auth::user()->role == 'user') {
 
 
@@ -98,14 +109,14 @@ class FrontController extends Controller
 
                 $totalprice = $getprice->price * $getcheckoutdata->counts;
 
-                return view('frontend.checkout', ['data' => ['productid' => $getcheckoutdata->productid, 'count' => $getcheckoutdata->counts], 'price' => $totalprice, 'product' => $getprice]);
+                return view('frontend.checkout', ['addational'=>'hey from checkout','data' => ['productid' => $getcheckoutdata->productid, 'count' => $getcheckoutdata->counts], 'price' => $totalprice, 'product' => $getprice]);
             }else{
 
                 return view('frontend.checkout', ['data' => 'empty']);
 
             }
         }else{
-            return 'fff';
+            return view('frontend.account',['addational'=>'hey from checkout']);
 
         }
 

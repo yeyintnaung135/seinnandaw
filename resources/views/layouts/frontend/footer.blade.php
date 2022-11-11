@@ -17,12 +17,12 @@
         <h3>QUICK LINKS</h3>
         <ul>
           <li><a href="{{url('/')}}">HOME</a></li>
-          <li><a href="{{url('/product-category/necklace')}}">NECKLACE</a></li>
-          <li><a href="{{url('/product-category/earrings')}}">EARRINGS</a></li>
-          <li><a href="{{url('/product-category/ring')}}">RING</a></li>
-          <li><a href="{{url('/product-category/pendant')}}">PENDANTS</a></li>
-          <li><a href="{{url('/product-category/bracelet')}}">BRACELET</a></li>
-          <li><a href="{{url('/product-category/bangle')}}">BANGLE</a></li>
+            @foreach($catlist as $c)
+
+                <li><a href="{{url('/category/'.strtolower($c->name).'/'.$c->id)}}">{{strtoupper($c->name)}}</a></li>
+
+            @endforeach
+
         </ul>
       </div>
       <div class="sn-social col-12 col-md-6 col-lg-2 mt-1 mt-md-5">

@@ -50077,6 +50077,8 @@ var app = new Vue({
               _this.addtocartcount = counts.data.counts;
               localStorage.setItem('addtocartcount', JSON.stringify(counts.data.counts));
             case 9:
+              console.log(window.authuser);
+            case 10:
             case "end":
               return _context.stop();
           }

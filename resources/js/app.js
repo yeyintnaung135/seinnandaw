@@ -50,6 +50,7 @@ const app = new Vue({
             localStorage.setItem('addtocartcount',JSON.stringify(counts.data.counts))
 
         }
+        console.log(window.authuser)
 
     },
     methods:{

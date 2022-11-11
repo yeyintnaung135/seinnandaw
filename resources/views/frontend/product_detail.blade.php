@@ -50,45 +50,45 @@
                             <h4 class="font-weight-bold">{{$data->name}}</h4>
                             <p class="sn-pd-price font-weight-bold mt-3">{{$data->price}} <span>Ks</span></p>
                             <p class="sn-pd-desc pb-2">
-                                {!! $data->description !!}
+                                {!! $data->short_desc !!}
                             </p>
-                            @if(\Illuminate\Support\Facades\Auth::check() and Auth::user()->role != 'user')
+                            @if(\Illuminate\Support\Facades\Auth::guard('web')->check() and Auth::guard('web')->user()->role != 'user')
 
-                                <atc-component :pid="'{{$data->id}}'" :logined="'yes'">
-                                    <atc-component/>
-                                    @else
-                                        <atc-component :product="{{$data}}" :logined="'no'"> <atc-component/>
+                                <atc-component :pid="'{{$data->id}}'" :logined="'yes'"></atc-component>
+                            @else
+                                <atc-component :product="{{$data}}" :logined="'no'"></atc-component>
 
-                                            @endif
-                                            <p class="border-top mt-4 pt-2">Category: <a href="#" class="sn-pd-cat"
-                                                                                         style="font-size: 16px;">{{strtoupper($cat->name)}}</a>
-                                            </p>
-                                            @if(\Illuminate\Support\Facades\Auth::check() and Auth::user()->role != 'user')
-                                                <div class="d-inline-flex">
-                                                    <div class="mr-2">
-                                                        <a href="{{url('backend/products/edit/'.$data->id)}}"
-                                                           type="button" style=" width: 81px;"
-                                                           class=" btn btn-info btn-sm btn-block">
-                                                            <i class="fa fa-edit"></i>
-                                                            Edit
-                                                        </a>
-                                                    </div>
-                                                    <div>
+                            @endif
+                            <p class="border-top mt-4 pt-2">Category: <a href="#" class="sn-pd-cat"
+                                                                         style="font-size: 16px;">{{strtoupper($cat->name)}}</a>
+                            </p>
 
-                                                        <button onclick="Delete()" type="button" style=" width: 81px;"
-                                                                class=" btn btn-danger btn-sm btn-block">
-                                                            <i class="fa fa-trash"></i>
-                                                            Delete
-                                                        </button>
-                                                        <form id="delete_form"
-                                                              action="{{ url('backend/products/delete') }}"
-                                                              method="POST"
-                                                              style="display: none;">
-                                                            @csrf
-                                                            <input type="hidden" name="id" value="{{$data->id}}"/>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                            @if(\Illuminate\Support\Facades\Auth::guard('admins')->check())
+                                <div class="d-inline-flex">
+                                    <div class="mr-2">
+                                        <a href="{{url('backend/products/edit/'.$data->id)}}"
+                                           type="button" style=" width: 81px;"
+                                           class=" btn btn-info btn-sm btn-block">
+                                            <i class="fa fa-edit"></i>
+                                            Edit
+                                        </a>
+                                    </div>
+                                    <div>
+
+                                        <button onclick="Delete()" type="button" style=" width: 81px;"
+                                                class=" btn btn-danger btn-sm btn-block">
+                                            <i class="fa fa-trash"></i>
+                                            Delete
+                                        </button>
+                                        <form id="delete_form"
+                                              action="{{ url('backend/products/delete') }}"
+                                              method="POST"
+                                              style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$data->id}}"/>
+                                        </form>
+                                    </div>
+                                </div>
                             @endif
                         </div>
                     </div>

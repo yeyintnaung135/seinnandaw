@@ -11,10 +11,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware(['auth','isadmin']);
-    }
+//    public function __construct()
+//    {
+//        $this->middleware(['auth:admins']);
+//    }
 
     /**
      * Show the application dashboard.

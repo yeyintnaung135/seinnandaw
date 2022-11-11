@@ -34,8 +34,10 @@
 
                     <li class="nav-item active" >
                         <a class="nav-link" href="{{url('/cart')}}"><i
-                                class="fa fa-shopping-bag position-relative"><span
-                                    class="shopping-bag-badge">@{{ addtocartcount }}</span></i></a>
+                                class="fa fa-shopping-bag position-relative"><span v-if="addtocartcount > 0"
+                                    class="shopping-bag-badge">@{{ addtocartcount }}</span>
+                                <span v-else
+                                      class="shopping-bag-badge">0</span></i></a>
                     </li>
                 </ul>
             </div>
