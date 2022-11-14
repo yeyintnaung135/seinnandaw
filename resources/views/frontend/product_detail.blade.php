@@ -7,9 +7,7 @@
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div>
-                            <div
-                                class="productDetailSwiper"
-                            >
+                            <div class="productDetailSwiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide" data-src="{{ url($data->photo) }}"
                                          data-fancybox="product_detail">

@@ -432,25 +432,34 @@
         },
     });
 
-    var relatedProductsSwiper = new Swiper(".swiper", {
+    var relatedProductsSwiper = new Swiper(".relatedProductsSwiper", {
         loop: false,
         spaceBetween: 0,
-        slidesPerView: 4,
-        freeMode: false,
+        slidesPerView: 2,
+        freeMode: true,
         watchSlidesProgress: true,
         autoplay: {
             delay: 2500,
             disableOnInteraction: false,
         },
-
         breakpoints: {
-          '480': {
-            slidesPerView: 3,},
-          '640': {
-            slidesPerView: 4,},
+            '480': {
+                slidesPerView: 3,},
+            '640': {
+                slidesPerView: 4,},
         },
-      });
-    </script>
+    });
+</script>
 @stack('scripts')
   </body>
 </html>
+
+
+
+
+
+
+
+
+
+
