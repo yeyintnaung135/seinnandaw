@@ -48,8 +48,8 @@ class FrontController extends Controller
 
     public function cart()
     {
-        if (Auth::check() and Auth::user()->role == 'user') {
-            $cartdata = Addtocart::leftjoin('products', 'addtocart.product_id', '=', 'products.id')->where('addtocart.userid', Auth::user()->id)->get();
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            $cartdata = Addtocart::leftjoin('products', 'addtocart.product_id', '=', 'products.id')->where('addtocart.userid', Auth::guard('web')->user()->id)->get();
         } else {
             $cartdata = 0;
         }
@@ -69,14 +69,14 @@ class FrontController extends Controller
         $totalprice = $getprice->price * $request->count;
 
 
-        if (Auth::check() and Auth::user()->role == 'user') {
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
 
-            $hascc = checkout::where('userid', Auth::user()->id);
+            $hascc = checkout::where('userid', Auth::guard('web')->user()->id);
             if (count($hascc->get()) > 0) {
                 $hascc->delete();
 
             }
-            checkout::create(['userid' => Auth::user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
+            checkout::create(['userid' => Auth::guard('web')->user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
 
             return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice]);
         } else {
@@ -99,10 +99,10 @@ class FrontController extends Controller
     public function getcheckout()
     {
 //        return 'get';
-        if (Auth::user() and Auth::user()->role == 'user') {
+        if (Auth::guard('web')->user() and Auth::guard('web')->user()->role == 'user') {
 
 
-            $getcheckoutdata = checkout::where('userid', Auth::user()->id)->first();
+            $getcheckoutdata = checkout::where('userid', Auth::guard('web')->user()->id)->first();
             if (!empty($getcheckoutdata)) {
 
                 $getprice = Products::where('id', $getcheckoutdata->productid)->first();

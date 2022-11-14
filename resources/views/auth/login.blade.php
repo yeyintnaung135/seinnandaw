@@ -75,7 +75,7 @@
       <a class="d-block py-3" href="{{url('/')}}"><img src="{{url('images/logo.png')}}" alt="SeinNanDaw" style="width: 200px;margin: 0 auto;display: block;"></a>
 
         <div class="mx-0 mx-md-2 mx-lg-3">
-            <form method="POST" action="{{ route('login') }}" class="sn-login-form px-4 pt-4 pb-5 bg-white">
+            <form method="POST" action="{{ url('adminLogin') }}" class="sn-login-form px-4 pt-4 pb-5 bg-white">
                 @csrf
 
                 <div class="">

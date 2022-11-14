@@ -417,20 +417,20 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script>
-    // var swiper = new Swiper(".productDetailSwiperthumb", {
-    //     loop: false,
-    //     spaceBetween: 10,
-    //     slidesPerView: 4,
-    //     freeMode: false,
-    //     watchSlidesProgress: true,
-    // });
-    // var swiper2 = new Swiper(".productDetailSwiper", {
-    //     loop: false,
-    //     spaceBetween: 10,
-    //     thumbs: {
-    //         swiper: swiper,
-    //     },
-    // });
+    var swiper = new Swiper(".productDetailSwiperthumb", {
+        loop: false,
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: false,
+        watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".productDetailSwiper", {
+        loop: false,
+        spaceBetween: 10,
+        thumbs: {
+            swiper: swiper,
+        },
+    });
 
     var relatedProductsSwiper = new Swiper(".swiper", {
         loop: false,

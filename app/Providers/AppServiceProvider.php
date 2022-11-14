@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Categories;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $catlist=Categories::where('name','!=','all')->get();
         View::share('catlist', $catlist);
         //for chat
+        Schema::defaultStringLength(191);
+
     }
 }

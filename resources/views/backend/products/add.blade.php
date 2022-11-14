@@ -40,7 +40,7 @@
                                         </div>
                                         <!-- <label for="customFile">Custom File</label> -->
                                         <div class="col-12 col-md-6">
-                                            <label for="customFile">Photo
+                                            <label for="customFile">Default Photo
                                                 @error('photo')
 
                                                 <span
@@ -53,8 +53,102 @@
 
                                                 <input type="file" name="photo" class="custom-file-input"
                                                        id="customFile" required>
-                                                <label class="custom-file-label" for="customFile">Choose Photo</label>
+                                                <label class="custom-file-label" for="customFile">Default Photo</label>
                                                 @error('photo')
+                                                <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row no-gutters">
+                                        <div class="col-12 col-md-6 pr-0 pr-md-2">
+                                            <label for="customFile"> Photo One
+                                                @error('photo_one')
+
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+
+                                                @enderror
+                                            </label>
+
+                                            <div class="custom-file">
+
+                                                <input type="file" name="photo_one" class="custom-file-input"
+                                                       id="customFile" >
+                                                <label class="custom-file-label" for="customFile">Photo One</label>
+                                                @error('photo_one')
+                                                <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <!-- <label for="customFile">Custom File</label> -->
+                                        <div class="col-12 col-md-6">
+                                            <label for="customFile"> Photo Two
+                                                @error('photo_two')
+
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+
+                                                @enderror
+                                            </label>
+
+                                            <div class="custom-file">
+
+                                                <input type="file" name="photo_two" class="custom-file-input"
+                                                       id="customFile" >
+                                                <label class="custom-file-label" for="customFile">Photo Two</label>
+                                                @error('photo_two')
+                                                <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row no-gutters">
+                                        <div class="col-12 col-md-6 pr-0 pr-md-2">
+                                            <label for="customFile"> Photo Three
+                                                @error('photo_three')
+
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+
+                                                @enderror
+                                            </label>
+
+                                            <div class="custom-file">
+
+                                                <input type="file" name="photo_three" class="custom-file-input"
+                                                       id="customFile" >
+                                                <label class="custom-file-label" for="customFile">Photo One</label>
+                                                @error('photo_three')
+                                                <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                            </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <!-- <label for="customFile">Custom File</label> -->
+                                        <div class="col-12 col-md-6">
+                                            <label for="customFile"> Photo Four
+                                                @error('photo_four')
+
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+
+                                                @enderror
+                                            </label>
+
+                                            <div class="custom-file">
+
+                                                <input type="file" name="photo_four" class="custom-file-input"
+                                                       id="customFile" >
+                                                <label class="custom-file-label" for="customFile">Photo Four</label>
+                                                @error('photo_four')
                                                 <span class="invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>
                                             </span>

@@ -15,33 +15,69 @@
                                          data-fancybox="product_detail">
                                         <img src="{{ url($data->photo) }}"/>
                                     </div>
-                                    {{--                  <div class="swiper-slide" data-src="{{ url('images/products/15.jpg') }}" data-fancybox="product_detail">--}}
-                                    {{--                    <img src="{{ url('images/products/15.jpg') }}" />--}}
-                                    {{--                  </div>--}}
-                                    {{--                  <div class="swiper-slide" data-src="{{ url('images/products/16.jpg') }}" data-fancybox="product_detail">--}}
-                                    {{--                    <img src="{{ url('images/products/16.jpg') }}" />--}}
-                                    {{--                  </div>--}}
-                                    {{--                  <div class="swiper-slide" data-src="{{ url('images/products/17.jpg') }}" data-fancybox="product_detail">--}}
-                                    {{--                    <img src="{{ url('images/products/17.jpg') }}" />--}}
-                                    {{--                  </div>--}}
+                                    @if(!empty($data->photo_one))
+                                        <div class="swiper-slide" data-src="{{ url($data->photo_one) }}"
+                                             data-fancybox="product_detail">
+                                            <img src="{{ url($data->photo_one) }}"/>
+                                        </div>
+                                    @endif
+                                    @if(!empty($data->photo_two))
+
+                                        <div class="swiper-slide" data-src="{{ url($data->photo_two) }}"
+                                             data-fancybox="product_detail">
+                                            <img src="{{ url($data->photo_two) }}"/>
+                                        </div>
+                                    @endif
+                                    @if(!empty($data->photo_three))
+
+                                        <div class="swiper-slide" data-src="{{ url($data->photo_three) }}"
+                                             data-fancybox="product_detail">
+                                            <img src="{{ url($data->photo_three) }}"/>
+                                        </div>
+                                    @endif
+                                    @if(!empty($data->photo_four))
+
+                                        <div class="swiper-slide" data-src="{{ url($data->photo_four) }}"
+                                             data-fancybox="product_detail">
+                                            <img src="{{ url($data->photo_four) }}"/>
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
-                            {{--              <div thumbsSlider="" class="swiper productDetailSwiperthumb">--}}
-                            {{--                <div class="swiper-wrapper">--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/14.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/15.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/16.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                  <div class="swiper-slide">--}}
-                            {{--                    <img src="{{ url('images/products/17.jpg') }}" />--}}
-                            {{--                  </div>--}}
-                            {{--                </div>--}}
-                            {{--              </div>--}}
+                            <div thumbsSlider="" class="swiper productDetailSwiperthumb">
+                                <div class="swiper-wrapper">
+
+                                    <div class="swiper-slide">
+                                        <img src="{{ url($data->photo) }}"/>
+                                    </div>
+                                    @if(!empty($data->photo_one))
+
+                                        <div class="swiper-slide">
+                                            <img src="{{ url($data->photo_one) }}"/>
+                                        </div>
+                                    @endif
+                                    @if(!empty($data->photo_two))
+
+                                        <div class="swiper-slide">
+                                            <img src="{{ url($data->photo_two) }}"/>
+                                        </div>
+                                    @endif
+                                    @if(!empty($data->photo_three))
+
+                                        <div class="swiper-slide">
+                                            <img src="{{ url($data->photo_three) }}"/>
+                                        </div>
+                                    @endif
+                                    @if(!empty($data->photo_four))
+
+                                        <div class="swiper-slide">
+                                            <img src="{{ url($data->photo_four) }}"/>
+                                        </div>
+                                    @endif
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-12 col-md-6">

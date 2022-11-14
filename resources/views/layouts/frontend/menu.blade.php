@@ -1,8 +1,8 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand sn-brand-logo" href="#"><img src="{{url('images/logo.png')}}" alt="SeinNanDaw"></a>
-        @if(Auth::check() and Auth::user()->role='user')
-            <span class="color:red;">{{Auth::user()->name}}</span>
+        @if(Auth::guard('web')->check() and Auth::guard('web')->user()->role='user')
+            <span class="color:red;">{{Auth::guard('web')->user()->name}}</span>
         @endif
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,8 +51,10 @@
               </div>
               <div class="px-2">
                   <a class="text-dark" href="{{url('/cart')}}"><i
-                          class="fa fa-shopping-bag position-relative"><span
-                              class="shopping-bag-badge">1</span></i></a>
+                          class="fa fa-shopping-bag position-relative"><span v-if="addtocartcount > 0"
+                                                                             class="shopping-bag-badge">@{{ addtocartcount }}</span>
+                          <span v-else
+                                class="shopping-bag-badge">0</span></i></a>
               </div>
           </div>
 

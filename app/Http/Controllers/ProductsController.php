@@ -70,10 +70,47 @@ class ProductsController extends Controller
     public function save(Request $request){
         $input=$request->except('_token');
 
-        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg']]);
+        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg'],
+            'photo_one'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_two'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_four'=>['mimes:jpeg,bmp,png,jpg'],
+        ]);
         if($validator->fails()){
 //            return $validator->errors();
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+        if ($request->file('photo_one')){
+            $photo_one = $input['photo_one'];
+            $photonameone = time().'photo_one'.'.'.$photo_one->getClientOriginalExtension();
+            $photo_one->move(public_path('images/products/'),$photonameone);
+            $input['photo_one']='images/products/'.$photonameone;
+        }else{
+            $input['photo_one']='';
+        }
+        if ($request->file('photo_two')){
+            $photo_two = $input['photo_two'];
+            $photonametwo = time().'photo_two'.'.'.$photo_two->getClientOriginalExtension();
+            $photo_two->move(public_path('images/products/'),$photonametwo);
+            $input['photo_two']='images/products/'.$photonametwo;
+        }else{
+            $input['photo_two']='';
+        }
+        if ($request->file('photo_three')){
+            $photo_three = $input['photo_three'];
+            $photonamethree = time().'photo_three'.'.'.$photo_three->getClientOriginalExtension();
+            $photo_three->move(public_path('images/products/'),$photonamethree);
+            $input['photo_three']='images/products/'.$photonamethree;
+        }else{
+            $input['photo_three']='';
+        }
+        if ($request->file('photo_four')){
+            $photo_four = $input['photo_four'];
+            $photonamefour = time().'photo_four'.'.'.$photo_four->getClientOriginalExtension();
+            $photo_four->move(public_path('images/products/'),$photonamefour);
+            $input['photo_four']='images/products/'.$photonamefour;
+        }else{
+            $input['photo_four']='';
         }
         $img = $input['photo'];
 
