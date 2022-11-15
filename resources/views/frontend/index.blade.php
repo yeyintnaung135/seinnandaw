@@ -3,8 +3,16 @@
 @section('content')
     <section>
         {{-- banner --}}
-        <div class="sn-main-banner">
+        {{-- <div class="sn-main-banner">
             <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw">
+        </div> --}}
+        <div class="sn-main-banner swiper myBannerSwiper">
+          <div class="swiper-wrapper">
+            <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw" class="swiper-slide">
+            <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw" class="swiper-slide">
+            <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw" class="swiper-slide">
+          </div>
+          <div class="swiper-pagination d-none"></div>
         </div>
         <div class="container-fluid">
             {{-- Featured Products --}}
@@ -38,7 +46,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <h1 class="sn-new-title position-absolute">NEW<br/> ARRIVALS</h1>
-                    <a href="{{url('/shop')}}" class="position-absolute">SHOP NOW</a>
+                    <a href="{{url('/shop')}}" class="position-absolute sn-shop-now-button">SHOP NOW</a>
                 </div>
             </div>
 
@@ -98,13 +106,13 @@
             {{-- Our Happy Customer --}}
             <div class="mx-3">
                 <div class="sn-cus-start">
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
-                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star mr-1"></i>
+                    <i class="fa fa-star mr-1"></i>
+                    <i class="fa fa-star mr-1"></i>
+                    <i class="fa fa-star mr-1"></i>
+                    <i class="fa fa-star mr-1"></i>
                 </div>
-                <h2 class="sn-cus-title mt-2 mb-4">OUR HAPPY CUSTOMERS</h2>
+                <h2 class="sn-cus-title mt-4 mb-5 font-weight-bold">OUR HAPPY CUSTOMERS</h2>
 
                 <div class="row">
                     <div class="col-12 col-sm-6 col-md-3 p-0"

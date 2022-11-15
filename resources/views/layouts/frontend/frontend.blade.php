@@ -29,6 +29,7 @@
 
     <script src="{{url('test/js/fancybox.js')}}"></script>
     <script src="{{url('test/js/swiper-bundle.min.js')}}"></script>
+    <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
     <style>
 
 
@@ -60,6 +61,7 @@
       }
       .sn-pd-desc {
         font-size: 16px;
+        word-wrap: break-word;
       }
       .sn-pd-input input {
         width: 60px;
@@ -72,8 +74,11 @@
         background: #8d021f;
         color: #fff;
         border: #8d021f;
-        width: 250px;
+        width: 276px;
         font-weight: 600;
+        padding: 6px 0;
+        font-size: 16px;
+        letter-spacing: 2px;
       }
 
       .sn-cart-table button:hover,
@@ -99,6 +104,67 @@
         width: 50%;
         padding: 0 10px;
       }
+      .sn-shop-now-button {
+        text-decoration: none !important;
+        transition: 0.3s;
+        color: #000;
+        border: 1px solid;
+        padding: 13px 32px;
+        left: 32%;
+        margin-top: 15px;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        font-weight: bold;
+      }
+      .sn-shop-now-button:hover{
+        background: #000;
+        color: #fff;
+      }
+
+      /* Sub Menu */
+      .sn-chevron-down {
+        background: none;
+        border: none;
+        height: 35px;
+      }
+      .sn-chevron-down:before, .sn-chevron-down:after {
+        content: "";
+        position: absolute;
+        background-color: #000000;
+        width: 1px;
+        height: 7px;
+        transition: transform 0.25s ease-in-out;
+      }
+      .sn-chevron-down:before {
+        transform: translateX(2px) rotate(45deg);
+      }
+      .sn-chevron-down:after {
+        transform: translateX(-2px) rotate(-45deg);
+      }
+
+      .sn-sub-menu {
+        position: absolute;
+        z-index: 99;
+        background: #fff;
+        padding: 8px 14px;
+        width: 250px;
+        box-shadow: 0 4px 10px -2px rgb(0 0 0 / 10%);
+        border-top: 2px solid #269fb7;
+        top: 45px;
+      }
+
+      .sn-sub-menu a {
+        display: block;
+        padding: 8px 0;
+        color: #333;
+        text-decoration: none;
+      }
+      .sn-sub-menu a:hover {
+        color: #269fb7;
+      }
+      .sn-sub-menu {
+        /* display: none; */
+      }
 
       /* Swiper */
 
@@ -115,7 +181,9 @@
         margin-left: auto;
         margin-right: auto;
       }
-
+      .sn-main-banner  {
+        height: 100% !important;
+      }
       .swiper-slide {
         background-size: cover;
         background-position: center;
@@ -162,7 +230,12 @@
         width: 130px;
       }
 
-
+      .sn-cus-start {
+        font-size: 18px;
+      }
+      .swiper-pagination-bullet-active-main {
+        background: #8d0220;
+      }
 
       /* Cart */
       .ast-close-svg {
@@ -190,7 +263,7 @@
         font-weight: 600;
       }
 
-      /* For Menu Responsive */
+      /* For Menu Responsive (Mobile) */
 
       @media only screen and (max-width: 989px) {
         .navbar-light .navbar-toggler {
@@ -203,10 +276,14 @@
           width: 100%;
           left: 0px;
           background: rgb(255, 255, 255);
+          z-index: 99;
         }
         .sn-nav li {
-          padding: 3px 15px;
           border-top: 1px solid #e1e1e1;
+        }
+        .sn-nav li a {
+          padding: 10px 45px;
+          position: relative;
         }
         .sn-menu-icon {
           position: relative;
@@ -216,6 +293,40 @@
         }
         .active {
           background: #f7f7f7;
+        }
+        .sn-sub-menu {
+          position: relative;
+          border: 0;
+          box-shadow: none;
+          display: block;
+          width: 100%;
+          padding: 0;
+          top: 0;
+        }
+        .sn-sub-menu a {
+          border-top: 1px solid #e1e1e1;
+        }
+        .sn-chevron-down {
+          right: 10%;
+        }
+        .sn-chevron-right{
+          position: absolute;
+          top: 40%;
+          left: 35px;
+        }
+        .sn-chevron-right:before, .sn-chevron-right:after {
+          content: "";
+          position: absolute;
+          background-color: #000000;
+          width: 1px;
+          height: 7px;
+          transition: transform 0.25s ease-in-out;
+        }
+        .sn-chevron-right:before {
+          transform: translateX(-2px) translateY(-1px) rotate(-45deg);
+        }
+        .sn-chevron-right:after {
+          transform: translateX(-2px) translateY(3px) rotate(45deg);
         }
       }
       /* For Menu Responsive */
@@ -448,8 +559,39 @@
             '640': {
                 slidesPerView: 4,},
         },
+
     });
-</script>
+
+
+
+      var bannerSwiper = new Swiper(".myBannerSwiper", {
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          dynamicBullets: true,
+        },
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+      });
+
+        function hoverToShowSubMenu(subcat) {
+          $(".sn-sub-menu").addClass("d-none");
+          $("#"+subcat).removeClass("d-none");
+        }
+        $(".sn-sub-menu").hover(function() {
+            $(this).removeClass("d-none");
+        }, function() {
+            $(this).addClass("d-none");
+        });
+
+        function toggleSubMenu(subcat) {
+          $("#"+subcat).toggleClass("d-none");
+        }
+
+    </script>
+
 @stack('scripts')
   </body>
 </html>

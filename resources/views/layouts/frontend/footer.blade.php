@@ -9,7 +9,7 @@
         <h3>CONTACT INFO</h3>
         <ul>
           <li class="mb-3">phone : 01-371944, 01-371425</li>
-          <li class="mb-3">contact@seinnandaw.com</li>
+          <li class="mb-3">info@seinnandaw.com</li>
           <li class="mb-3">Head Office : No . 663/665 mahabandula road , ( between Latha st & 20th street ) , latha yangon.</li>
         </ul>
       </div>

@@ -13,6 +13,7 @@
                                          data-fancybox="product_detail">
                                         <img src="{{ url($data->photo) }}"/>
                                     </div>
+
                                     @if(!empty($data->photo_one))
                                         <div class="swiper-slide" data-src="{{ url($data->photo_one) }}"
                                              data-fancybox="product_detail">
@@ -76,6 +77,7 @@
 
                                 </div>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-12 col-md-6">
