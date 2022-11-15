@@ -16,7 +16,7 @@ class ProductsController extends Controller
     }
     public function delete(Request $request){
         Products::where('id',$request->id)->delete();
-        Session::flash('message', 'Your category was successfully Deleted');
+        Session::flash('message', 'Your Product was successfully Deleted');
 
         return redirect(url('backend/products/list'));
     }
@@ -42,7 +42,11 @@ class ProductsController extends Controller
         $input=$request->except('_token');
         $product=Products::where('id',$input['id'])->first();
 
-        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000']]);
+        $validator=Validator::make($input,['name'=>['required','max:1000'],
+            'photo_one'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_two'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_four'=>['mimes:jpeg,bmp,png,jpg'],'price'=>['required','max:1000000000000000']]);
         if($validator->fails()){
 //            return $validator->errors();
             return redirect()->back()->withErrors($validator)->withInput();
@@ -60,8 +64,66 @@ class ProductsController extends Controller
         }else{
             $input['photo']=$product->photo;
         }
+        if ($request->file('photo_one')){
+            if (File::exists(public_path($product->photo_one))) {
+                File::delete(public_path($product->photo_one));
+            }
+            $photo_one = $input['photo_one'];
 
-        Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],'photo'=>$input['photo'],'feature'=>$input['feature'],'category_id'=>$input['category_id']]);
+            $photo_oneimageNameone = time().'photo_one'.'.'.$photo_one->getClientOriginalExtension();
+
+            $photo_one->move(public_path('images/products/'),$photo_oneimageNameone);
+            $input['photo_one']='images/products/'.$photo_oneimageNameone;
+        }else{
+            $input['photo_one']=$product->photo_one;
+        }
+        if ($request->file('photo_two')){
+            if (File::exists(public_path($product->photo_two))) {
+                File::delete(public_path($product->photo_two));
+            }
+            $photo_two = $input['photo_two'];
+
+            $photo_twoimageNameone = time().'photo_two'.'.'.$photo_two->getClientOriginalExtension();
+
+            $photo_two->move(public_path('images/products/'),$photo_twoimageNameone);
+            $input['photo_two']='images/products/'.$photo_twoimageNameone;
+        }else{
+            $input['photo_two']=$product->photo_two;
+        }
+        if ($request->file('photo_three')){
+            if (File::exists(public_path($product->photo_three))) {
+                File::delete(public_path($product->photo_three));
+            }
+            $photo_three = $input['photo_three'];
+
+            $photo_threeimageNameone = time().'photo_three'.'.'.$photo_three->getClientOriginalExtension();
+
+            $photo_three->move(public_path('images/products/'),$photo_threeimageNameone);
+            $input['photo_three']='images/products/'.$photo_threeimageNameone;
+        }else{
+            $input['photo_three']=$product->photo_three;
+        }
+        if ($request->file('photo_four')){
+            if (File::exists(public_path($product->photo_four))) {
+                File::delete(public_path($product->photo_four));
+            }
+            $photo_four = $input['photo_four'];
+
+            $photo_fourimageNameone = time().'photo_four'.'.'.$photo_four->getClientOriginalExtension();
+
+            $photo_four->move(public_path('images/products/'),$photo_fourimageNameone);
+            $input['photo_four']='images/products/'.$photo_fourimageNameone;
+        }else{
+            $input['photo_four']=$product->photo_four;
+        }
+
+        Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],
+            'photo'=>$input['photo'],
+            'photo_one'=>$input['photo_one'],
+            'photo_two'=>$input['photo_two'],
+            'photo_three'=>$input['photo_three'],
+            'photo_four'=>$input['photo_four']
+            ,'feature'=>$input['feature'],'category_id'=>$input['category_id']]);
         Session::flash('message', 'Your product was successfully edited');
 
         return redirect(url('backend/products/list'));

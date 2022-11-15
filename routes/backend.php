@@ -14,6 +14,15 @@ Route::group(['prefix' => '/backend/categories'],function (){
     Route::post('/delete', 'CategoriesController@delete');
     Route::get('/detail/{id}', 'CategoriesController@detail');
 });
+Route::group(['prefix' => '/backend/banners'],function (){
+    Route::get('/list', 'BannersController@list');
+    Route::get('/add', 'BannersController@add');
+    Route::get('/edit/{id}', 'BannersController@edit');
+    Route::post('/add', 'BannersController@save');
+    Route::post('/edit/{id}', 'BannersController@update');
+    Route::post('/delete', 'BannersController@delete');
+    Route::get('/detail/{id}', 'BannersController@detail');
+});
 Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/list', 'ProductsController@list');
     Route::get('/add', 'ProductsController@add');
