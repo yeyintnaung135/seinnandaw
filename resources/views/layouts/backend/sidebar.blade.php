@@ -116,7 +116,7 @@ Products
                         <i class="nav-icon fa fa-power-off "></i>
                         <p>LOGOUT</p>
                     </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    <form id="logout-form" action="{{ url('adminlogout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </li>

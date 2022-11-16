@@ -36,6 +36,11 @@ Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('admi
 Route::post('/adminLogin', 'Auth\LoginController@adminLogin');
 Route::get('/adminregister', 'Auth\RegisterController@showAdminRegisterForm');
 Route::post('/adminregister', 'Auth\RegisterController@adminregister');
+Route::post('/adminlogout', 'Auth\LoginController@adminlogout');
+Route::get('/adminforgot', 'Auth\AdminsForgotPasswordController@showLinkRequestForm')
+    ->name('admin.password.request');
+Route::post('/adminsendemail', 'Auth\AdminsForgotPasswordController@sendResetLinkEmail')
+    ->name('admin.password.email');
 
 ?>
 

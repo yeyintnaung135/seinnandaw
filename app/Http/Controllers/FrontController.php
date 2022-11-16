@@ -28,9 +28,20 @@ class FrontController extends Controller
         return view('frontend.shop');
     }
 
-    public function showbycategory($category, $id)
+    public function showbycategory($category, $id,$sub=null)
     {
-        $data = Products::where('category_id', $id)->orderBy('id', 'desc')->get();
+        if(!empty($sub)){
+
+            $data = Products::where(function($query) use ($id){
+                $query->where('category_id', '=', $id)->orWhere('category_id', '=', '2');
+
+
+            })->where('subcategory',$sub)->orderBy('id', 'desc')->get();
+
+        }else{
+            $data = Products::where('category_id', $id)->orderBy('id', 'desc')->get();
+
+        }
         return view('frontend.shopbycategory', ['category' => $category, 'data' => $data]);
     }
 
@@ -76,9 +87,9 @@ class FrontController extends Controller
                 $hascc->delete();
 
             }
-            checkout::create(['userid' => Auth::guard('web')->user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
+            $checkoutdata=checkout::create(['userid' => Auth::guard('web')->user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
 
-            return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice]);
+            return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
         } else {
 //            return 'noo';
 
@@ -109,7 +120,7 @@ class FrontController extends Controller
 
                 $totalprice = $getprice->price * $getcheckoutdata->counts;
 
-                return view('frontend.checkout', ['addational'=>'hey from checkout','data' => ['productid' => $getcheckoutdata->productid, 'count' => $getcheckoutdata->counts], 'price' => $totalprice, 'product' => $getprice]);
+                return view('frontend.checkout', ['addational'=>'hey from checkout','checkoutid'=>$getcheckoutdata->id,'data' => ['productid' => $getcheckoutdata->productid, 'count' => $getcheckoutdata->counts], 'price' => $totalprice, 'product' => $getprice]);
             }else{
 
                 return view('frontend.checkout', ['data' => 'empty']);

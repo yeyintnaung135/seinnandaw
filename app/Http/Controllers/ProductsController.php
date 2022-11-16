@@ -118,7 +118,7 @@ class ProductsController extends Controller
         }
 
         Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],
-            'photo'=>$input['photo'],
+            'photo'=>$input['photo'],'subcategory'=>$input['subcategory'],
             'photo_one'=>$input['photo_one'],
             'photo_two'=>$input['photo_two'],
             'photo_three'=>$input['photo_three'],

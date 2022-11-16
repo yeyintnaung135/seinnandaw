@@ -37,8 +37,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admins')->except('logout');
+        $this->middleware('guest')->except('logout','adminlogout');
+        $this->middleware('guest:admins')->except('logout','adminlogout');
 
 
     }
@@ -58,5 +58,12 @@ class LoginController extends Controller
             return redirect()->intended('/backend/home');
         }
         return back()->withInput($request->only('email', 'remember'))->withErrors(['failadminlogin'=>'Wrong Credentials']);
+    }
+    public function adminlogout(Request $request)
+    {
+
+
+         Auth::guard('admins')->logout();
+        return redirect(url('adminlogin'));
     }
 }

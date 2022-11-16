@@ -22,11 +22,11 @@
                               <button class="sn-chevron-down pr-4 pr-lg-2 d-block d-lg-none" onclick="toggleSubMenu('{{ $c->name }}')"></button>
                               <button class="sn-chevron-down pr-4 pr-lg-2 d-none d-lg-block" onmouseover="hoverToShowSubMenu('{{ $c->name }}')"></button>
                             </div>
-                            
+
                             <div class="sn-sub-menu d-none" id="{{$c->name }}">
-                              <a href="#"><span class="sn-chevron-right"></span> GOLD</a>
-                              <a href="#"><span class="sn-chevron-right"></span> DIAMOND</a>
-                              <a href="#"><span class="sn-chevron-right"></span> WHITE GOLD</a>
+                              <a href="{{url('/category/'.strtolower($c->name).'/'.$c->id.'/'.'GOLD')}}"><span class="sn-chevron-right"></span> GOLD</a>
+                              <a href="{{url('/category/'.strtolower($c->name).'/'.$c->id.'/'.'DIAMOND')}}"><span class="sn-chevron-right"></span> DIAMOND</a>
+                                <a href="{{url('/category/'.strtolower($c->name).'/'.$c->id.'/'.'WHITE GOLD')}}"><span class="sn-chevron-right"></span> WHITE GOLD</a>
                             </div>
                         </li>
                     @endforeach

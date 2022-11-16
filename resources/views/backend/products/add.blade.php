@@ -190,6 +190,36 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group row no-gutters">
+                                        <div class="col-12 col-md-6 pr-0 pr-md-2">
+                                            <label>Subcategory</label>
+                                            <select class="form-control" name="subcategory">
+                                                <option value="GOLD" selected>GOLD</option>
+                                                <option value="DIAMOND" >DIAMOND</option>
+                                                <option value="WHITE GOLD" >WHITE GOLD</option>
+
+
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Feature Product</label>
+                                                <select class="form-control" name="feature" required>
+                                                    @if(old('feature') and old('feature') == 'yes')
+                                                        <option value="yes" selected>Yes</option>
+                                                        <option value="no">No</option>
+
+                                                    @else
+                                                        <option value="yes" >Yes</option>
+                                                        <option value="no" selected>No</option>
+                                                    @endif
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
 
                                         <section class="content">
@@ -260,25 +290,6 @@
                                             <!-- ./row -->
                                             <!-- ./row -->
                                         </section>
-                                    </div>
-                                    <div class="form-group row no-gutters">
-                                        <div class="col-12 col-md-6">
-                                            <!-- select -->
-                                            <div class="form-group">
-                                                <label>Feature Product</label>
-                                                <select class="form-control" name="feature" required>
-                                                    @if(old('feature') and old('feature') == 'yes')
-                                                        <option value="yes" selected>Yes</option>
-                                                        <option value="no">No</option>
-
-                                                    @else
-                                                        <option value="yes" >Yes</option>
-                                                        <option value="no" selected>No</option>
-                                                        @endif
-
-                                                </select>
-                                            </div>
-                                        </div>
                                     </div>
 
                                 </div>

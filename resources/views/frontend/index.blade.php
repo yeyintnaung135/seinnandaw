@@ -7,10 +7,14 @@
             <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw">
         </div> --}}
         <div class="sn-main-banner swiper myBannerSwiper">
+            <?php
+            $banners=\App\Banners::all();
+            ?>
           <div class="swiper-wrapper">
-            <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw" class="swiper-slide">
-            <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw" class="swiper-slide">
-            <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw" class="swiper-slide">
+              @foreach($banners as $b)
+            <img src="{{ url($b->photo) }}" alt="SeinNanDaw" class="swiper-slide">
+              @endforeach
+
           </div>
           <div class="swiper-pagination d-none"></div>
         </div>

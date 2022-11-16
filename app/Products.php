@@ -13,5 +13,6 @@ class Products extends Model
         'photo_two',
         'photo_three',
         'photo_four',
+        'subcategory',
         'description','short_desc','category_id','photo','price','feature'];
 }

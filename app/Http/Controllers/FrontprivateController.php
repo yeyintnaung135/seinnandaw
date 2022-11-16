@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Addtocart;
 use App\checkout;
+use App\Products;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -19,6 +21,45 @@ class FrontprivateController extends Controller
 //
 //        return 'haha';
 //    }
+    public function paywithmpu($data)
+    {
+        return $data['payment'];
+
+    }
+
+    public function startgotobank(Request $request)
+    {
+        $tocheckcheckoutdata = checkout::where('id', $request->checkoutid)->first();
+
+        if (Auth::guard('web')->user()->id != $tocheckcheckoutdata->userid) {
+            return abort(401);
+
+        }
+
+        if (empty($tocheckcheckoutdata)) {
+            return abort(401);
+        } else {
+            $tocheckproductdata = Products::where('id', $tocheckcheckoutdata->productid)->first();
+            if (empty($tocheckcheckoutdata)) {
+                return abort(404);
+            } else {
+                $totalprice = $request->pcount * $tocheckproductdata->price;
+                if ($tocheckcheckoutdata->counts != $request->pcount or $request->pprice != $totalprice) {
+                    return abort(401);
+                }
+            }
+        }
+        if ($request->payment == '1') {
+            $this->paywithmpu($request->all());
+        }else{
+            return $request->all();
+
+        }
+
+
+
+    }
+
     public function getatccounts()
     {
         $getcounts = DB::table('addtocart')->where('userid', Auth::guard('web')->user()->id)->selectRaw("SUM(count) as sum")->pluck('sum');
@@ -64,9 +105,9 @@ class FrontprivateController extends Controller
 
         $getoldata = Addtocart::where('userid', Auth::guard('web')->user()->id)->where('product_id', $request->id);
         $getoldata->delete();
-        $checkoutishas=checkout::where('userid',Auth::guard('web')->user()->id)->where('productid',$request->id);
-        if(!empty($checkoutishas->first())){
-            $deletealso=$checkoutishas->delete();
+        $checkoutishas = checkout::where('userid', Auth::guard('web')->user()->id)->where('productid', $request->id);
+        if (!empty($checkoutishas->first())) {
+            $deletealso = $checkoutishas->delete();
         }
 
         return response()->json(['message' => 'success']);

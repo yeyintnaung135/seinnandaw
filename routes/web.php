@@ -21,7 +21,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', 'FrontController@index');
     Route::get('/shop', 'FrontController@shop');
-    Route::get('/category/{category}/{id}', 'FrontController@showbycategory');
+    Route::get('/category/{category}/{id}/{sub?}', 'FrontController@showbycategory');
 
     Route::get('/product/detail/{id}', 'FrontController@product_detail');
 
@@ -37,6 +37,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/removecartitem', 'FrontprivateController@removecartitem');
     Route::post('/checkoutform', 'FrontController@checkoutform');
     Route::get('/checkoutform', 'FrontController@getcheckout');
+    Route::post('/connectwithbank', 'FrontprivateController@startgotobank');
 
     require "backend.php";
 

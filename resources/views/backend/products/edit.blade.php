@@ -17,7 +17,8 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="post" action="{{url('backend/products/edit/'.$data->id)}}" enctype="multipart/form-data">
+                            <form method="post" action="{{url('backend/products/edit/'.$data->id)}}"
+                                  enctype="multipart/form-data">
                                 <input type="hidden" name="id" value="{{$data->id}}"/>
                                 @csrf
                                 <div class="card-body">
@@ -26,7 +27,8 @@
                                             <label for="exampleInputEmail1">Name
                                                 @error('name')
 
-                                                <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                 @enderror
                                             </label>
@@ -34,7 +36,7 @@
                                                    class="form-control  @error('name') is-invalid @enderror "
                                                    id="exampleInputEmail1" value="{{old('name',$data->name)}}"
                                                    placeholder="Enter Name" required
-                                                   >
+                                            >
 
 
                                         </div>
@@ -43,14 +45,16 @@
                                             <label for="customFile">Photo
                                                 @error('photo')
 
-                                                <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                 @enderror
                                             </label>
 
                                             <div class="custom-file">
 
-                                                <input type="file" name="photo" class="custom-file-input" id="customFile" >
+                                                <input type="file" name="photo" class="custom-file-input"
+                                                       id="customFile">
                                                 <label class="custom-file-label" for="customFile">Choose Photo</label>
                                                 @error('photo')
                                                 <span class="invalid-feedback" role="alert">
@@ -74,7 +78,7 @@
                                             <div class="custom-file">
 
                                                 <input type="file" name="photo_one" class="custom-file-input"
-                                                       id="customFile" >
+                                                       id="customFile">
                                                 <label class="custom-file-label" for="customFile">Photo One</label>
                                                 @error('photo_one')
                                                 <span class="invalid-feedback" role="alert">
@@ -97,7 +101,7 @@
                                             <div class="custom-file">
 
                                                 <input type="file" name="photo_two" class="custom-file-input"
-                                                       id="customFile" >
+                                                       id="customFile">
                                                 <label class="custom-file-label" for="customFile">Photo Two</label>
                                                 @error('photo_two')
                                                 <span class="invalid-feedback" role="alert">
@@ -121,7 +125,7 @@
                                             <div class="custom-file">
 
                                                 <input type="file" name="photo_three" class="custom-file-input"
-                                                       id="customFile" >
+                                                       id="customFile">
                                                 <label class="custom-file-label" for="customFile">Photo Three</label>
                                                 @error('photo_three')
                                                 <span class="invalid-feedback" role="alert">
@@ -144,7 +148,7 @@
                                             <div class="custom-file">
 
                                                 <input type="file" name="photo_four" class="custom-file-input"
-                                                       id="customFile" >
+                                                       id="customFile">
                                                 <label class="custom-file-label" for="customFile">Photo Four</label>
                                                 @error('photo_four')
                                                 <span class="invalid-feedback" role="alert">
@@ -159,7 +163,8 @@
                                             <label for="exampleInputEmail1">Price (Ks)
                                                 @error('price')
 
-                                                <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                <span
+                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                 @enderror
                                             </label>
@@ -186,6 +191,51 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="form-group row no-gutters">
+                                        <div class="col-12 col-md-6 pr-0 pr-md-2">
+                                            <label>Subcategory</label>
+                                            <select class="form-control" name="subcategory">
+                                                <?php
+                                                $gold='';
+                                                $diamond='';
+                                                $wgold='';
+                                                if ((old('subcategory') and old('subcategory') == 'WHITE GOLD') or ($data->subcategory == 'WHITE GOLD')) {
+                                                    $wgold = 'selected';
+                                                }else if((old('subcategory') and old('subcategory') == 'DIAMOND') or ($data->subcategory == 'DIAMOND')){
+                                                    $diamond='selected';
+                                                }else{
+                                                    $gold = 'selected';
+
+                                                }
+
+                                                ?>
+
+                                                    <option value="GOLD" {{$gold}}>GOLD</option>
+                                                    <option value="DIAMOND" {{$diamond}}>DIAMOND</option>
+                                                    <option value="WHITE GOLD" {{$wgold}}>WHITE GOLD</option>
+
+
+                                            </select>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>Feature Product</label>
+                                                <select class="form-control" name="feature" required>
+                                                    @if((old('feature') and old('feature') == 'yes') or ($data->feature == 'yes'))
+                                                        <option value="yes" selected>Yes</option>
+                                                        <option value="no">No</option>
+
+                                                    @else
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no" selected>No</option>
+                                                    @endif
+
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
 
                                         <section class="content">
@@ -207,7 +257,7 @@
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
-                                                         <textarea id="summernote1" name="short_desc" >
+                                                         <textarea id="summernote1" name="short_desc">
                                                          {{old('short_desc',$data->short_desc)}}</textarea>
 
                                                         </div>
@@ -234,7 +284,8 @@
                                                                 Description
                                                                 @error('description')
 
-                                                               <span style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
+                                                                <span
+                                                                    style="color:red;font-size:13px;font-weight:bold;">{{ $message }}</span>
 
                                                                 @enderror
 
@@ -242,7 +293,7 @@
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
-                                                         <textarea id="summernote" name="description" >
+                                                         <textarea id="summernote" name="description">
                                                          {!!old('description',$data->description)!!}
                                                          </textarea>
 
@@ -258,25 +309,6 @@
                                         </section>
                                     </div>
 
-                                    <div class="form-group row no-gutters">
-                                        <div class="col-12 col-md-6">
-                                            <!-- select -->
-                                            <div class="form-group">
-                                                <label>Feature Product</label>
-                                                <select class="form-control" name="feature" required>
-                                                    @if((old('feature') and old('feature') == 'yes') or ($data->feature == 'yes'))
-                                                        <option value="yes" selected>Yes</option>
-                                                        <option value="no">No</option>
-
-                                                    @else
-                                                        <option value="yes" >Yes</option>
-                                                        <option value="no" selected>No</option>
-                                                    @endif
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- /.card-body -->
 

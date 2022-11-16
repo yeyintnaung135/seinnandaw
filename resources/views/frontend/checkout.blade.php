@@ -6,7 +6,7 @@
             <div class="p-1 p-md-4">
                 @if($data != 'empty')
                     <h2 class="text-uppercase mb-3 text-left">CHECKOUT</h2>
-                    <form class="row mt-5">
+                    <div class="row mt-5">
                         <div class="col-12 col-md-7 pr-md-5">
                             <h4 class="h4 font-weight-bold border-bottom mb-4 pb-3">BILLING DETAILS</h4>
                             <div class="form-row">
@@ -93,6 +93,17 @@
                                     </tbody>
                                 </table>
                                 <div class="m-2">
+                                    <form action="{{url('connectwithbank')}}" method="post">
+                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                        <input type="hidden" name="pname" value="{{$product->name}}">
+                                        <input type="hidden" name="checkoutid" value="{{$checkoutid}}">
+                                        <input type="hidden" name="pcount" value="{{$data['count']}}">
+                                        <input type="hidden" name="pprice" value="{{$price}}">
+                                    <select class="form-select" name="payment" aria-label="Default select example">
+                                        <option value="direct" selected>Direct Bank</option>
+                                        <option value="1">MPU</option>
+                                        <option value="2">Master/Visa</option>
+                                    </select>
                                     <div>
                                         <h5>Direct bank transfer</h5>
                                         <p class="p-3" style="background: #eee;">Make your payment directly into our
@@ -104,10 +115,11 @@
                                         and for other purposes described in our <a href="#">privacy policy</a>.</p>
                                     <button type="submit" class="btn btn-primary sn-place-order-button">PLACE ORDER
                                     </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 @else
                     EMPTY
                 @endif
