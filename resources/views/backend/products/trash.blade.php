@@ -22,18 +22,24 @@
                             <div class="card-header row no-gutters">
                                 <div class="w-100 d-flex justify-content-between align-items-center">
                                     <h3 class="card-title">Trashed list</h3>
-                                    <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none">
-                                            <i class="fa fa-trash"></i>
-                                                Delete
+                                       <div class=" d-flex">
+                                    
+                                        <form  action="{{ route('product.multiple.restore') }}" method="POST" id="restoreform">
+                                            @csrf
+                                            <button  id="multipleRestore" type="submit" class=" btn btn-info btn-sm d-none mr-1">
+                                            <i class="fa fa-trash-restore"></i>
+                                                Multiple Restore
                                         </button>
-                                        <form id="delete_form" action="{{ route('product.multiple.trash') }}"method="POST">
+                                            <input type="hidden" name="id" value="" id="restoreItemId"/>
+                                        </form>
+                                       <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none">
+                                            <i class="fa fa-trash"></i>
+                                                Multiple Delete
+                                        </button>
+                                        <form id="delete_form" action="{{ route('product.multiple.forcedelete') }}"method="POST">
                                             @csrf
                                             <input type="hidden" name="id" value="" id="itemId"/>
                                         </form>
-                                  
-                                       <div class="">
-                                       <a href="{{url('backend/products/list')}}" class="text-dark" title="Product lists"><i class="fas fa-list"></i></a>
-                                       
                                      </div>
 
                                 </div>
@@ -50,7 +56,7 @@
                                         <th>Name</th>
                                         <th>Photo</th>
                                         <th>Price</th>
-                                        <th>Create Date</th>
+                                        <th>Deleted Date</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -114,11 +120,12 @@
        
             if ($(e).is(':checked')) {
 
-               
                 $("#multipleDelete").removeClass('d-none');
+                $('#multipleRestore').removeClass('d-none');
                 data.push(e.value);
 
                 $("#itemId").val(data);
+                $("#restoreItemId").val(data);
                 localData = localStorage.setItem("localData", JSON.stringify(data));
                
             } else {
@@ -129,8 +136,12 @@
                 }
                 if (data.length === 0) {
                     $("#multipleDelete").addClass('d-none');
+                    $('#multipleRestore').addClass('d-none');
+
                 }
                 $("#itemId").val(data);
+                $("#restoreItemId").val(data);
+
 
                 localData = localStorage.removeItem("localData", JSON.stringify(data));
             
@@ -172,16 +183,26 @@
                     data: 'price',
 
                 },
-       
+                {data: 'created_at'},
                 {
                     data: 'action',
                     render: function (data, type) {
-                        
-                        var info = `<a style="margin-right: 5px;" class="btn btn-sm btn-success" href="{{url('product/detail/'.':id')}}"><span class="fa fa-info-circle"></span></a>`;
-                        info = info.replace(':id', data);
-                        var edit = `<a class="btn btn-sm btn-primary" href=""><span class="fa fa-edit"></span></a>`;
-                        edit = edit.replace(':id', data);
-                        return info;
+                        var restore = `<a href="{{route('product.restore',':id')}}" class="btn btn-info btn-sm mr-1" title="Restore product">
+                                                <i class="fas fa-trash-restore"></i>
+                                                   Restore
+                                                </a>`;
+                        restore = restore.replace(':id', data);
+                        var del = `<button onclick="Delete()" type="button" class=" btn btn-danger btn-sm ">
+                                <i class="fa fa-trash"></i>
+                                    Delete
+                            </button>
+                            <form id="delete_form" action="{{ route('product.forcedelete') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" value=":id"/>
+                            </form>
+                        `;
+                        del = del.replace(':id', data);
+                        return restore + del;
 
                     }
                 },
@@ -208,7 +229,7 @@
            
                 {
 
-                    'targets': [5],
+                    'targets': [6],
                     'visible': false,
                     'searchable': false,
                 }
@@ -223,7 +244,7 @@
             },
 
 
-            "order": [[5, "desc"]],
+            "order": [[6, "desc"]],
 
         });
 

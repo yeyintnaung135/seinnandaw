@@ -304,7 +304,7 @@ class ProductsController extends Controller
               "name" => $record->name,
               "image" => $record->photo,
               "price" => $record->price,
-              "created_at" => $record->created_at,
+              "created_at" =>  date('F d, Y ( h:i A )', strtotime($record->deleted_at)),
               "action" => $record->id,
           );
         }
@@ -322,6 +322,15 @@ class ProductsController extends Controller
         Session::flash('message', 'Your Product was restore');
         return redirect(url('backend/products/list'));
     }
+
+    public function multiple_restore(Request $request){
+        $array = explode(',',$request->id);
+        foreach($array as $arr){
+            Products::onlyTrashed()->find($arr)->restore();
+        }
+        Session::flash('message', 'Your Product was restore');
+        return redirect(url('backend/products/list'));
+    }
     public function delete(Request $request){
         Products::where('id',$request->id)->delete();
         Session::flash('message', 'Your Product was successfully Deleted');
@@ -329,7 +338,6 @@ class ProductsController extends Controller
         return redirect(url('backend/products/list'));
     }
     public function multiple_trashed(Request $request){
-
         $array = explode(',',$request->id);
          foreach($array as $arr){
             Products::where('id',$arr)->delete();
@@ -340,6 +348,15 @@ class ProductsController extends Controller
     }
     public function forcedelete(Request $request){
         Products::onlyTrashed()->find($request->id)->forcedelete();
+        Session::flash('message', 'Your Product was successfully Deleted');
+        return redirect(url('backend/products/list'));
+    }
+    public function multiple_forcedelete(Request $request){
+        $array = explode(',',$request->id);
+        foreach($array as $arr){
+            Products::onlyTrashed()->find($arr)->forcedelete();
+        }
+       
         Session::flash('message', 'Your Product was successfully Deleted');
         return redirect(url('backend/products/list'));
     }

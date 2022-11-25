@@ -38,8 +38,10 @@ Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/trash', 'ProductsController@trash')->name('product.trash');
     Route::get('/product/trashed', 'ProductsController@trash_lists_datatable')->name('trash.lists.datatable');
     Route::get('/restore/{id}', 'ProductsController@restore')->name('product.restore');
+    Route::post('/multiple/restore', 'ProductsController@multiple_restore')->name('product.multiple.restore');
     Route::post('/forcedelete', 'ProductsController@forcedelete')->name('product.forcedelete');
     Route::post('/multiple_trashed', 'ProductsController@multiple_trashed')->name('product.multiple.trash');
+    Route::post('/multiple_forcedelete', 'ProductsController@multiple_forcedelete')->name('product.multiple.forcedelete');
    
 
 
