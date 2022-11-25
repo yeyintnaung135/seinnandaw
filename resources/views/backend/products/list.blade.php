@@ -1,4 +1,12 @@
 @extends('layouts.backend.tablelayouts')
+@push('css')
+    <style>
+        .photo{
+            width: 100px;
+            height:100px;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -12,66 +20,26 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header row no-gutters">
-                                <div class="col-6 col-md-8">
-                                    <h3 class="card-title">Products list</h3>
-
+                                <div class="col-12  d-flex justify-content-between">
+                                     <h3 class="card-title">Products list</h3>
+                                     <div class="">
+                                       <a type="button" href="{{url('backend/products/add')}}" class="btn btn-primary btn-sm">create new</a>
+                                       <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none">
+                                            <i class="fa fa-trash"></i>
+                                                Delete
+                                        </button>
+                                        <form id="delete_form" action="{{ route('product.multiple.trash') }}"method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="" id="itemId"/>
+                                        </form>
+                                     </div>
                                 </div>
 
-                                <div class="col-6 col-md-4" style="width:122px;">
-                                    <a type="button" href="{{url('backend/products/add')}}"
-                                       class="btn btn-block btn-primary btn-sm">create new</a>
-                                </div>
+                             
 
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                {{-- <table id="example2" class="table table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Photo</th>
-                                        <th>Price</th>
-                                        <th>Create Date</th>
-                                        <th>Action</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($data as $d)
-
-                                        <tr>
-                                            <td>{{$d->id}}</td>
-                                            <td>{{$d->name}}</td>
-                                            <td><img style="width:100px;height:100px;" src="{{url($d->photo)}}"></td>
-
-                                            <td>{{$d->price}} Ks</td>
-
-                                            <td>
-                                                {{date('F d, Y ( h:i A )', strtotime($d->created_at))}}
-                                            </td>
-                                            <td>
-                                                <a href="{{url('product/detail/'.$d->id)}}" type="button" style=" width: 81px;" class="btn btn-primary btn-sm btn-block">
-                                                    <i class="fa fa-info-circle"></i>
-                                                    Detail
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Photo</th>
-                                        <th>Price</th>
-
-                                        <th>Create Date</th>
-                                        <th>Action</th>
-
-                                    </tr>
-                                    </tfoot>
-                                </table> --}}
+                             <div class="card-body">
                                 <div class="d-flex justify-content-end my-3 align-items-end">
                                   <div class="form-group m-0 mr-1">
                                     <fieldset>
@@ -93,7 +61,7 @@
                                 <table id="productsTable" class="table table-borderless">
                                   <thead>
                                     <tr>
-                                      <th>ID</th>
+                                      <th>Select</th>
                                       <th>Name</th>
                                       <th>Photo</th>
                                       <th>Price</th>
@@ -101,16 +69,6 @@
                                       <th>Action</th>
                                     </tr>
                                   </thead>
-                                  <tfoot>
-                                    <tr>
-                                      <th>ID</th>
-                                      <th>Name</th>
-                                      <th>Photo</th>
-                                      <th>Price</th>
-                                      <th>Create Date</th>
-                                      <th>Action</th>
-                                    </tr>
-                                  </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -127,7 +85,74 @@
     </div>
 @endsection
 @push('scripts')
-  <script>
+<script>
+
+     let data = new Array();
+     localData = localStorage.setItem("localData", JSON.stringify(data));
+    function checkbox(e) {
+       
+            if ($(e).is(':checked')) {
+
+               
+                $("#multipleDelete").removeClass('d-none');
+                data.push(e.value);
+
+                $("#itemId").val(data);
+                localData = localStorage.setItem("localData", JSON.stringify(data));
+               
+            } else {
+              
+                const index = data.indexOf(e.value);
+                if (index > -1) {
+                    data.splice(index, 1);
+                }
+                if (data.length === 0) {
+                    $("#multipleDelete").addClass('d-none');
+                }
+                $("#itemId").val(data);
+
+                localData = localStorage.removeItem("localData", JSON.stringify(data));
+            
+            }
+    }
+
+
+    function Delete() {
+       
+            $(function () {
+                const swalWithBootstrapButtons = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-danger ml-2',
+                        cancelButton: 'btn btn-info'
+                    },
+                    buttonsStyling: false
+                })
+
+                swalWithBootstrapButtons.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, delete it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete_form').submit();
+                    }
+                })
+            });
+        };
+
+    if (window.performance) {
+           $($( "*:checkbox" )).prop( "checked", false );
+           localData = localStorage.removeItem("localData", JSON.stringify(data));
+    }
+
     var productsTable = $('#productsTable').DataTable({
       processing: true,
       serverSide: true,
@@ -144,12 +169,22 @@
         }
       },
       columns: [
-        {data: 'id'},
+        {
+                    data: 'id',
+                    render: function (data, type) {
+                        let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
+                        return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+                            : (localRetri.find(element => element == data) == data)
+                                ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
+                                : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+                    }
+                },
+
         {data: 'name'},
         {
           data: 'photo',
           render: function(data, type) {
-            var image = `<img style="width:200px;height:100px;" src="{{url(':img')}}">`;
+            var image = `<img class="photo" src="{{url(':img')}}">`;
             image = image.replace(':img', data);
             return image;
           }
@@ -227,4 +262,5 @@
     });
   });
   </script>
+
 @endpush

@@ -27,13 +27,24 @@ Route::group(['prefix' => '/backend/banners'],function (){
 });
 Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/list', 'ProductsController@list');
+    Route::get('/get_all_products', 'ProductsController@getAllProducts'); //swe swe 's datatable product route
     Route::get('/add', 'ProductsController@add');
     Route::get('/edit/{id}', 'ProductsController@edit');
     Route::post('/add', 'ProductsController@save');
     Route::post('/edit/{id}', 'ProductsController@update');
-    Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
-    Route::get('/get_all_products', 'ProductsController@getAllProducts');
+    /** Product Delete Routes */
+    Route::post('/delete', 'ProductsController@delete');
+    Route::get('/trash', 'ProductsController@trash')->name('product.trash');
+    Route::get('/product/trashed', 'ProductsController@trash_lists_datatable')->name('trash.lists.datatable');
+    Route::get('/restore/{id}', 'ProductsController@restore')->name('product.restore');
+    Route::post('/multiple/restore', 'ProductsController@multiple_restore')->name('product.multiple.restore');
+    Route::post('/forcedelete', 'ProductsController@forcedelete')->name('product.forcedelete');
+    Route::post('/multiple_trashed', 'ProductsController@multiple_trashed')->name('product.multiple.trash');
+    Route::post('/multiple_forcedelete', 'ProductsController@multiple_forcedelete')->name('product.multiple.forcedelete');
+   
+
+
 });
 Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('adminlogin');
 Route::post('/adminLogin', 'Auth\LoginController@adminLogin');
