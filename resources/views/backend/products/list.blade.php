@@ -39,18 +39,36 @@
 
                             </div>
                             <!-- /.card-header -->
-                            <div class="card-body">
-                                <table id="productTable" class="table table-bordered table-hover">
-                                    <thead>
+                             <div class="card-body">
+                                <div class="d-flex justify-content-end my-3 align-items-end">
+                                  <div class="form-group m-0 mr-1">
+                                    <fieldset>
+                                      <legend class="small m-0">From Date</legend>
+                                      <input type="text" id='search_fromdate_products' class="productsdatepicker form-control" placeholder='Choose date' autocomplete="off"/>
+                                    </fieldset>
+                                  </div>
+                                  <div class="form-group m-0 mr-1">
+                                    <fieldset>
+                                      <legend class="small m-0">To Date</legend>
+                                      <input type="text" id='search_todate_products' class="productsdatepicker form-control" placeholder='Choose date' autocomplete="off"/>
+                                    </fieldset>
+                                  </div>
+                                  <div class="pr-md-4">
+                                    <input type='button' id="products_search_button" value="Search" class="btn bg-info"  >
+                                  </div>
+                                </div>
+
+                                <table id="productsTable" class="table table-borderless">
+                                  <thead>
                                     <tr>
-                                        <th>Select</th>
-                                        <th>Name</th>
-                                        <th>Photo</th>
-                                        <th>Price</th>
-                                   
-                                        <th>Action</th>
+                                      <th>Select</th>
+                                      <th>Name</th>
+                                      <th>Photo</th>
+                                      <th>Price</th>
+                                      <th>Create Date</th>
+                                      <th>Action</th>
                                     </tr>
-                                    </thead>
+                                  </thead>
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -98,96 +116,6 @@
             }
     }
 
-    $(document).ready(function() {
-        $('#productTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: {
-                "url": "{{ route('product.lists.datatable') }}",
-             
-            },
-            columns: [
-                {
-                    data: 'checkbox',
-                    render: function (data, type) {
-                        let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
-                        return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
-                            : (localRetri.find(element => element == data) == data)
-                                ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
-                                : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
-                    }
-                },
-                {
-                    data: 'name'
-                   
-                },
-                {
-
-                    data: 'image',
-                    render: function (data, type) {
-                        const image = `<img src= "{{ url ('${data}')}}" class="photo"/>`;
-                        return image;
-                    }
-                },
-                {
-                    data: 'price',
-
-                },
-       
-                {
-                    data: 'action',
-                    render: function (data, type) {
-                        var info = `<a style="margin-right: 5px;" class="btn btn-sm btn-success" href="{{url('product/detail/'.':id')}}"><span class="fa fa-info-circle"></span></a>`;
-                        info = info.replace(':id', data);
-                        var edit = `<a class="btn btn-sm btn-primary" href=""><span class="fa fa-edit"></span></a>`;
-                        edit = edit.replace(':id', data);
-                        return info;
-
-                    }
-                },
-                {data: 'created_at'},
-                
-
-            ],
-
-            responsive: true,
-            lengthChange: true,
-            autoWidth: false,
-            paging: true,
-            // dom: 'Blfrtip',
-            // buttons: ["copy", "csv", "excel", "pdf", "print"],
-            columnDefs: [
-                {responsivePriority: 1, targets: 0},
-                {responsivePriority: 2, targets: 2},
-                {responsivePriority: 3, targets: 3},
-                {responsivePriority: 4, targets: 4},
-                {
-                    'targets': [0, 2, 3,4],
-                    'orderable': false,
-                },
-           
-                {
-
-                    'targets': [5],
-                    'visible': false,
-                    'searchable': false,
-                }
-            ],
-            language: {
-                "search": '<i class="fa-solid fa-search"></i>',
-                "searchPlaceholder": 'Search...',
-                paginate: {
-                    next: '<i class="fa fa-angle-right"></i>', // or '→'
-                    previous: '<i class="fa fa-angle-left"></i>' // or '←'
-                }
-            },
-
-
-            "order": [[5, "desc"]],
-
-        });
-
-    });
 
     function Delete() {
        
@@ -224,6 +152,115 @@
            $($( "*:checkbox" )).prop( "checked", false );
            localData = localStorage.removeItem("localData", JSON.stringify(data));
     }
-</script>
-    
+
+    var productsTable = $('#productsTable').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+      "url": "{{ url('backend/products/get_all_products') }}",
+      'data': function(data){
+            // Read values
+            var from_date = $('#search_fromdate_products').val() ? $('#search_fromdate_products').val() + " 00:00:00" : null;
+            var to_date = $('#search_todate_products').val() ? $('#search_todate_products').val() + " 23:59:59" : null;
+
+            // Append to data
+            data.searchByFromdate = from_date;
+            data.searchByTodate = to_date;
+        }
+      },
+      columns: [
+        {
+                    data: 'id',
+                    render: function (data, type) {
+                        let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
+                        return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+                            : (localRetri.find(element => element == data) == data)
+                                ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
+                                : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+                    }
+                },
+
+        {data: 'name'},
+        {
+          data: 'photo',
+          render: function(data, type) {
+            var image = `<img class="photo" src="{{url(':img')}}">`;
+            image = image.replace(':img', data);
+            return image;
+          }
+        },
+        {
+          data: 'price',
+          render: function(data, type) {
+            var price = data + " Ks";
+            return price;
+          }
+        },
+        {data: 'created_at'},
+        {
+          data: 'id',
+          render: function(data, type) {
+            var detail = `<a href="{{url('product/detail/'. ':id')}}" type="button" style=" width: 81px;" class="btn btn-primary btn-sm btn-block">
+                            <i class="fa fa-info-circle"></i>
+                            Detail
+                        </a>`;
+            detail=detail.replace(':id', data);
+            return detail;
+          }
+        }
+      ],
+      responsive: true,
+      lengthChange: true,
+      autoWidth: false,
+      paging: true,
+      dom: 'Blfrtip',
+      buttons: ["copy", "csv", "excel", "pdf", "print"],
+      columnDefs: [
+        { responsivePriority: 1, targets: 1 },
+        { responsivePriority: 2, targets: 2 },
+        { responsivePriority: 3, targets: 3},
+        { responsivePriority: 4, targets: 4},
+        {
+          'targets': [5],
+          'orderable': false,
+        }
+      ],
+      language: {
+        "search" : '<i class="fa-solid fa-search"></i>',
+        "searchPlaceholder": 'Search',
+        paginate: {
+          next: '<i class="fa fa-angle-right"></i>', // or '→'
+          previous: '<i class="fa fa-angle-left"></i>' // or '←'
+        }
+      },
+
+      "order": [[ 4, "desc" ]],
+
+    });
+
+  $(document).ready(function() {
+    $( ".productsdatepicker" ).datepicker({
+        "dateFormat": "yy-mm-dd",
+        changeYear: true
+    });
+
+    $('#products_search_button').click(function(){
+      if($('#search_fromdate_products').val() != null && $('#search_todate_products').val() != null) {
+        productsTable.draw();
+      }
+    });
+
+    $( ".productsactdatepicker" ).datepicker({
+        "dateFormat": "yy-mm-dd",
+        changeYear: true
+    });
+
+    $('#productsact_search_button').click(function(){
+      if($('#search_fromdate_productsact').val() != null && $('#search_todate_productsact').val() != null) {
+        productsTable.draw();
+      }
+    });
+  });
+  </script>
+
 @endpush

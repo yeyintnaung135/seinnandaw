@@ -43,7 +43,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="productTrashedTable" class="table table-bordered table-hover">
+                                <table id="productTrashedTable" class="table table-borderless table-hover">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -142,7 +142,7 @@
             processing: true,
             serverSide: true,
             ajax: {
-                "url": "{{ route('product.lists.datatable') }}",
+                "url": "{{ route('trash.lists.datatable') }}",
              
             },
             columns: [

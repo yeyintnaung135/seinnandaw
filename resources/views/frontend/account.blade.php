@@ -5,7 +5,7 @@
         <div class="container-fluid px-3 py-4 px-md-4 py-md-5">
             <div class="p-1 p-md-4 row">
                 @if(Auth::check() and Auth::user()->role='user')
-                    You Are login
+                @include('frontend.profile')
                 @else
 
                     <form class="mt-5 col-6" action="{{url('user/login')}}" method="post">
