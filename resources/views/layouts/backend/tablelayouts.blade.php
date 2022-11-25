@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{{url('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('backend/dist/css/adminlte.min.css')}}">
+    @stack('css')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -44,8 +45,10 @@
 <script src="{{url('backend/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
 <script src="{{url('backend/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url('backend/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-<script src="{{url('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{url('backend/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>\
+
 <script src="{{url('backend/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+
 <script src="{{url('backend/plugins/sweetalert2/sweetalert2.all.js')}}"></script>
 
 <script src="{{url('backend/plugins/jszip/jszip.min.js')}}"></script>

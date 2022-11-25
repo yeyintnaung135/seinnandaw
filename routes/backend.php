@@ -25,12 +25,18 @@ Route::group(['prefix' => '/backend/banners'],function (){
 });
 Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/list', 'ProductsController@list');
+    Route::get('/products', 'ProductsController@items_list_datatable')->name('product.lists.datatable');
     Route::get('/add', 'ProductsController@add');
     Route::get('/edit/{id}', 'ProductsController@edit');
     Route::post('/add', 'ProductsController@save');
     Route::post('/edit/{id}', 'ProductsController@update');
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
+    Route::get('/trash', 'ProductsController@trash')->name('product.trash');
+    Route::get('/product/trashed', 'ProductsController@trash_lists_datatable')->name('trash.lists.datatable');
+    Route::get('/restore/{id}', 'ProductsController@restore')->name('product.restore');
+    Route::post('/forcedelete', 'ProductsController@forcedelete')->name('product.forcedelete');
+    Route::post('/multiple_trashed', 'ProductsController@multiple_trashed')->name('product.multiple.trash');
 });
 Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('adminlogin');
 Route::post('/adminLogin', 'Auth\LoginController@adminLogin');

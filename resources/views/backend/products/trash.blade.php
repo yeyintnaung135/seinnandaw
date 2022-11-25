@@ -20,11 +20,9 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header row no-gutters">
-                                <div class="col-12  d-flex justify-content-between">
-                                     <h3 class="card-title">Products list</h3>
-                                     <div class="">
-                                       <a type="button" href="{{url('backend/products/add')}}" class="btn btn-primary btn-sm">create new</a>
-                                       <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none">
+                                <div class="w-100 d-flex justify-content-between align-items-center">
+                                    <h3 class="card-title">Trashed list</h3>
+                                    <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none">
                                             <i class="fa fa-trash"></i>
                                                 Delete
                                         </button>
@@ -32,7 +30,12 @@
                                             @csrf
                                             <input type="hidden" name="id" value="" id="itemId"/>
                                         </form>
+                                  
+                                       <div class="">
+                                       <a href="{{url('backend/products/list')}}" class="text-dark" title="Product lists"><i class="fas fa-list"></i></a>
+                                       
                                      </div>
+
                                 </div>
 
                              
@@ -40,17 +43,51 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="productTable" class="table table-bordered table-hover">
+                                <table id="productTrashedTable" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Select</th>
+                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Photo</th>
                                         <th>Price</th>
-                                   
+                                        <th>Create Date</th>
                                         <th>Action</th>
+
                                     </tr>
                                     </thead>
+                                   {{-- <tbody>
+                                    @foreach($data as $d)
+
+                                        <tr>
+                                            <td>{{$d->id}}</td>
+                                            <td>{{$d->name}}</td>
+                                            <td><img style="width:100px;height:100px;" src="{{url($d->photo)}}"></td>
+
+                                            <td>{{$d->price}} Ks</td>
+
+                                            <td>
+                                                {{date('F d, Y ( h:i A )', strtotime($d->created_at))}}
+                                            </td>
+                                            <td>
+                                     
+                                                <a href="{{route('product.restore',$d->id)}}" class="btn btn-info btn-sm " title="Restore product">
+                                                <i class="fas fa-trash-restore"></i>
+                                                   Restore
+                                                </a>
+                                                <button onclick="Delete()" type="button" class=" btn btn-danger btn-sm ">
+                                                    <i class="fa fa-trash"></i>
+                                                     Delete
+                                                </button>
+                                                <form id="delete_form" action="{{ route('product.forcedelete') }}"method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="id" value="{{$d->id}}"/>
+                                                </form>
+                                              
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody> --}}
+                                   
                                 </table>
                             </div>
                             <!-- /.card-body -->
@@ -66,11 +103,13 @@
         <!-- /.content -->
     </div>
 @endsection
-@push('scripts')
-<script>
 
-     let data = new Array();
-     localData = localStorage.setItem("localData", JSON.stringify(data));
+@push('scripts')
+<script src="{{url('backend/plugins/sweetalert2/sweetalert2.all.js')}}"></script>
+
+<script>
+    let data = new Array();
+    localData = localStorage.setItem("localData", JSON.stringify(data));
     function checkbox(e) {
        
             if ($(e).is(':checked')) {
@@ -99,7 +138,7 @@
     }
 
     $(document).ready(function() {
-        $('#productTable').DataTable({
+        $('#productTrashedTable').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
@@ -137,6 +176,7 @@
                 {
                     data: 'action',
                     render: function (data, type) {
+                        
                         var info = `<a style="margin-right: 5px;" class="btn btn-sm btn-success" href="{{url('product/detail/'.':id')}}"><span class="fa fa-info-circle"></span></a>`;
                         info = info.replace(':id', data);
                         var edit = `<a class="btn btn-sm btn-primary" href=""><span class="fa fa-edit"></span></a>`;
