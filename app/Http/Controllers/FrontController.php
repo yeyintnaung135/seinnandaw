@@ -72,6 +72,42 @@ class FrontController extends Controller
         return view('frontend.account');
     }
 
+    public function orders()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.orders');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function downloads()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.downloads');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_address()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_address');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_account()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_account');
+      } else {
+        return redirect('/account');
+      }
+    }
+
     public function checkoutform(Request $request)
     {
         //return $request->all();

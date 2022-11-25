@@ -28,6 +28,10 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/cart', 'FrontController@cart');
     Route::get('/checkout', 'FrontController@checkout');
     Route::get('/account', 'FrontController@account');
+    Route::get('/account/orders', 'FrontController@orders');
+    Route::get('/account/downloads', 'FrontController@downloads');
+    Route::get('/account/edit-address', 'FrontController@edit_address');
+    Route::get('/account/edit-account', 'FrontController@edit_account');
     Route::post('/user/login', 'UserauthController@login');
     Route::get('/user/login', 'UserauthController@getlogin');
     Route::get('/getatccounts','FrontprivateController@getatccounts' );
