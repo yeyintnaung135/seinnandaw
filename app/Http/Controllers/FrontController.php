@@ -74,7 +74,7 @@ class FrontController extends Controller
 
     public function checkoutform(Request $request)
     {
-//        return $request->all();
+        //return $request->all();
 
         $getprice = Products::where('id', $request->productid)->first();
         $totalprice = $getprice->price * $request->count;
@@ -91,7 +91,7 @@ class FrontController extends Controller
 
             return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
         } else {
-//            return 'noo';
+        //return 'noo';
 
             $hascc = checkout::where('userid', $request->guestid);
             if (count($hascc->get()) > 0) {
@@ -109,7 +109,7 @@ class FrontController extends Controller
 
     public function getcheckout()
     {
-//        return 'get';
+      //return 'get';
         if (Auth::guard('web')->user() and Auth::guard('web')->user()->role == 'user') {
 
 
@@ -131,5 +131,9 @@ class FrontController extends Controller
 
         }
 
+    }
+
+    public function orderReceived() {
+      return view('frontend.order_received');
     }
 }
