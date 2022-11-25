@@ -13,6 +13,7 @@ Route::group(['prefix' => '/backend/categories'],function (){
     Route::post('/edit', 'CategoriesController@update');
     Route::post('/delete', 'CategoriesController@delete');
     Route::get('/detail/{id}', 'CategoriesController@detail');
+    Route::get('/get_all_categories', 'CategoriesController@getAllCategories');
 });
 Route::group(['prefix' => '/backend/banners'],function (){
     Route::get('/list', 'BannersController@list');
@@ -22,6 +23,7 @@ Route::group(['prefix' => '/backend/banners'],function (){
     Route::post('/edit/{id}', 'BannersController@update');
     Route::post('/delete', 'BannersController@delete');
     Route::get('/detail/{id}', 'BannersController@detail');
+    Route::get('/get_all_banners', 'BannersController@getAllBanners');
 });
 Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/list', 'ProductsController@list');
@@ -31,6 +33,7 @@ Route::group(['prefix' => '/backend/products'],function (){
     Route::post('/edit/{id}', 'ProductsController@update');
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
+    Route::get('/get_all_products', 'ProductsController@getAllProducts');
 });
 Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('adminlogin');
 Route::post('/adminLogin', 'Auth\LoginController@adminLogin');

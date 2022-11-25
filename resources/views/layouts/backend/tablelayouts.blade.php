@@ -15,6 +15,11 @@
     <link rel="stylesheet" href="{{url('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('backend/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('backend/plugins/jquery-ui/jquery-ui.min.css')}}">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{url('backend/plugins/daterangepicker/daterangepicker.css')}}">
+    
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -37,6 +42,8 @@
 
 <!-- jQuery -->
 <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{url('backend/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{url('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- DataTables  & Plugins -->
@@ -54,6 +61,8 @@
 <script src="{{url('backend/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
 <script src="{{url('backend/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
 <script src="{{url('backend/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{url('backend/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{url('backend/dist/js/adminlte.min.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
@@ -61,19 +70,19 @@
 <!-- Page specific script -->
 <script>
     $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": false,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
+    //     $("#example1").DataTable({
+    //         "responsive": true, "lengthChange": false, "autoWidth": false,
+    //         "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+    //     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    //     $('#example2').DataTable({
+    //         "paging": true,
+    //         "lengthChange": false,
+    //         "searching": false,
+    //         "ordering": false,
+    //         "info": true,
+    //         "autoWidth": false,
+    //         "responsive": true,
+    //     });
     });
 </script>
 @stack('scripts')

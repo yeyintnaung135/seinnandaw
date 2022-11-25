@@ -50044,9 +50044,9 @@ Vue.component('cart', __webpack_require__(/*! ./components/cart.vue */ "./resour
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
+// Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
 // Vue.prototype.$hostname = "https://" + window.location.hostname ;
-
+Vue.prototype.$hostname = "http://" + window.location.hostname;
 var app = new Vue({
   el: '#app',
   data: function data() {
