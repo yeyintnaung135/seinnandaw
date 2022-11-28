@@ -19,6 +19,7 @@ class FrontController extends Controller
      */
     public function index()
     {
+      
         $data = Products::where('feature', 'yes')->get();
         return view('frontend.index', ['data' => $data]);
     }
@@ -54,7 +55,8 @@ class FrontController extends Controller
         $sim = Products::where('price', '>=', $min)->where('price', '<=', $max)->where('id', '!=', $data->id)->where('category_id', $data->category_id)->orderBy('price', 'asc')->limit(10)->get();
         $data = Products::findOrFail($id);
         $cat = Categories::where('id', $data->category_id)->first();
-        return view('frontend.product_detail', ['data' => $data, 'cat' => $cat, 'sim' => $sim]);
+        $un_cat =  Categories::where('def', 1)->first();
+        return view('frontend.product_detail', ['data' => $data, 'cat' => $cat, 'sim' => $sim,'un_cat' => $un_cat]);
     }
 
     public function cart()

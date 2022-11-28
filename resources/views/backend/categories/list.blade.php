@@ -1,4 +1,12 @@
 @extends('layouts.backend.tablelayouts')
+@push('css')
+  <style>
+    .cursor{
+      cursor: help;
+    }
+  </style>
+  
+@endpush
 @section('content')
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -12,16 +20,20 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header row no-gutters">
-                                <div class="col-6 col-md-8">
+                                <div class="col-12 d-flex justify-content-between">
                                     <h3 class="card-title">Categories list</h3>
-
+                                    <div>
+                                       <a type="button" href="{{url('backend/categories/add')}}" class="btn btn-primary btn-sm">create new</a>
+                                       <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none ">
+                                            <i class="fa fa-trash"></i>
+                                                Multiple Delete
+                                        </button>
+                                        <form id="delete_form" action="{{ route('category.multiple.trash') }}"method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="" id="itemId"/>
+                                        </form>
+                                     </div>
                                 </div>
-
-                                <div class="col-6 col-md-4" style="width:122px;">
-                                    <a type="button" href="{{url('backend/categories/add')}}"
-                                       class="btn btn-block btn-primary btn-sm">create new</a>
-                                </div>
-
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -46,7 +58,7 @@
                                 <table id="categoriesTable" class="table table-borderless">
                                   <thead>
                                     <tr>
-                                      <th>ID</th>
+                                      <th>Select</th>
                                       <th>Name</th>
                                       <th>Create Date</th>
                                       <th>Action</th>
@@ -54,7 +66,7 @@
                                   </thead>
                                   <tfoot>
                                     <tr>
-                                      <th>ID</th>
+                                      <th>Select</th>
                                       <th>Name</th>
                                       <th>Create Date</th>
                                       <th>Action</th>
@@ -77,6 +89,36 @@
 @endsection
 @push('scripts')
  <script>
+   let data = new Array();
+     localData = localStorage.setItem("localData", JSON.stringify(data));
+    function checkbox(e) {
+       
+            if ($(e).is(':checked')) {
+
+               
+                $("#multipleDelete").removeClass('d-none');
+                data.push(e.value);
+
+                $("#itemId").val(data);
+                localData = localStorage.setItem("localData", JSON.stringify(data));
+               
+            } else {
+              
+                const index = data.indexOf(e.value);
+                if (index > -1) {
+                    data.splice(index, 1);
+                }
+                if (data.length === 0) {
+                    $("#multipleDelete").addClass('d-none');
+                }
+                $("#itemId").val(data);
+
+                localData = localStorage.removeItem("localData", JSON.stringify(data));
+            
+            }
+    }
+
+    
   var categoriesTable = $('#categoriesTable').DataTable({
     processing: true,
     serverSide: true,
@@ -93,7 +135,20 @@
       }
     },
     columns: [
-      {data: 'id'},
+      {
+          data: 'id',
+          render: function (data, type,row) {
+            console.log(row)
+              if(row.def === 1){
+                return `<i class="fas fa-exclamation-circle cursor" title="This is the default category and it cannot be deleted.It will be automatically assigned to products with no category"></i>`;
+              }
+              let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
+              return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+                  : (localRetri.find(element => element == data) == data)
+                      ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
+                      : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+            }
+        },
       {data: 'name'},
       {data: 'created_at'},
       {
@@ -135,6 +190,37 @@
     "order": [[ 2, "desc" ]],
 
   });
+
+  function Delete() {
+       
+       $(function () {
+           const swalWithBootstrapButtons = Swal.mixin({
+               customClass: {
+                   confirmButton: 'btn btn-danger ml-2',
+                   cancelButton: 'btn btn-info'
+               },
+               buttonsStyling: false
+           })
+
+           swalWithBootstrapButtons.fire({
+               title: 'Are you sure?',
+               text: "You won't be able to revert this!",
+               icon: 'warning',
+               showCancelButton: true,
+               confirmButtonText: 'Yes, delete it!',
+               cancelButtonText: 'No, cancel!',
+               reverseButtons: true,
+               didOpen: (toast) => {
+                   toast.addEventListener('mouseenter', Swal.stopTimer)
+                   toast.addEventListener('mouseleave', Swal.resumeTimer)
+               }
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   document.getElementById('delete_form').submit();
+               }
+           })
+       });
+   };
 
   $(document).ready(function() {
     $( ".categoriesdatepicker" ).datepicker({

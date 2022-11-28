@@ -11,9 +11,17 @@ Route::group(['prefix' => '/backend/categories'],function (){
     Route::get('/edit/{id}', 'CategoriesController@edit');
     Route::post('/add', 'CategoriesController@save');
     Route::post('/edit', 'CategoriesController@update');
-    Route::post('/delete', 'CategoriesController@delete');
     Route::get('/detail/{id}', 'CategoriesController@detail');
     Route::get('/get_all_categories', 'CategoriesController@getAllCategories');
+
+    /** Category Delete Section */
+    Route::post('/delete', 'CategoriesController@delete');
+    Route::get('/trash','CategoriesController@trash')->name('category.trash');
+    Route::get('/categories/trash','CategoriesController@getAllTrashCategories')->name('category.trash.datatable');
+    Route::post('/category/multiple_trash','CategoriesController@multiple_trashed')->name('category.multiple.trash');
+    Route::get('/category/restore/{id}','CategoriesController@restore')->name('category.restore');
+    Route::post('/category/multiple_restore','CategoriesController@multiple_restore')->name('categories.multiple.restore');
+    Route::post('/category/multiple_delete','CategoriesController@multiple_forcedelete')->name('categories.multiple.forcedelete');
 });
 Route::group(['prefix' => '/backend/banners'],function (){
     Route::get('/list', 'BannersController@list');

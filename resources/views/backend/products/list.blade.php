@@ -170,15 +170,15 @@
       },
       columns: [
         {
-                    data: 'id',
-                    render: function (data, type) {
-                        let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
-                        return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
-                            : (localRetri.find(element => element == data) == data)
-                                ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
-                                : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
-                    }
-                },
+          data: 'id',
+          render: function (data, type) {
+              let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
+              return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+                  : (localRetri.find(element => element == data) == data)
+                      ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
+                      : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
+            }
+        },
 
         {data: 'name'},
         {
