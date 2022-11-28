@@ -1,9 +1,9 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand sn-brand-logo" href="#"><img src="{{url('images/logo.png')}}" alt="SeinNanDaw"></a>
-        @if(Auth::guard('web')->check() and Auth::guard('web')->user()->role='user')
+        {{-- @if(Auth::guard('web')->check() and Auth::guard('web')->user()->role='user')
             <span class="color:red;">{{Auth::guard('web')->user()->name}}</span>
-        @endif
+        @endif --}}
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
