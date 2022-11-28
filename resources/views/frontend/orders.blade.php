@@ -11,7 +11,7 @@
                     @include('layouts.frontend.profile_menu')
                   </div>
                   <div class="col-12 col-md-8 order-container">
-                    <table class="table mb-0 table-responsive">
+                    <table class="table mb-0 table-responsive-sm">
                       <tbody class="border">
                         <tr>
                           <td class="px-3 bg-white">Order</td>
