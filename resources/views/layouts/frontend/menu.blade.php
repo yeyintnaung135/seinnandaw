@@ -17,10 +17,12 @@
                     @foreach($catlist as $c)
                         <li class="{{ (request()->is('category/'.strtolower($c->name).'/'.$c->id)) ? 'active' : '' }} nav-item pr-0 pr-lg-4 position-relative">
                             <div class="d-flex justify-content-between">
-                              <a class="sn-nav-down nav-link text-dark pl-3 pl-lg-0"
-                               href="{{url('/category/'.strtolower($c->name).'/'.$c->id)}}">{{strtoupper($c->name)}}</a>
-                              <button class="sn-chevron-down pr-4 pr-lg-2 d-block d-lg-none" onclick="toggleSubMenu('{{ $c->name }}')"></button>
-                              <button class="sn-chevron-down pr-4 pr-lg-2 d-none d-lg-block" onmouseover="hoverToShowSubMenu('{{ $c->name }}')"></button>
+                              @if ($c->def != 1)
+                                 <a class="sn-nav-down nav-link text-dark pl-3 pl-lg-0" href="{{url('/category/'.strtolower($c->name).'/'.$c->id)}}">{{strtoupper($c->name)}}</a>
+                                 <button class="sn-chevron-down pr-4 pr-lg-2 d-block d-lg-none" onclick="toggleSubMenu('{{ $c->name }}')"></button>
+                                 <button class="sn-chevron-down pr-4 pr-lg-2 d-none d-lg-block" onmouseover="hoverToShowSubMenu('{{ $c->name }}')"></button>
+                              @endif
+                             
                             </div>
 
                             <div class="sn-sub-menu d-none" id="{{$c->name }}">

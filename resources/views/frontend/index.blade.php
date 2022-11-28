@@ -30,16 +30,14 @@
 
                        @php
                        $cat = \App\Categories::where('id', $d->category_id)->first(); 
-                       $un_cat = \App\Categories::where('def', 1)->first();
-                       @endphp
-                                
+                       @endphp     
                             @if (!empty($cat))
                             <span class="sn-category my-2">
                                 {{strtoupper($cat->name)}}
                             </span>
                             @else
                             <span class="sn-category my-2">
-                                {{strtoupper($un_cat->name)}}
+                              Uncategorized
                             </span>
                             @endif
                             <h3 class="sn-product-title">
