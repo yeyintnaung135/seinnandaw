@@ -81,6 +81,15 @@ class FrontController extends Controller
       }
     }
 
+    public function view_order()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.view_order');
+      } else {
+        return redirect('/account');
+      }
+    }
+
     public function downloads()
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
@@ -94,6 +103,24 @@ class FrontController extends Controller
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
         return view('frontend.edit_address');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_billing()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_billing');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_shipping()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_shipping');
       } else {
         return redirect('/account');
       }

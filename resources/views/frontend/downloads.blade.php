@@ -11,7 +11,10 @@
                     @include('layouts.frontend.profile_menu')
                   </div>
                   <div class="col-12 col-md-8">
-                    downloads
+                    <div class="d-flex justify-content-between align-items-baseline download-container">
+                      <p><i class="fa fa-info-circle mr-3" style="color: #269fb7;"></i>No downloads available yet.</p>
+                      <a href="{{url('/shop')}}" class="go-to-shop-button">BROWSE PRODUCTS</a>
+                    </div>
                   </div>
                 </div>
               </div>

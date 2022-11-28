@@ -371,7 +371,7 @@
 
         .sn-pd-input button, .sn-place-order-button {
             background: #8d021f;
-            color: #fff;
+            color: #fff !important;
             border: #8d021f;
             width: 250px;
             font-weight: 600;
@@ -499,7 +499,7 @@
           font-size: 18px;
         }
         .pf-container a:hover, .or-container a:hover {
-          color: #323232 !important;
+          color: #323232;
         }
         /* End of Profile */
 
@@ -540,6 +540,39 @@
         }
         /* End of Order Received */
 
+        /* My Account - orders */
+        .order-container {
+          font-size: 15px;
+        }
+        .order-container a, .edit-account-container {
+          font-size: 15px;
+          text-decoration: none;
+          font-weight: 700 !important;
+        }
+        .order-container .sn-view-order, .go-to-shop-button, .edit-account-save {
+          border: 0;
+          color: #ffffff !important;
+          background-color: #8d021f;
+          padding: 10px 35px;
+          text-decoration: none;
+          letter-spacing: 2px;
+        }
+        .order-container .sn-view-order:hover, .go-to-shop-button:hover, .edit-account-save:hover {
+          background: #000;
+          color: #ffffff !important;
+        }
+
+        /* My Account - Download */
+        .download-container {
+          border-top: 3px solid #269fb7;
+          padding: 1em
+        }
+
+        /* My Account - Edit Address */
+        .edit-address-container .edit {
+          color: #269fb7;
+        }
+
         /* Tablet Size */
         @media only screen and (min-width: 600px) {
             /* .sn-home-products img {
@@ -556,6 +589,9 @@
             }
             .sn-home-products a {
               width: 33%;
+            }
+            .edit-address-container table {
+              width: 48%;
             }
         }
 

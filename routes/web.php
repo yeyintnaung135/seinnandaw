@@ -29,8 +29,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkout', 'FrontController@checkout');
     Route::get('/account', 'FrontController@account');
     Route::get('/account/orders', 'FrontController@orders');
+    Route::get('/account/view-order', 'FrontController@view_order');
     Route::get('/account/downloads', 'FrontController@downloads');
     Route::get('/account/edit-address', 'FrontController@edit_address');
+    Route::get('/account/edit-address/billing', 'FrontController@edit_billing');
+    Route::get('/account/edit-address/shipping', 'FrontController@edit_shipping');
     Route::get('/account/edit-account', 'FrontController@edit_account');
     Route::post('/user/login', 'UserauthController@login');
     Route::get('/user/login', 'UserauthController@getlogin');
