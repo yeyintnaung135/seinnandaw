@@ -6,18 +6,21 @@
             <div class="p-1 p-md-4">
                 @if($data != 'empty')
                     <h2 class="text-uppercase mb-3 text-left">CHECKOUT</h2>
+                    <form action="{{url('connectwithbank')}}" method="post">
                     <div class="row mt-5">
+
+
                         <div class="col-12 col-md-7 pr-md-5">
                             <h4 class="h4 font-weight-bold border-bottom mb-4 pb-3">BILLING DETAILS</h4>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">First name <span class="text-danger">*</span></label>
-                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                    <input type="text" name="firstname" class="form-control" id="inputEmail4" placeholder="First Name" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4">Last name <span class="text-danger">*</span></label>
-                                    <input type="password" class="form-control" id="inputPassword4"
-                                           placeholder="Password">
+                                    <input type="text" name="lastname" class="form-control" id="inputPassword4"
+                                           placeholder="Last name " required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -25,52 +28,62 @@
                                 <input type="text" class="form-control" id="inputAddress">
                             </div>
                             <div class="form-group">
-                                <label for="inputState">Country / Region <span class="text-danger">*</span></label>
-                                <select id="inputState" class="form-control">
-                                    <option selected>Choose...</option>
-                                    <option>...</option>
-                                </select>
+                                <label >Country / Region <span class="text-danger">*</span></label>
+
+                                    <select  name="country" class="form-control js-example-disabled-results">
+                                        <?php
+                                        $allcountry = DB::table('helper_country')->get()
+                                        ?>
+                                        @foreach($allcountry as $cou)
+                                            @if($cou->code == 'MM')
+                                                <option value="{{$cou->code}}" selected>{{$cou->name}}</option>
+                                            @else
+                                                <option value="{{$cou->code}}">{{$cou->name}}</option>
+
+                                            @endif
+                                        @endforeach
+                                    </select>
+
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress2">Street address <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="inputAddress2"
-                                       placeholder="House number and street name">
-                                <input type="text" class="form-control mt-2" id="inputAddress2"
-                                       placeholder="Apartment, suite, unit, etc. (optional)">
+                                <input type="text" name="address_one" class="form-control" id="inputAddress2"
+                                       placeholder="House number and street name" required>
+
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Town / City <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="inputPassword4">
+                                <input type="text" name='city' class="form-control" id="inputPassword4" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">State / County <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="inputPassword4">
+                                <input type="text" name='state' class="form-control" id="inputPassword4" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Postcode / ZIP <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="inputPassword4">
+                                <input type="text" name="postcode" class="form-control" id="inputPassword4">
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Phone <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="inputPassword4">
+                                <input type="text" name='phone' class="form-control" id="inputPassword4" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Email address <span class="text-danger">*</span></label>
-                                <input type="password" class="form-control" id="inputPassword4">
+                                <input type="text" name="email" class="form-control" id="inputPassword4">
                             </div>
-                            <div class="form-group mt-4 border-bottom pb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="gridCheck">
-                                    <label class="form-check-label h4 font-weight-bold" for="gridCheck">
-                                        SHIP TO A DIFFERENT ADDRESS?
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Order notes (optional)</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                          placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
-                            </div>
+{{--                            <div class="form-group mt-4 border-bottom pb-3">--}}
+{{--                                <div class="form-check">--}}
+{{--                                    <input class="form-check-input" type="checkbox" id="gridCheck">--}}
+{{--                                    <label class="form-check-label h4 font-weight-bold" for="gridCheck">--}}
+{{--                                        SHIP TO A DIFFERENT ADDRESS?--}}
+{{--                                    </label>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="form-group">--}}
+{{--                                <label for="exampleFormControlTextarea1">Order notes (optional)</label>--}}
+{{--                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"--}}
+{{--                                          placeholder="Notes about your order, e.g. special notes for delivery."></textarea>--}}
+{{--                            </div>--}}
                         </div>
                         <div class="col-12 col-md-5">
                             <div class="border p-2 pt-3 p-md-4">
@@ -93,16 +106,16 @@
                                     </tbody>
                                 </table>
                                 <div class="m-2">
-                                    <form action="{{url('connectwithbank')}}" method="post">
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                         <input type="hidden" name="pname" value="{{$product->name}}">
                                         <input type="hidden" name="checkoutid" value="{{$checkoutid}}">
                                         <input type="hidden" name="pcount" value="{{$data['count']}}">
                                         <input type="hidden" name="pprice" value="{{$price}}">
                                     <select class="form-select" name="payment" aria-label="Default select example">
-                                        <option value="direct" selected>Direct Bank</option>
-                                        <option value="1">MPU</option>
-                                        <option value="2">Master/Visa</option>
+                                        <option value="0" selected>Direct Bank</option>
+                                        <option value="1">MPU (KBZ)</option>
+                                        <option value="2">MPU (AYA)</option>
+                                        <option value="3">Master/Visa (AYA)</option>
                                     </select>
                                     <div>
                                         <h5>Direct bank transfer</h5>
@@ -115,11 +128,12 @@
                                         and for other purposes described in our <a href="#">privacy policy</a>.</p>
                                     <button type="submit" class="btn btn-primary sn-place-order-button">PLACE ORDER
                                     </button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
+
                 @else
                     EMPTY
                 @endif
@@ -129,5 +143,8 @@
 @endsection
 
 @push('scripts')
-
+<script>
+    var $disabledResults = $(".js-example-disabled-results");
+    $disabledResults.select2();
+</script>
 @endpush

@@ -6,29 +6,115 @@ use App\Addtocart;
 use App\checkout;
 use App\Products;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class FrontprivateController extends Controller
 {
     //
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware(['auth:web']);
     }
 //    public function storeproducttocart(){
 //
 //        return 'haha';
 //    }
-    public function paywithmpu($data)
+    public function changebankamountformat($data)
     {
-        return $data['payment'];
+        $changetostr = strval($data) . '00';
+        $countdigit = 12 - strlen($changetostr);
+        $i = 1;
+        while ($i <= $countdigit) {
+            $changetostr = '0' . $changetostr;
+            $i++;
+
+        }
+        return $changetostr;
+    }
+
+    public function create_signature_string($input_fields_array)
+    {
+        sort($input_fields_array, SORT_STRING);
+
+        $signature_string = "";
+        foreach ($input_fields_array as $value) {
+            if ($value != "") {
+                $signature_string .= $value;
+            }
+        }
+
+        return $signature_string;
+    }
+
+
+
+    public function paywithmpu($data, $bankname)
+    {
+        $bankamount = $this->changebankamountformat($data['totalprice']);
+        if ($bankname == 'kbz') {
+            $merchantid = env('KBZ_MERCHANTID');
+            $src = env('KBZ_SEC');
+        }
+
+        $tosendarray = ['merchantID' => $merchantid,
+            'invoiceNo' => rand(1000, 9999999) . 'car_' . $data['pid'],
+            'productDesc' => 'Please check carefully you are about to buy',
+            'amount' => $bankamount,
+            'currencyCode' => '104',
+            // 'FrontendURL' => 'http://localhost/seinnandaw/public/checkoutmpukbzsuccess',
+            'FrontendURL' => 'http://localhost/checkoutmpukbzsuccess',
+            'userDefined1' => 'userid_' . Auth::guard('web')->user()->name,
+            'userDefined2' => 'productid_' . $data['pid'],
+        ];
+        $sigstr = $this->create_signature_string($tosendarray);
+        $hash_value = hash_hmac('sha1', $sigstr, $src, false);
+        return view('frontend.checkoutstart', ['hash' => $hash_value, 'sigstr' => $sigstr, 'data' => $tosendarray]);
+
 
     }
 
+    public function paywithmastervisa($data)
+    {
+        $uuid=uniqid();
+        $now=Carbon::now()->format("Y-m-d\TH:i:s\Z");
+        $tosendarray = [
+            'access_key' =>  env('MASTER_ACCESS_KEY'),
+            'profile_id' =>  env('MASTER_PROFILE_ID'),
+            'reference_number'=> $data['pid'],
+            'transaction_uuid' =>$uuid,
+            'signed_field_names' => 'access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,payment_method,bill_to_forename,bill_to_surname,bill_to_email,bill_to_phone,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_country,bill_to_address_postal_code',
+            'unsigned_field_names' => 'card_type,card_number,card_expiry_date',
+            'signed_date_time' => $now,
+            'locale' => 'en',
+            'transaction_type' => 'sale',
+            'amount' => $data['totalprice'],
+            'currency' => 'mmk',
+            'payment_method' => 'card',
+            'bill_to_forename' => $data['firstname'],
+            'bill_to_surname' => $data['lastname'],
+            'bill_to_email' => $data['email'],
+            'bill_to_phone' => $data['phone'],
+            'bill_to_address_line1' => $data['address_one'],
+            'bill_to_address_city' => $data['city'],
+            'bill_to_address_state' => $data['state'],
+            'bill_to_address_postal_code' => $data['postcode'],
+            'bill_to_address_country' => $data['country']
+
+
+        ];
+
+        return view('frontend.checkoutvisa', ['data' => $tosendarray]);
+    }
+
+
+
     public function startgotobank(Request $request)
     {
+        $data = $request->all();
         $tocheckcheckoutdata = checkout::where('id', $request->checkoutid)->first();
 
         if (Auth::guard('web')->user()->id != $tocheckcheckoutdata->userid) {
@@ -49,13 +135,16 @@ class FrontprivateController extends Controller
                 }
             }
         }
+        $data['totalprice'] = $totalprice;
+        $data['pid'] = $tocheckcheckoutdata->productid;
+
+
         if ($request->payment == '1') {
-            $this->paywithmpu($request->all());
-        }else{
-            return $request->all();
-
+            return $this->paywithmpu($data, 'kbz');
         }
-
+        if ($request->payment == '3') {
+            return $this->paywithmastervisa($data);
+        }
 
 
     }
