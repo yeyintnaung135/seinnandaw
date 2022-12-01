@@ -11,8 +11,17 @@ Route::group(['prefix' => '/backend/categories'],function (){
     Route::get('/edit/{id}', 'CategoriesController@edit');
     Route::post('/add', 'CategoriesController@save');
     Route::post('/edit', 'CategoriesController@update');
-    Route::post('/delete', 'CategoriesController@delete');
     Route::get('/detail/{id}', 'CategoriesController@detail');
+    Route::get('/get_all_categories', 'CategoriesController@getAllCategories');
+
+    /** Category Delete Section */
+    Route::post('/delete', 'CategoriesController@delete');
+    Route::get('/trash','CategoriesController@trash')->name('category.trash');
+    Route::get('/categories/trash','CategoriesController@getAllTrashCategories')->name('category.trash.datatable');
+    Route::post('/category/multiple_trash','CategoriesController@multiple_trashed')->name('category.multiple.trash');
+    Route::get('/category/restore/{id}','CategoriesController@restore')->name('category.restore');
+    Route::post('/category/multiple_restore','CategoriesController@multiple_restore')->name('categories.multiple.restore');
+    Route::post('/category/multiple_delete','CategoriesController@multiple_forcedelete')->name('categories.multiple.forcedelete');
 });
 Route::group(['prefix' => '/backend/banners'],function (){
     Route::get('/list', 'BannersController@list');
@@ -22,15 +31,34 @@ Route::group(['prefix' => '/backend/banners'],function (){
     Route::post('/edit/{id}', 'BannersController@update');
     Route::post('/delete', 'BannersController@delete');
     Route::get('/detail/{id}', 'BannersController@detail');
+    Route::get('/get_all_banners', 'BannersController@getAllBanners');
 });
 Route::group(['prefix' => '/backend/products'],function (){
     Route::get('/list', 'ProductsController@list');
+    Route::get('/get_all_products', 'ProductsController@getAllProducts'); //swe swe 's datatable product route
     Route::get('/add', 'ProductsController@add');
     Route::get('/edit/{id}', 'ProductsController@edit');
     Route::post('/add', 'ProductsController@save');
     Route::post('/edit/{id}', 'ProductsController@update');
-    Route::post('/delete', 'ProductsController@delete');
     Route::get('/detail/{id}', 'ProductsController@detail');
+    /** Product Delete Routes */
+    Route::post('/delete', 'ProductsController@delete');
+    Route::get('/trash', 'ProductsController@trash')->name('product.trash');
+    Route::get('/product/trashed', 'ProductsController@trash_lists_datatable')->name('trash.lists.datatable');
+    Route::get('/restore/{id}', 'ProductsController@restore')->name('product.restore');
+    Route::post('/multiple/restore', 'ProductsController@multiple_restore')->name('product.multiple.restore');
+    Route::post('/forcedelete', 'ProductsController@forcedelete')->name('product.forcedelete');
+    Route::post('/multiple_trashed', 'ProductsController@multiple_trashed')->name('product.multiple.trash');
+    Route::post('/multiple_forcedelete', 'ProductsController@multiple_forcedelete')->name('product.multiple.forcedelete');
+
+
+
+});
+Route::group(['prefix' => '/backend/payments'],function (){
+    Route::get('/list', 'BackendPaymentController@list');
+    Route::get('/get_payment_lists', 'BackendPaymentController@getPayments')->name('get_payment_lists');
+    Route::post('/detail', 'BackendPaymentController@detail')->name('payment_detail');
+    Route::post('/delete', 'BackendPaymentController@delete')->name('payment_delete');
 });
 Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('adminlogin');
 Route::post('/adminLogin', 'Auth\LoginController@adminLogin');

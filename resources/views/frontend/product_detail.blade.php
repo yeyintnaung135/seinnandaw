@@ -1,5 +1,4 @@
 @extends('layouts.frontend.frontend')
-
 @section('content')
     <section>
         <div class="container-fluid px-3 py-4 px-md-4 py-md-5">
@@ -82,7 +81,12 @@
                     </div>
                     <div class="col-12 col-md-6">
                         <div>
+                            @if (!empty($cat))
                             <a href="#" class="sn-pd-cat d-block mb-3">{{strtoupper($cat->name)}}</a>
+                            @else
+                            <a href="#" class="sn-pd-cat d-block mb-3">Uncategorized</a>   
+                            @endif
+                           
                             <h4 class="font-weight-bold">{{$data->name}}</h4>
                             <p class="sn-pd-price font-weight-bold mt-3">{{$data->price}} <span>Ks</span></p>
                             <p class="sn-pd-desc pb-2">
@@ -95,9 +99,15 @@
                                 <atc-component :product="{{$data}}" :logined="'no'"></atc-component>
 
                             @endif
+                            @if (!empty($cat))
                             <p class="border-top mt-4 pt-2">Category: <a href="#" class="sn-pd-cat"
                                                                          style="font-size: 16px;">{{strtoupper($cat->name)}}</a>
                             </p>
+                            @else
+                            <p class="border-top mt-4 pt-2">Category: <a href="#" class="sn-pd-cat"
+                                                                         style="font-size: 16px;">Uncategorized</a>
+                            </p>
+                            @endif
 
                             @if(\Illuminate\Support\Facades\Auth::guard('admins')->check())
                                 <div class="d-inline-flex">
@@ -155,8 +165,14 @@
                                             <span class="sn-category my-2">
                                                 <?php
                                                 $simcat = \App\Categories::where('id', $s->category_id)->first();
+                                               
                                                 ?>
+                                                @if (!empty($simcat))
                                                 {{strtoupper($simcat->name)}}
+                                                @else
+                                                Uncategorized
+                                                @endif
+                                                
                                     </span>
                                             <h3 class="sn-product-title">{{$s->name}}</h3>
                                             <span class="sn-price">{{$s->price}} Ks</span>
@@ -172,10 +188,8 @@
         </div>
     </section>
 @endsection
-
 @push('scripts')
     <script src="{{url('backend/plugins/sweetalert2/sweetalert2.all.js')}}"></script>
-
     <script>
         function Delete() {
             console.log('fefe')

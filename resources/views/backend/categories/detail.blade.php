@@ -48,13 +48,16 @@
                                 </a>
                                 </div>
                                 &nbsp;
+                                @if ($data->def != 1)
                                 <div>
                                 <a onclick="Delete()" type="button" style=" width: 81px;" class=" btn btn-danger btn-sm btn-block">
                                     <i class="fa fa-trash"></i>
                                     Delete
                                 </a>
                                 </div>
+                                @endif
                                 </div>
+                                @if ($data->def != 1)
                                 <form id="delete_form"
                                       action="{{ url('backend/categories/delete') }}"
                                       method="POST"
@@ -62,6 +65,7 @@
                                     @csrf
                                     <input type="hidden" name="id" value="{{$data->id}}"/>
                                 </form>
+                                @endif
                             </div>
                                 @endif
                         </div>

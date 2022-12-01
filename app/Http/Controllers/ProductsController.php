@@ -8,23 +8,88 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class ProductsController extends Controller
 {
     public function __construct(){
         $this->middleware('auth:admins');
     }
-    public function delete(Request $request){
-        Products::where('id',$request->id)->delete();
-        Session::flash('message', 'Your Product was successfully Deleted');
 
-        return redirect(url('backend/products/list'));
-    }
     public function list(){
-        $products=Products::orderBy('id','desc')->get();
+        return view('backend.products.list');
+    }
 
-        return view('backend.products.list',['data'=>$products]);
+    
+    public function getAllProducts(Request $request) {
+      $draw = $request->get('draw');
+      $start = $request->get("start");
+      $rowperpage = $request->get("length"); // total number of rows per page
 
+      $columnIndex_arr = $request->get('order');
+      $columnName_arr = $request->get('columns');
+      $order_arr = $request->get('order');
+      $search_arr = $request->get('search');
+
+      $columnIndex = $columnIndex_arr[0]['column']; // Column index
+      $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+      $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+      $searchValue = $search_arr['value']; // Search value
+
+      $searchByFromdate = $request->get('searchByFromdate');
+      $searchByTodate = $request->get('searchByTodate');
+
+      if($searchByFromdate == null) {
+        $searchByFromdate = '0-0-0 00:00:00';
+      }
+      if($searchByTodate == null) {
+        $searchByTodate = Carbon::now();
+      }
+
+      $totalRecords = Products::select('count(*) as allcount')
+                      ->where(function ($query) use ($searchValue) {
+                        $query->where('id', 'like', '%' . $searchValue . '%')
+                            ->orWhere('name', 'like', '%' . $searchValue . '%')
+                            ->orWhere('price', 'like', '%' . $searchValue . '%')
+                            ->orWhere('photo', 'like', '%' . $searchValue . '%');
+                      })
+                      ->whereBetween('created_at', [$searchByFromdate, $searchByTodate])->count();
+      $totalRecordswithFilter = $totalRecords;
+
+      $records = Products::orderBy($columnName, $columnSortOrder)
+          ->orderBy('created_at', 'desc')
+          ->where(function ($query) use ($searchValue) {
+              $query->where('id', 'like', '%' . $searchValue . '%')
+                  ->orWhere('name', 'like', '%' . $searchValue . '%')
+                  ->orWhere('price', 'like', '%' . $searchValue . '%')
+                  ->orWhere('photo', 'like', '%' . $searchValue . '%');
+          })
+          ->whereBetween('created_at', [$searchByFromdate, $searchByTodate])
+          ->select('products.*')
+          ->skip($start)
+          ->take($rowperpage)
+          ->get();
+
+      $data_arr = array();
+
+      foreach ($records as $record) {
+          $data_arr[] = array(
+              "id" => $record->id,
+              "name" => $record->name,
+              "photo" => $record->photo,
+              "price" => $record->price,
+              "created_at" => date('F d, Y ( h:i A )', strtotime($record->created_at)),
+              "id" => $record->id,
+          );
+      }
+
+      $response = array(
+          "draw" => intval($draw),
+          "iTotalRecords" => $totalRecords,
+          "iTotalDisplayRecords" => $totalRecordswithFilter,
+          "aaData" => $data_arr,
+      );
+      echo json_encode($response);
     }
     public function add(){
         $catlist=Categories::orderBy('id','asc')->get();
@@ -185,5 +250,114 @@ class ProductsController extends Controller
 
         return redirect(url('backend/products/list'));
 
+    }
+
+    /** Product Delete Section */
+
+    public function trash(){
+   
+        return view('backend.products.trash');
+    }
+
+    public function trash_lists_datatable(Request $request){
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); // total number of rows per page
+  
+        $columnIndex_arr = $request->get('order');
+        $columnName_arr = $request->get('columns');
+        $order_arr = $request->get('order');
+        $search_arr = $request->get('search');
+  
+        $columnIndex = $columnIndex_arr[0]['column']; 
+        $columnName = $columnName_arr[$columnIndex]['data']; // Column name
+        $columnSortOrder = $order_arr[0]['dir']; // asc or desc
+        $searchValue = $search_arr['value']; // Search value
+  
+    
+  
+        $totalRecords = Products::select('count(*) as allcount')
+                        ->where(function ($query) use($searchValue) {
+                          $query->where('name', 'like', '%' . $searchValue . '%')
+                                ->orWhere('created_at', 'like', '%' . $searchValue . '%');
+                            
+                        })->count();
+        $totalRecordswithFilter = $totalRecords;
+  
+        $records = Products::orderBy($columnName, $columnSortOrder)
+            ->orderBy('created_at', 'desc')
+            ->where(function ($query) use($searchValue) {
+              $query->where('name', 'like', '%' . $searchValue . '%')
+                    ->orWhere('created_at', 'like', '%' . $searchValue . '%');
+            })
+            ->select('products.*')
+            ->onlyTrashed()
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+  
+        $data_arr = array();
+  
+        foreach ($records as $record) {
+          $data_arr[] = array(
+              "checkbox" => $record->id,
+              "name" => $record->name,
+              "image" => $record->photo,
+              "price" => $record->price,
+              "created_at" =>  date('F d, Y ( h:i A )', strtotime($record->deleted_at)),
+              "action" => $record->id,
+          );
+        }
+  
+        $response = array(
+          "draw" => intval($draw),
+          "iTotalRecords" => $totalRecords,
+          "iTotalDisplayRecords" => $totalRecordswithFilter,
+          "aaData" => $data_arr,
+        );
+        echo json_encode($response);
+    }
+    public function restore($id){
+        Products::onlyTrashed()->find($id)->restore();
+        Session::flash('message', 'Your Product was restore');
+        return redirect(url('backend/products/list'));
+    }
+
+    public function multiple_restore(Request $request){
+        $array = explode(',',$request->id);
+        foreach($array as $arr){
+            Products::onlyTrashed()->find($arr)->restore();
+        }
+        Session::flash('message', 'Your Product was restore');
+        return redirect(url('backend/products/list'));
+    }
+    public function delete(Request $request){
+        Products::where('id',$request->id)->delete();
+        Session::flash('message', 'Your Product was successfully Deleted');
+
+        return redirect(url('backend/products/list'));
+    }
+    public function multiple_trashed(Request $request){
+        $array = explode(',',$request->id);
+         foreach($array as $arr){
+            Products::where('id',$arr)->delete();
+         }
+        // Products::onlyTrashed()->find($request->id)->forcedelete();
+        Session::flash('message', 'Your Product was successfully Deleted');
+        return redirect(url('backend/products/list'));
+    }
+    public function forcedelete(Request $request){
+        Products::onlyTrashed()->find($request->id)->forcedelete();
+        Session::flash('message', 'Your Product was successfully Deleted');
+        return redirect(url('backend/products/list'));
+    }
+    public function multiple_forcedelete(Request $request){
+        $array = explode(',',$request->id);
+        foreach($array as $arr){
+            Products::onlyTrashed()->find($arr)->forcedelete();
+        }
+       
+        Session::flash('message', 'Your Product was successfully Deleted');
+        return redirect(url('backend/products/list'));
     }
 }

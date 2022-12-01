@@ -24,4 +24,11 @@ class Payment extends Model
         'status',
         'bank_name'
     ];
+
+    public function user() {
+        return $this->belongsTo('App\User','userid');
+    }
+    public function product() {
+        return $this->belongsTo('App\Products','product_id');
+    }
 }

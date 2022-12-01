@@ -19,6 +19,7 @@ class FrontController extends Controller
      */
     public function index()
     {
+      
         $data = Products::where('feature', 'yes')->get();
         return view('frontend.index', ['data' => $data]);
     }
@@ -54,7 +55,8 @@ class FrontController extends Controller
         $sim = Products::where('price', '>=', $min)->where('price', '<=', $max)->where('id', '!=', $data->id)->where('category_id', $data->category_id)->orderBy('price', 'asc')->limit(10)->get();
         $data = Products::findOrFail($id);
         $cat = Categories::where('id', $data->category_id)->first();
-        return view('frontend.product_detail', ['data' => $data, 'cat' => $cat, 'sim' => $sim]);
+        $un_cat =  Categories::where('def', 1)->first();
+        return view('frontend.product_detail', ['data' => $data, 'cat' => $cat, 'sim' => $sim,'un_cat' => $un_cat]);
     }
 
     public function cart()
@@ -72,9 +74,72 @@ class FrontController extends Controller
         return view('frontend.account');
     }
 
+    public function orders()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.orders');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function view_order()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.view_order');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function downloads()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.downloads');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_address()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_address');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_billing()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_billing');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_shipping()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_shipping');
+      } else {
+        return redirect('/account');
+      }
+    }
+
+    public function edit_account()
+    {
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        return view('frontend.edit_account');
+      } else {
+        return redirect('/account');
+      }
+    }
+
     public function checkoutform(Request $request)
     {
-//        return $request->all();
+        //return $request->all();
 
         $getprice = Products::where('id', $request->productid)->first();
         $totalprice = $getprice->price * $request->count;
@@ -91,7 +156,7 @@ class FrontController extends Controller
 
             return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
         } else {
-//            return 'noo';
+        //return 'noo';
 
             $hascc = checkout::where('userid', $request->guestid);
             if (count($hascc->get()) > 0) {
@@ -109,7 +174,7 @@ class FrontController extends Controller
 
     public function getcheckout()
     {
-//        return 'get';
+      //return 'get';
         if (Auth::guard('web')->user() and Auth::guard('web')->user()->role == 'user') {
 
 
@@ -131,5 +196,9 @@ class FrontController extends Controller
 
         }
 
+    }
+
+    public function orderReceived() {
+      return view('frontend.order_received');
     }
 }

@@ -373,7 +373,7 @@
 
         .sn-pd-input button, .sn-place-order-button {
             background: #8d021f;
-            color: #fff;
+            color: #fff !important;
             border: #8d021f;
             width: 250px;
             font-weight: 600;
@@ -481,12 +481,106 @@
             font-weight: 600;
         }
 
+        /* Profile */
+        .pf-active {
+          background: #fff;
+        }
+        .pf-active a {
+          color: #323232 !important;
+        }
+        .pf-container, .or-container, .or-container .table {
+          font-size: 18px;
+          color: #565656 !important;
+        }
+        .pf-link {
+
+        }
+        .pf-container a, .or-container a {
+          color: #269fb7;
+          text-decoration: none;
+          font-size: 18px;
+        }
+        .pf-container a:hover, .or-container a:hover {
+          color: #323232;
+        }
+        /* End of Profile */
+
+        /* Order Received */
+        .or-container h2, .or-container h3, .or-container h4 {
+          color: #000;
+        }
+        .order-confirm-list li label, .order-bank-list li label {
+          font-size: 0.7rem;
+          margin-bottom: 0 !important;
+        }
+        .order-confirm-list li strong, .order-bank-list li strong {
+          font-size: 1rem;
+        }
+        .order-confirm-list .pr-4, .order-bank-list .pr-4 {
+          border-right: 1px dashed #dddddd !important;
+        }
+        .or-container .or-thank {
+          border-bottom: 3px solid #ddd;
+        }
+        .order-bank-list h3 {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #000;
+        }
+        .or-file-upload {
+          background: #8d021f;
+          border: 1px solid #8d021f;
+          color: #fff;
+          padding: 6px 35px;
+          font-size: 16px;
+          letter-spacing: 1px;
+        }
+        .or-file-upload:hover {
+          background: #000;
+          border: 1px solid #000;
+          cursor: pointer;
+        }
+        /* End of Order Received */
+
+        /* My Account - orders */
+        .order-container {
+          font-size: 15px;
+        }
+        .order-container a, .edit-account-container {
+          font-size: 15px;
+          text-decoration: none;
+          font-weight: 700 !important;
+        }
+        .order-container .sn-view-order, .go-to-shop-button, .edit-account-save {
+          border: 0;
+          color: #ffffff !important;
+          background-color: #8d021f;
+          padding: 10px 35px;
+          text-decoration: none;
+          letter-spacing: 2px;
+        }
+        .order-container .sn-view-order:hover, .go-to-shop-button:hover, .edit-account-save:hover {
+          background: #000;
+          color: #ffffff !important;
+        }
+
+        /* My Account - Download */
+        .download-container {
+          border-top: 3px solid #269fb7;
+          padding: 1em
+        }
+
+        /* My Account - Edit Address */
+        .edit-address-container .edit {
+          color: #269fb7;
+        }
+
         /* Tablet Size */
         @media only screen and (min-width: 600px) {
-            .sn-home-products img {
+            /* .sn-home-products img {
                 width: 140px;
                 height: 140px;
-            }
+            } */
 
             .sn-swiper-wrapper a {
                 width: 140px;
@@ -494,6 +588,12 @@
 
             .relatedProductsSwiper {
                 height: 400px;
+            }
+            .sn-home-products a {
+              width: 33%;
+            }
+            .edit-address-container table {
+              width: 48%;
             }
         }
 
@@ -503,19 +603,19 @@
                 font-size: 17px;
             }
 
-            .sn-home-products img {
+            /* .sn-home-products img {
                 width: 270px;
                 height: 260px;
-            }
+            } */
 
             .sn-swiper-wrapper a {
                 width: 270px;
             }
+            .sn-home-products a {
+              width: 25%;
+            }
         }
 
-        .sn-home-products a {
-          width: 25%;
-        }
 
     </style>
 </head>

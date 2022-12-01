@@ -29,12 +29,18 @@
                         <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4">
                             <img src="{{ url($d->photo) }}" alt=""><br>
 
-                       <?php
-                                $cat = \App\Categories::where('id', $d->category_id)->first();
-                                ?>
+                       @php
+                       $cat = \App\Categories::where('id', $d->category_id)->first(); 
+                       @endphp     
+                            @if (!empty($cat))
                             <span class="sn-category my-2">
                                 {{strtoupper($cat->name)}}
                             </span>
+                            @else
+                            <span class="sn-category my-2">
+                              Uncategorized
+                            </span>
+                            @endif
                             <h3 class="sn-product-title">
                                 {{strtoupper($d->name)}}
                             </h3>

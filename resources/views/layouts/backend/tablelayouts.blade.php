@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="{{url('backend/plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('backend/dist/css/adminlte.min.css')}}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -59,6 +62,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{url('backend/dist/js/demo.js')}}"></script>
 <!-- Page specific script -->
+<!-- daterangepicker -->
+{{-- <script src="{{asset('plugins/moment/moment.min.js')}}"></script> --}}
+<script src="{{asset('backend/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script>
     $(function () {
         $("#example1").DataTable({
