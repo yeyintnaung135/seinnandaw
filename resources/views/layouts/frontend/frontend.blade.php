@@ -12,7 +12,9 @@
     <link rel="stylesheet" href="{{url('test/css/fancybox.css')}}"/>
     <link rel="stylesheet" href="{{url('test/css/swiper-bundle.min.css')}}"/>
     <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
-<script>
+    <link rel="stylesheet" href="{{url('backend/plugins/select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{url('backend/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+    <script>
     window.csrf="{{csrf_token()}}"
 
 </script>
@@ -526,7 +528,7 @@
     @include('layouts.frontend.footer')
 </div>
 <script src="{{ asset('js/app.js') }}"></script>
-
+<script src="{{url('/backend/plugins/select2/js/select2.full.min.js')}}"></script>
 <script>
     var swiper = new Swiper(".productDetailSwiperthumb", {
         loop: false,

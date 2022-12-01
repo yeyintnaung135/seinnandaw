@@ -37,8 +37,11 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/removecartitem', 'FrontprivateController@removecartitem');
     Route::post('/checkoutform', 'FrontController@checkoutform');
     Route::get('/checkoutform', 'FrontController@getcheckout');
-    Route::post('/connectwithbank', 'FrontprivateController@startgotobank');
+    Route::post('/connectwithbank', 'PaymentController@startgotobank');
 
     require "backend.php";
 
 });
+Route::post('/checkoutmpukbzsuccess', 'PaymentController@checkoutmpukbzsuccess');
+Route::post('/checkoutmpukbzsuccessbk', 'PaymentController@checkoutmpukbzsuccessbk');
+Route::post('/done.php', 'PaymentController@checkoutmvsuccess');

@@ -4,7 +4,7 @@
     <section>
         <div class="container-fluid px-3 py-4 px-md-4 py-md-5">
             <div class="p-1 p-md-4 row">
-                @if(Auth::check() and Auth::user()->role='user')
+                @if(Auth::guard('web')->check() )
                     You Are login
                 @else
 
