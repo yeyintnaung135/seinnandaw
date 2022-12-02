@@ -56,15 +56,21 @@ class PaymentController extends Controller
         Auth::guard('web')->loginUsingId($request->userDefined1);
         if ($request->respCode == 00) {
             $success = 'success';
+            $success = true;
 
         }else{
             $success = $request->respCode;
 
         }
-
         Payment::where('tran_id', $request->invoiceNo)->where('product_id', $request->userDefined2)->where('userid', Auth::guard('web')->user()->id)
             ->update(['status' => $success]);
-        return $success;
+        $payment_success = Payment::where('status', 'success')
+                            ->where('tran_id', $request->invoiceNo)
+                            ->where('product_id', $request->userDefined2)
+                            ->where('userid', Auth::guard('web')->user()->id)
+                            ->first();
+        // return $success;
+        return view('frontend.paymentsuccess', ['payment_success'=>$payment_success]);
     }
     public function checkoutmvsuccess(Request $request)
     {
