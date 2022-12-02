@@ -57,7 +57,7 @@ Route::group(['prefix' => '/backend/products'],function (){
 Route::group(['prefix' => '/backend/payments'],function (){
     Route::get('/list', 'BackendPaymentController@list');
     Route::get('/get_payment_lists', 'BackendPaymentController@getPayments')->name('get_payment_lists');
-    Route::post('/detail', 'BackendPaymentController@detail')->name('payment_detail');
+    Route::get('/detail', 'BackendPaymentController@detail')->name('payment_detail');
     Route::post('/delete', 'BackendPaymentController@delete')->name('payment_delete');
 });
 Route::get('/adminlogin', 'Auth\LoginController@showAdminLoginForm')->name('adminlogin');

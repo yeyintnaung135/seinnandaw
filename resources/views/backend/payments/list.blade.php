@@ -119,7 +119,7 @@
          data: 'id',
          render: function(data) {
             return `
-            <form action="{{url('/backend/payments/detail')}}" method="post">
+            <form action="{{url('/backend/payments/detail')}}" method="get">
                 @csrf
                 <input type="hidden" value="${data}" name="payment_id">
                 <button type="submit" data-id="${data}" class="btn btn-info" id="detail" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i data-id="${data}" id="detail" class="fa fa-info-circle"></i></button>

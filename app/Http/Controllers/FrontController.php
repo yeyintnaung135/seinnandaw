@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Addtocart;
-use App\Categories;
 use App\checkout;
 use App\Products;
+use App\Addtocart;
+use App\Categories;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,14 +20,48 @@ class FrontController extends Controller
      */
     public function index()
     {
-      
+
         $data = Products::where('feature', 'yes')->get();
         return view('frontend.index', ['data' => $data]);
     }
 
     public function shop()
     {
-        return view('frontend.shop');
+        $products = Products::with('category')->paginate(4);
+        return view('frontend.shop',['products' => $products]);
+    }
+    function fetch_data(Request $request)
+    {
+        // logger("fetch Data");
+        // logger($request->all());
+     if($request->ajax())
+     {
+        $sort_type = $request->get('sorttype');
+        if($sort_type == 2)
+        {
+            $products = Products::latest()->paginate(4);
+        }
+        elseif($sort_type == 3)
+        {
+            logger("low");
+            $products = Products::orderBy('price','asc')->paginate(4);
+        }
+        elseif($sort_type == 4)
+        {
+            $products = Products::orderBy('price','desc')->paginate(4);
+        }
+        else
+        {
+            $products = DB::table('products')
+                            ->paginate(4);
+        }
+
+    //   $products = DB::table('products')
+    //                 ->orderBy('price','asc')
+    //                 ->paginate(4);
+                    logger($products);
+      return view('frontend.shop_product', compact('products'))->render();
+     }
     }
 
     public function showbycategory($category, $id,$sub=null)
@@ -37,15 +72,45 @@ class FrontController extends Controller
                 $query->where('category_id', '=', $id)->orWhere('category_id', '=', '2');
 
 
-            })->where('subcategory',$sub)->orderBy('id', 'desc')->get();
+            })->where('subcategory',$sub)->orderBy('id', 'desc')->with('category')->paginate(4);
 
         }else{
-            $data = Products::where('category_id', $id)->orderBy('id', 'desc')->get();
+            $data = Products::where('category_id', $id)->orderBy('id', 'desc')->with('category')->paginate(4);
 
         }
-        return view('frontend.shopbycategory', ['category' => $category, 'data' => $data]);
+        logger($data);
+        return view('frontend.shopbycategory', ['category' => $category, 'data' => $data,'cate_id' => $id]);
     }
-
+    function category_fetch_data(Request $request)
+    {
+        logger("cate fetch Data");
+        // logger($request->all());
+     if($request->ajax())
+     {
+        $sort_type = $request->get('sorttype');
+        if($sort_type == 2)
+        {
+            $data = Products::where('category_id',$request->cate_id)->latest()->paginate(4);
+        }
+        elseif($sort_type == 3)
+        {
+            logger("low");
+            $data = Products::where('category_id',$request->cate_id)->orderBy('price','asc')->paginate(4);
+        }
+        elseif($sort_type == 4)
+        {
+            $data = Products::where('category_id',$request->cate_id)->orderBy('price','desc')->paginate(4);
+        }
+        else
+        {
+            $data = DB::table('products')
+                            ->where('category_id',4)
+                            ->paginate(4);
+        }
+        logger($data);
+      return view('frontend.category_product', compact('data'))->render();
+     }
+    }
     public function product_detail($id)
     {
         $data = Products::findOrFail($id);

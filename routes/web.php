@@ -22,6 +22,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'FrontController@index');
     Route::get('/shop', 'FrontController@shop');
     Route::get('/category/{category}/{id}/{sub?}', 'FrontController@showbycategory');
+    Route::get('/categorypagination/fetch_data', 'FrontController@category_fetch_data');
 
     Route::get('/product/detail/{id}', 'FrontController@product_detail');
 
@@ -47,6 +48,9 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/checkout/order-received', 'FrontController@orderReceived');
     Route::post('/connectwithbank', 'FrontprivateController@startgotobank');
+    //shop page sort
+    // Route::post('/get_product_sortall_ajax', 'FrontController@get_product_sortall')->name('get_product_sortall_ajax');
+    Route::get('/shoppagination/fetch_data', 'FrontController@fetch_data');
 
     require "backend.php";
 
