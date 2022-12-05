@@ -57,12 +57,6 @@
                                 <p>Add New</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a href="{{route('category.trash')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Trash</p>
-                            </a>
-                        </li>
 
                     </ul>
 
@@ -71,7 +65,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Products
+Products
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -86,12 +80,6 @@
                             <a href="{{url('backend/products/add')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add New</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('product.trash')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Trash</p>
                             </a>
                         </li>
 
@@ -117,6 +105,25 @@
                             <a href="{{url('backend/banners/add')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Add New</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Payment
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('backend/payments/list')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List</p>
                             </a>
                         </li>
 

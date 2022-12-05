@@ -2,6 +2,7 @@
 
 @section('content')
     <section>
+
         {{-- banner --}}
         {{-- <div class="sn-main-banner">
             <img src="{{ url('images/banner/banner.png') }}" alt="SeinNanDaw">
