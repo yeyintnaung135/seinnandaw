@@ -35,8 +35,16 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/account/edit-address/billing', 'FrontController@edit_billing');
     Route::get('/account/edit-address/shipping', 'FrontController@edit_shipping');
     Route::get('/account/edit-account', 'FrontController@edit_account');
+
+    /**user Account */
+    Route::get('/account/edit-account', 'users\UserController@edit')->name('user.edit');
+    Route::put('/account/update/{id}', 'users\UserController@update')->name('user.update');
+
+    /** User Login Section  */
     Route::post('/user/login', 'UserauthController@login');
     Route::get('/user/login', 'UserauthController@getlogin');
+    Route::get('/user/logout', 'UserauthController@userlogout')->name('user.logout');
+
     Route::get('/getatccounts','FrontprivateController@getatccounts' );
     Route::post('/user/register', 'UserauthController@register');
     Route::post('/storeproducttocart', 'FrontprivateController@storeproducttocart');

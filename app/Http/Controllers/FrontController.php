@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Addtocart;
 use App\Categories;
 use App\checkout;
+use App\Point;
 use App\Products;
+use App\UserPoint;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,7 +21,7 @@ class FrontController extends Controller
      */
     public function index()
     {
-      
+
         $data = Products::where('feature', 'yes')->get();
         return view('frontend.index', ['data' => $data]);
     }
@@ -198,7 +200,8 @@ class FrontController extends Controller
 
     }
 
-    public function orderReceived() {
+    public function orderReceived() 
+    {
       return view('frontend.order_received');
     }
 }

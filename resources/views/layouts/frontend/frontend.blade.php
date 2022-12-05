@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sein Nan Daw</title>
+    <title>@yield('title')</title>
     <link rel="icon" type="image/x-icon" href="{{ url('/images/favicon.webp') }}">
 
     <link rel="stylesheet" type="text/css" href="{{ url('/css/app.css') }}"/>

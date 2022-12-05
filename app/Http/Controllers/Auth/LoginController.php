@@ -35,17 +35,19 @@ class LoginController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest')->except('logout','adminlogout');
         $this->middleware('guest:admins')->except('logout','adminlogout');
 
-
     }
+
     public function showAdminLoginForm()
     {
         return view('auth.login', ['url' => 'adminLogin']);
     }
+
     public function adminLogin(Request $request)
     {
         $this->validate($request, [
@@ -59,11 +61,10 @@ class LoginController extends Controller
         }
         return back()->withInput($request->only('email', 'remember'))->withErrors(['failadminlogin'=>'Wrong Credentials']);
     }
-    public function adminlogout(Request $request)
+
+    public function adminlogout()
     {
-
-
-         Auth::guard('admins')->logout();
+        Auth::guard('admins')->logout();
         return redirect(url('adminlogin'));
     }
 }

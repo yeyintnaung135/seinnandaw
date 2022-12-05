@@ -200,12 +200,17 @@
         {
           data: 'id',
           render: function(data, type) {
-            var detail = `<a href="{{url('product/detail/'. ':id')}}" type="button" style=" width: 81px;" class="btn btn-primary btn-sm btn-block">
+            var detail = `<a href="{{url('product/detail/'. ':id')}}" type="button" style=" width: 81px;" class="btn btn-primary btn-sm mr-2">
                             <i class="fa fa-info-circle"></i>
                             Detail
                         </a>`;
+              var edit = `<a href="{{url('backend/products/edit/'.':id')}}" type="button" style=" width: 81px;" class="btn btn-info btn-sm ">
+                  <i class="fa fa-edit"></i>
+                  Edit
+              </a>`;
             detail=detail.replace(':id', data);
-            return detail;
+            edit=edit.replace(':id', data);
+            return detail + edit;
           }
         }
       ],
