@@ -17,7 +17,7 @@
     <script>
     window.csrf="{{csrf_token()}}"
 
-</script>
+  </script>
     @if(Auth::check() and Auth::user()->role == 'user')
         <script>
             window.authuser = 'yes';

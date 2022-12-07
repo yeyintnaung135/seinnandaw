@@ -1,4 +1,5 @@
 @extends('layouts.backend.layout')
+@section('title','Sein Nan Daw | Product Edit')
 @section('content')
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -192,7 +193,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row no-gutters">
-                                        <div class="col-12 col-md-6 pr-0 pr-md-2">
+                                        <div class="col-12 col-md-4 pr-0 pr-md-2">
                                             <label>Subcategory</label>
                                             <select class="form-control" name="subcategory">
                                                 <?php
@@ -217,7 +218,7 @@
 
                                             </select>
                                         </div>
-                                        <div class="col-12 col-md-6">
+                                        <div class="col-12 col-md-4 pr-0 pr-md-2">
                                             <!-- select -->
                                             <div class="form-group">
                                                 <label>Feature Product</label>
@@ -234,10 +235,25 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="col-12 col-md-4 ">
+                                            <!-- select -->
+                                            <div class="form-group">
+                                                <label>New Arrival</label>
+                                                <select class="form-control" name="new_arrival" required>
+                                                    @if((old('new_arrival') and old('new_arrival') == 'yes') or ($data->new_arrival == 'yes'))
+                                                        <option value="yes" selected>Yes</option>
+                                                        <option value="no">No</option>
+
+                                                    @else
+                                                        <option value="yes">Yes</option>
+                                                        <option value="no" selected>No</option>
+                                                    @endif
+
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
-
                                     <div class="form-group">
-
                                         <section class="content">
                                             <div class="row">
 

@@ -1,4 +1,5 @@
 @extends('layouts.backend.tablelayouts')
+@section('title','Sein Nan Daw | Product Lists')
 @push('css')
     <style>
         .photo{
