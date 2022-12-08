@@ -575,6 +575,12 @@
           color: #269fb7;
         }
 
+        /* Payment Success */
+        .payment-success-container {
+          width: 90%;
+          margin: 0 auto;
+        }
+
         /* Tablet Size */
         @media only screen and (min-width: 600px) {
             /* .sn-home-products img {
@@ -595,6 +601,9 @@
             .edit-address-container table {
               width: 48%;
             }
+            .payment-success-container {
+              width: 70%;
+            }
         }
 
         /* Desktop Size */
@@ -613,6 +622,9 @@
             }
             .sn-home-products a {
               width: 25%;
+            }
+            .payment-success-container {
+              width: 40%;
             }
         }
 

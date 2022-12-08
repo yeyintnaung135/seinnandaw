@@ -33,6 +33,7 @@ Vue.component('cart', require('./components/cart.vue').default);
 Vue.prototype.$hostname = "https://" + window.location.hostname ;
 // Vue.prototype.$hostname = "http://" + window.location.hostname ;
 
+
 const app = new Vue({
     el: '#app',
     data:function (){

@@ -34,7 +34,8 @@ In case JS is disabled, show a visible Submit button with msg
 
 <form id="hidden_form" name="hidden_form" method="post" action="<?php echo $pgw_test_url; ?>">
 {{--    <input type="submit" value="Click here if it is taking too long to redirect!" />--}}
-    <div style="visibility: hidden;">
+    {{-- <div style="visibility: hidden;"> --}}
+      <div>
         <?php foreach($data as $key => $value): ?>
         <?php if ($value != ""): ?>
         <label><?php echo htmlspecialchars($key); ?></label>
@@ -48,6 +49,11 @@ In case JS is disabled, show a visible Submit button with msg
     </div>
 </form>
 
+@if ($success)
+  <div>success</div>
+@else
+  <div>fail</div>
+@endif
 
 <script>
     function submitForm()

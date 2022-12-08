@@ -65,7 +65,8 @@ class FrontprivateController extends Controller
             'productDesc' => 'Please check carefully you are about to buy',
             'amount' => $bankamount,
             'currencyCode' => '104',
-            'FrontendURL' => 'http://localhost/seinnandaw/public/checkoutmpukbzsuccess',
+            // 'FrontendURL' => 'http://localhost/seinnandaw/public/checkoutmpukbzsuccess',
+            'FrontendURL' => 'http://localhost/checkoutmpukbzsuccess',
             'userDefined1' => 'userid_' . Auth::guard('web')->user()->name,
             'userDefined2' => 'productid_' . $data['pid'],
         ];
