@@ -17,7 +17,8 @@ class Products extends Model
         'photo_three',
         'photo_four',
         'subcategory',
-        'description','short_desc','category_id','photo','price','feature','deleted_at'];
+        'description','short_desc','category_id','photo','price','feature','new_arrival','deleted_at'];
+        
         public function category() {
             return $this->belongsTo('App\Categories','category_id');
         }

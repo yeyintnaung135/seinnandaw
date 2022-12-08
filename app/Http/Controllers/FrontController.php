@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\checkout;
+use App\Point;
 use App\Products;
 use App\Addtocart;
 use App\Categories;
@@ -21,8 +22,9 @@ class FrontController extends Controller
     public function index()
     {
 
-        $data = Products::where('feature', 'yes')->get();
-        return view('frontend.index', ['data' => $data]);
+      $data = Products::where('feature', 'yes')->get();
+      $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
+      return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
     }
 
     public function shop()
@@ -81,6 +83,7 @@ class FrontController extends Controller
         logger($data);
         return view('frontend.shopbycategory', ['category' => $category, 'data' => $data,'cate_id' => $id]);
     }
+
     function category_fetch_data(Request $request)
     {
         logger("cate fetch Data");
@@ -263,7 +266,8 @@ class FrontController extends Controller
 
     }
 
-    public function orderReceived() {
+    public function orderReceived() 
+    {
       return view('frontend.order_received');
     }
 }

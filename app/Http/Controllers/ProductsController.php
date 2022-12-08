@@ -187,8 +187,10 @@ class ProductsController extends Controller
             'photo_one'=>$input['photo_one'],
             'photo_two'=>$input['photo_two'],
             'photo_three'=>$input['photo_three'],
-            'photo_four'=>$input['photo_four']
-            ,'feature'=>$input['feature'],'category_id'=>$input['category_id']]);
+            'photo_four'=>$input['photo_four'],
+            'feature'=>$input['feature'],
+            'new_arrival'=>$input['new_arrival'],
+            'category_id'=>$input['category_id']]);
         Session::flash('message', 'Your product was successfully edited');
 
         return redirect(url('backend/products/list'));
@@ -246,6 +248,7 @@ class ProductsController extends Controller
         $lpath=$img->move(public_path('images/products/'),$imageNameone);
         $input['photo']='images/products/'.$imageNameone;
         Products::create($input);
+
         Session::flash('message', 'Your product was successfully created');
 
         return redirect(url('backend/products/list'));

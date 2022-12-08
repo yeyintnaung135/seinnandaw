@@ -76,10 +76,12 @@ class RegisterController extends Controller
             'role'=>'superadmin',
         ]);
     }
+
     public function showAdminRegisterForm()
     {
         return view('auth.register', ['url' => 'adminregister']);
     }
+    
     public function adminregister(Request $request)
     {
         $this->validator($request->all())->validate();

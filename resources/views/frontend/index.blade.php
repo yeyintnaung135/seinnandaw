@@ -1,5 +1,5 @@
 @extends('layouts.frontend.frontend')
-
+@section('title','Sein Nan Daw | Home')
 @section('content')
     <section>
 
@@ -51,15 +51,17 @@
             </div>
 
             {{-- New Arrival Banner --}}
+            @if ($new_arrival)
             <div class="sn-new-arrival my-5 py-3 row mx-1 mb-2 position-relative">
                 <div class="sn-new-banner col-12 col-md-6 m-0 p-0 mb-5">
-                    <img src="{{ url('images/banner/newarrivalbanner.png') }}" alt="New Arrival">
+                    <img src="{{ url($new_arrival->photo) }}" alt="New Arrival">
                 </div>
                 <div class="col-12 col-md-6">
                     <h1 class="sn-new-title position-absolute">NEW<br/> ARRIVALS</h1>
                     <a href="{{url('/shop')}}" class="position-absolute sn-shop-now-button">SHOP NOW</a>
                 </div>
-            </div>
+            </div>                
+            @endif
 
             {{-- RECOMMENDED FOR YOU --}}
             <div class="sn-products pt-5">

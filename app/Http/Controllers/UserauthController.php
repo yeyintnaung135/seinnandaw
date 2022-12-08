@@ -41,7 +41,7 @@ class UserauthController extends Controller
                 $getuseridchangedcount = checkout::where('userid', Auth::user()->id)->where('status', 'start');
                 $totalprice = $checkproductisinstock->first()->price * $getuseridchangedcount->first()->counts;
                 return redirect('/checkoutform');
-//                return view('frontend.checkout', ['data' => ['count'=>$getuseridchangedcount->first()->counts], 'price' => $totalprice, 'product' => $checkproductisinstock->first()]);
+            //  return view('frontend.checkout', ['data' => ['count'=>$getuseridchangedcount->first()->counts], 'price' => $totalprice, 'product' => $checkproductisinstock->first()]);
 
             } else {
                 return 'something wrong';
@@ -55,7 +55,6 @@ class UserauthController extends Controller
 
     public function login(Request $request)
     {
-
         $input = $request->except('_token');
         if (Auth::attempt(['email' => $input['usernameoremail'], 'password' => $input['password'], 'role' => 'user'])) {
 
@@ -113,5 +112,11 @@ class UserauthController extends Controller
         Auth::attempt(['email' => $input['email'], 'password' => $input['password'], 'role' => 'user']);
         return redirect()->back();
 
+    }
+
+    public function userlogout()
+    {
+        Auth::guard('web')->logout();
+        return redirect(url('user/login'));
     }
 }
