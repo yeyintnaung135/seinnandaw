@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkoutform', 'FrontController@getcheckout');
 
     Route::get('/checkout/order-received', 'FrontController@orderReceived');
-    Route::post('/connectwithbank', 'FrontprivateController@startgotobank');
+    Route::post('/connectwithbank', 'PaymentController@startgotobank');
     //shop page sort
     // Route::post('/get_product_sortall_ajax', 'FrontController@get_product_sortall')->name('get_product_sortall_ajax');
     Route::get('/shoppagination/fetch_data', 'FrontController@fetch_data');
@@ -64,5 +64,6 @@ Route::group(['middleware' => ['web']], function () {
 
 });
 Route::post('/checkoutmpukbzsuccess', 'PaymentController@checkoutmpukbzsuccess');
+Route::get('/checkoutmpukbzsuccess/{data?}', 'PaymentController@getsuccess');
 Route::post('/checkoutmpukbzsuccessbk', 'PaymentController@checkoutmpukbzsuccessbk');
 Route::post('/done.php', 'PaymentController@checkoutmvsuccess');

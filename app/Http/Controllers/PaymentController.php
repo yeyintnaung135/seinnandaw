@@ -53,24 +53,34 @@ class PaymentController extends Controller
 
     public function checkoutmpukbzsuccess(Request $request)
     {
+        //this route must be post bcuz of kbz defined
         Auth::guard('web')->loginUsingId($request->userDefined1);
         if ($request->respCode == 00) {
             $success = 'success';
-            $success = true;
-
         }else{
             $success = $request->respCode;
 
         }
-        Payment::where('tran_id', $request->invoiceNo)->where('product_id', $request->userDefined2)->where('userid', Auth::guard('web')->user()->id)
-            ->update(['status' => $success]);
-        $payment_success = Payment::where('status', 'success')
-                            ->where('tran_id', $request->invoiceNo)
+
+        Payment::where('tran_id', $request->invoiceNo)->where('product_id', $request->userDefined2)->where('userid', Auth::guard('web')->user()->id)->update(['status' => $success]);
+        $payment_success = Payment::where('tran_id', $request->invoiceNo)
                             ->where('product_id', $request->userDefined2)
                             ->where('userid', Auth::guard('web')->user()->id)
                             ->first();
-        // return $success;
+//        so we need to redirect
+        return redirect('checkoutmpukbzsuccess/'.$payment_success->id);
+    }
+
+    public function getsuccess($data='empty'){
+        if($data != 'empty'){
+            $payment_success=Payment::where('id',$data)->where('userid', Auth::guard('web')->user()->id)
+                ->first();
+
+        }else{
+            $payment_success=$data;
+        }
         return view('frontend.paymentsuccess', ['payment_success'=>$payment_success]);
+
     }
     public function checkoutmvsuccess(Request $request)
     {
@@ -80,17 +90,21 @@ class PaymentController extends Controller
             $success = $request->auth_response;
 
         }
+
         $getbyuuid=Payment::where('tran_id', $request->req_transaction_uuid)->where('product_id', $request->req_reference_number);
         Auth::guard('web')->loginUsingId($getbyuuid->first()->userid);
 
 
         $getbyuuid->update(['status' => $success]);
-        return $success;
+        $payment_success=Payment::where('tran_id', $request->req_transaction_uuid)->where('product_id', $request->req_reference_number)->where('userid', Auth::guard('web')->user()->id)->first();
+
+        return redirect('checkoutmpukbzsuccess/'.$payment_success->id);
 
     }
 
     public function checkoutmpukbzsuccessbk(Request $request)
     {
+
         Auth::guard('web')->loginUsingId($request->userDefined1);
         if ($request->respCode == 00) {
             $success = 'success';

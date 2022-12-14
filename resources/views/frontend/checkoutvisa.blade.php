@@ -72,11 +72,12 @@ In case JS is disabled, show a visible Submit button with msg
         echo "<input type=\"hidden\" id=\"signature\" name=\"signature\" value=\"" . sign($data) . "\"/>\n";
         ?>
         <br/>
+            <span>card_type:</span><input type="text" type="hidden" name="card_type"><br/>
+            <span>card_number:</span><input type="text" type="hidden" name="card_number"><br/>
+            <span>card_expiry_date:</span><input type="text" type="hidden" name="card_expiry_date"><br/>
     </div>
 
-    <span>card_type:</span><input type="text" type="hidden" name="card_type"><br/>
-    <span>card_number:</span><input type="text" type="hidden" name="card_number"><br/>
-    <span>card_expiry_date:</span><input type="text" type="hidden" name="card_expiry_date"><br/>
+
 </form>
 
 

@@ -34,26 +34,23 @@ In case JS is disabled, show a visible Submit button with msg
 
 <form id="hidden_form" name="hidden_form" method="post" action="<?php echo $pgw_test_url; ?>">
 {{--    <input type="submit" value="Click here if it is taking too long to redirect!" />--}}
-    {{-- <div style="visibility: hidden;"> --}}
+     <div style="visibility: hidden;">
       <div>
         <?php foreach($data as $key => $value): ?>
         <?php if ($value != ""): ?>
         <label><?php echo htmlspecialchars($key); ?></label>
-        <input type="text" name="<?php echo htmlspecialchars($key); ?>"
+        <input type="hidden" name="<?php echo htmlspecialchars($key); ?>"
                value="<?php echo htmlspecialchars($value); ?>" />
         <br />
         <?php endif; ?>
         <?php endforeach; ?>
-        <input type="text" name="hashValue" value="{{$hash}}" />
+        <input type="hidden" name="hashValue" value="{{$hash}}" />
         <br />
+    </div>
     </div>
 </form>
 
-@if ($success)
-  <div>success</div>
-@else
-  <div>fail</div>
-@endif
+
 
 <script>
     function submitForm()
