@@ -564,6 +564,22 @@
           color: #ffffff !important;
         }
 
+        .status-success span{
+          color: #2f8f07;
+          padding: 4px;
+          border-radius: 3px;
+        }
+        .status-pending span{
+          color: #fbc03a;
+          padding: 4px;
+          border-radius: 3px;
+        }
+        .status-error span{
+          color: #f92f0f;
+          padding: 4px;
+          border-radius: 3px;
+        }
+
         /* My Account - Download */
         .download-container {
           border-top: 3px solid #269fb7;

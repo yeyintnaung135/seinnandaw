@@ -7,6 +7,7 @@ use App\Point;
 use App\Products;
 use App\Addtocart;
 use App\Categories;
+use App\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
@@ -145,16 +146,18 @@ class FrontController extends Controller
     public function orders()
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.orders');
+        $orders = Payment::where('userid', Auth::guard('web')->user()->id)->get();
+        return view('frontend.orders', ['orders' => $orders]);
       } else {
         return redirect('/account');
       }
     }
 
-    public function view_order()
+    public function view_order($id)
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.view_order');
+        $order = Payment::where('id', $id)->first();
+        return view('frontend.view_order', ['order' => $order]);
       } else {
         return redirect('/account');
       }
