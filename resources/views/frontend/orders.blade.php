@@ -20,13 +20,21 @@
                           <td class="px-3 bg-white">Total</td>
                           <td class="px-3 bg-white">Actions</td>
                         </tr>
-                        <tr class="">
-                          <td class="border py-4"><a href="{{ url('/account/view-order') }}">#1598</a></td>
-                          <td class="border py-4">November 25, 2022	</td>
-                          <td class="border py-4">On hold	</td>
-                          <td class="border py-4">507,800Ks for 1 item</td>
-                          <td class="border py-4"><a href="{{ url('/account/view-order') }}" class="sn-view-order">VIEW</a></td>
-                        </tr>
+                        @foreach ($orders as $order)
+                          <tr class="">
+                            <td class="border py-4"><a href="{{ url('/account/view-order/'.$order->id) }}">#{{ $order->id }}</a></td>
+                            <td class="border py-4"> {{ \Carbon\Carbon::parse($order->created_at)->toFormattedDateString() }} </td>
+                            @if ($order->status == 'success')
+                              <td class="border py-4 font-weight-bold status-success"> <span>{{ $order->status }}</span> </td>
+                            @elseif ($order->status == 'pending')
+                              <td class="border py-4 font-weight-bold status-pending"> <span>{{ $order->status }}</span> </td>
+                            @else
+                              <td class="border py-4 font-weight-bold status-error"> <span>{{ $order->status }}</span> </td>
+                            @endif
+                            <td class="border py-4">{{ number_format($order->amount) }} KS for 1 item</td>
+                            <td class="border py-4"><a href="{{ url('/account/view-order/'.$order->id) }}" class="sn-view-order">VIEW</a></td>
+                          </tr>
+                        @endforeach
                       </tbody>
                     </table>
                   </div>

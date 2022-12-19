@@ -31,7 +31,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkout', 'FrontController@checkout');
     Route::get('/account', 'FrontController@account');
     Route::get('/account/orders', 'FrontController@orders');
-    Route::get('/account/view-order', 'FrontController@view_order');
+    Route::get('/account/view-order/{id}', 'FrontController@view_order');
     Route::get('/account/downloads', 'FrontController@downloads');
     Route::get('/account/edit-address', 'FrontController@edit_address');
     Route::get('/account/edit-address/billing', 'FrontController@edit_billing');
