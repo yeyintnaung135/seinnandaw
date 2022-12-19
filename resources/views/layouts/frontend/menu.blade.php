@@ -1,6 +1,6 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light">
-        <a class="navbar-brand sn-brand-logo" href="#"><img src="{{url('images/logo.png')}}" alt="SeinNanDaw"></a>
+        <a href="{{url('/')}}" class="navbar-brand sn-brand-logo" href="#"><img src="{{url('images/logo.png')}}" alt="SeinNanDaw"></a>
         {{-- @if(Auth::guard('web')->check() and Auth::guard('web')->user()->role='user')
             <span class="color:red;">{{Auth::guard('web')->user()->name}}</span>
         @endif --}}
@@ -22,7 +22,7 @@
                                  <button class="sn-chevron-down pr-4 pr-lg-2 d-block d-lg-none" onclick="toggleSubMenu('{{ $c->name }}')"></button>
                                  <button class="sn-chevron-down pr-4 pr-lg-2 d-none d-lg-block" onmouseover="hoverToShowSubMenu('{{ $c->name }}')"></button>
                               @endif
-                             
+
                             </div>
 
                             <div class="sn-sub-menu d-none" id="{{$c->name }}">

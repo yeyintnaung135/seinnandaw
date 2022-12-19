@@ -56,11 +56,11 @@
                                 <input type="text" name='city' class="form-control" id="inputPassword4" required>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword4">State / County <span class="text-danger">*</span></label>
-                                <input type="text" name='state' class="form-control" id="inputPassword4" required>
+                                <label for="inputPassword4">State / County </label>
+                                <input type="text" name='state' class="form-control" id="inputPassword4" >
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword4">Postcode / ZIP <span class="text-danger">*</span></label>
+                                <label for="inputPassword4">Postcode / ZIP </label>
                                 <input type="text" name="postcode" class="form-control" id="inputPassword4">
                             </div>
                             <div class="form-group">
@@ -117,7 +117,7 @@
                                         <option value="2">MPU (AYA)</option>
                                         <option value="3">Master/Visa (AYA)</option>
                                     </select>
-                                    <div>
+                                    <div style="margin-top:26px">
                                         <h5>Direct bank transfer</h5>
                                         <p class="p-3" style="background: #eee;">Make your payment directly into our
                                             bank account. Please use your Order ID as the payment reference. Your order

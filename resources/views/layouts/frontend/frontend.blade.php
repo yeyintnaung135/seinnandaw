@@ -33,7 +33,11 @@
     <script src="{{url('test/js/swiper-bundle.min.js')}}"></script>
     <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
     <style>
-
+.eye{
+    position: absolute;
+    top: 44px;
+    right: 12px;
+}
 
       /* Menu */
       .active a {
