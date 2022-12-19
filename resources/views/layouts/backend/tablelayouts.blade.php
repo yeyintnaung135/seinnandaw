@@ -8,6 +8,8 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="{{url('backend/plugins/jquery-ui/jquery-ui.min.css')}}">
+
     <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{url('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -16,7 +18,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('backend/dist/css/adminlte.min.css')}}">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
+{{--    <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">--}}
     @stack('css')
 
 </head>
@@ -41,6 +43,8 @@
 
 <!-- jQuery -->
 <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
+<script src="{{url('backend/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
+
 <!-- Bootstrap 4 -->
 <script src="{{url('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- DataTables  & Plugins -->

@@ -11,6 +11,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +20,12 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        .eye{
+            position: absolute;
+            top: 11px;
+            right: 22px;
+        }
+
       .sn-login-banner img{
         width: 100%;
         height: calc(100vh);
@@ -56,7 +63,7 @@
           background: none;
         }
       }
-      
+
       /* Tablet */
       @media only screen and (min-width: 600px) {
         .sn-login-form #email, .sn-login-form #password {
@@ -64,9 +71,11 @@
         }
       }
       @media only screen and (min-width: 768px) {
-        
+
       }
     </style>
+    <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
+
 </head>
 <body>
     <div id="app">
@@ -118,5 +127,38 @@
             @yield('content')
         </main>
     </div>
+    <script>
+        $(document).ready(function () {
+
+            $('#reg .toggleeye').click(function (){
+                if($('#reg  .toggleeye').hasClass('fa-eye-slash')){
+                    $('#reg  .toggleeye').removeClass('fa-eye-slash');
+                    $('#reg  .toggleeye').addClass('fa-eye');
+                    $('#reg  .topas').attr('type','text');
+                }else{
+                    $('#reg  .toggleeye').removeClass('fa-eye');
+                    $('#reg  .toggleeye').addClass('fa-eye-slash');
+                    $('#reg  .topas').attr('type','password');
+                }
+
+
+            })
+            $('#con .toggleeye').click(function (){
+                if($('#con  .toggleeye').hasClass('fa-eye-slash')){
+                    $('#con  .toggleeye').removeClass('fa-eye-slash');
+                    $('#con  .toggleeye').addClass('fa-eye');
+                    $('#con  .topas').attr('type','text');
+                }else{
+                    $('#con  .toggleeye').removeClass('fa-eye');
+                    $('#con  .toggleeye').addClass('fa-eye-slash');
+                    $('#con  .topas').attr('type','password');
+                }
+
+
+            })
+
+        });
+    </script>
+
 </body>
 </html>

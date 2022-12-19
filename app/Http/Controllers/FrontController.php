@@ -26,6 +26,9 @@ class FrontController extends Controller
       $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
       return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
     }
+    public function location(){
+        return view('frontend.location');
+    }
 
     public function shop()
     {
@@ -266,7 +269,7 @@ class FrontController extends Controller
 
     }
 
-    public function orderReceived() 
+    public function orderReceived()
     {
       return view('frontend.order_received');
     }

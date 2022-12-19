@@ -709,7 +709,7 @@
         }
 
     </script>
-
+@stack('styles')
 @stack('scripts')
   </body>
 </html>

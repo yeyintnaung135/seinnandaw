@@ -10,5 +10,5 @@ class Categories extends Model
     //
     use SoftDeletes;
     protected $table='categories';
-    protected $fillable=['name','deleted_at'];
+    protected $fillable=['name','deleted_at','def'];
 }

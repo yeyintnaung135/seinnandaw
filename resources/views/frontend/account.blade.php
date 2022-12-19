@@ -24,7 +24,7 @@
                           <div class="form-group">
                               <label for="inputAddress">Email</label>
                               <input type="text" name='usernameoremail' value="{{old('usernameoremail')}}"
-                                      class="form-control" id="inputAddress">
+                                      class="form-control">
                           </div>
 
                           <div class="form-group position-relative">
@@ -53,7 +53,7 @@
                           <div class="form-group">
                               <label for="inputAddress">Name</label>
                               <input type="text" name='name' value="{{old('name')}}" class="form-control"
-                                      id="inputAddress">
+                                     >
                               @error('name')
                               <span style="color:red;">  {{$message}}</span>
                               @enderror
@@ -61,7 +61,7 @@
                           <div class="form-group">
                               <label for="inputAddress">Email</label>
                               <input type="text" name='email' value="{{old('email')}}" class="form-control"
-                                      id="inputAddress">
+                                     >
                               @error('email')
                               <span style="color:red;">  {{$message}}</span>
                               @enderror
@@ -69,7 +69,7 @@
 
                           <div class="form-group position-relative" id="reg">
                               <label for="inputAddress">Password</label>
-                              <input type="password" name="password" class="form-control topas" id="inputAddress">
+                              <input type="password" name="password" class="form-control topas">
                               <i  class="fas fa-eye-slash eye toggleeye"></i>
 
                               @error('password')
@@ -79,7 +79,7 @@
                           <div class="form-group position-relative" id="con">
                               <label for="inputAddress">Confirm Passwrod</label>
                               <input type="password" name="password_confirmation" class="form-control topas"
-                                      id="inputAddress">
+                                     >
                               <i  class="fas fa-eye-slash eye toggleeye"></i>
 
                           </div>
