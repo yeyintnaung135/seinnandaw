@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\checkout;
 use App\Point;
 use App\Products;
+use App\Discount;
 use App\Addtocart;
 use App\Categories;
+use App\Locations;
 use App\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -27,8 +29,15 @@ class FrontController extends Controller
       $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
       return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
     }
+    public function promotions() {
+      $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('discount.created_at', 'desc')->paginate(4);
+      // dd($products);
+      return view('frontend.promotions',['products' => $products]);
+    }
+
     public function location(){
-        return view('frontend.location');
+        $locs = Locations::all();
+        return view('frontend.location', ['locs' => $locs]);
     }
 
     public function shop()
@@ -68,6 +77,32 @@ class FrontController extends Controller
                     logger($products);
       return view('frontend.shop_product', compact('products'))->render();
      }
+    }
+
+    function fetch_promotion_data(Request $request) {
+      if($request->ajax())
+      {
+          $sort_type = $request->get('sorttype');
+          if($sort_type == 2)
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('discount.created_at', 'desc')->paginate(4);
+          }
+          elseif($sort_type == 3)
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('price','asc')->paginate(4);
+              
+          }
+          elseif($sort_type == 4)
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('price','desc')->paginate(4);
+          }
+          else
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->paginate(4);
+          }
+
+          return view('frontend.promotion_product', compact('products'))->render();
+      }
     }
 
     public function showbycategory($category, $id,$sub=null)

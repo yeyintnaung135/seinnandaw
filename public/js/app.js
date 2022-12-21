@@ -1933,7 +1933,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   props: ['product', 'logined'],
   data: function data() {
     return {
-      host: ''
+      host: '',
+      product_qty: 1
     };
   },
   mounted: function mounted() {
@@ -1944,7 +1945,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
       return new Promise(function (resolve, reject) {
         axios.post(_this.$hostname + "/storeproducttocart", {
-          id: data
+          id: data,
+          qty: _this.product_qty
         }).then(function (response) {
           resolve(response);
         });
@@ -1966,7 +1968,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this2.sendaddtocart(_this2.product.id);
               case 3:
                 afterstore = _context.sent;
-                tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + 1;
+                tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + _this2.product_qty;
                 localStorage.setItem('addtocartcount', JSON.stringify(tempcount));
                 _this2.$parent.addtocartcount = JSON.parse(localStorage.getItem('addtocartcount'));
                 _context.next = 17;
@@ -1983,18 +1985,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   return t.id == _this2.product.id;
                 });
                 if (ind == -1) {
-                  _this2.product.count = 1;
+                  _this2.product.count = _this2.product_qty;
                   temparray.push(_this2.product);
                 } else {
                   if (temparray[ind].count == null) {
-                    temparray[ind].count = 1;
+                    temparray[ind].count = _this2.product_qty;
                   } else {
-                    temparray[ind].count += 1;
+                    temparray[ind].count += _this2.product_qty;
                   }
                 }
                 localStorage.setItem('addtocartlist', JSON.stringify(temparray));
                 if (localStorage.getItem('addtocartcount') != null) {
-                  _tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + 1;
+                  _tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + _this2.product_qty;
                   localStorage.setItem('addtocartcount', JSON.stringify(_tempcount));
                 } else {
                   localStorage.setItem('addtocartcount', JSON.stringify(1));
@@ -2229,11 +2231,32 @@ var render = function render() {
   return _c("div", {
     staticClass: "sn-pd-input d-flex"
   }, [_c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: _vm.product_qty,
+      expression: "product_qty",
+      modifiers: {
+        number: true
+      }
+    }],
     attrs: {
       type: "number",
+      min: "1",
       name: "",
-      id: "",
-      value: "1"
+      id: ""
+    },
+    domProps: {
+      value: _vm.product_qty
+    },
+    on: {
+      input: function input($event) {
+        if ($event.target.composing) return;
+        _vm.product_qty = _vm._n($event.target.value);
+      },
+      blur: function blur($event) {
+        return _vm.$forceUpdate();
+      }
     }
   }), _vm._v(" "), _c("button", {
     on: {
@@ -50044,10 +50067,9 @@ Vue.component('cart', __webpack_require__(/*! ./components/cart.vue */ "./resour
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
+// Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
 // Vue.prototype.$hostname = "https://" + window.location.hostname ;
-// Vue.prototype.$hostname = "http://" + window.location.hostname ;
-
+Vue.prototype.$hostname = "http://" + window.location.hostname;
 var app = new Vue({
   el: '#app',
   data: function data() {
@@ -50376,8 +50398,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\seinnandaw\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\seinnandaw\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/sweswe/Swe/MOE/seinnandaw/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/sweswe/Swe/MOE/seinnandaw/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

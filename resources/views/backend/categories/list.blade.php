@@ -60,6 +60,7 @@
                                     <tr>
                                       <th>Select</th>
                                       <th>Name</th>
+                                      <th>def</th>
                                       <th>Create Date</th>
                                       <th>Action</th>
                                     </tr>
@@ -68,6 +69,7 @@
                                     <tr>
                                       <th>Select</th>
                                       <th>Name</th>
+                                      <th>def</th>
                                       <th>Create Date</th>
                                       <th>Action</th>
                                     </tr>
@@ -150,16 +152,39 @@
             }
         },
       {data: 'name'},
+      {data: 'def'},
       {data: 'created_at'},
       {
         data: 'id',
-        render: function(data, type) {
-          var detail = `<a href="{{url('backend/categories/detail/'. ':id')}}" type="button" style=" width: 81px;" class="btn btn-primary btn-sm btn-block">
+        render: function(data, type, row) {
+          var detail = `<a href="{{url('backend/categories/detail/'. ':id')}}" type="button" style=" width: 40px;" class="btn btn-primary btn-sm mr-2">
                             <i class="fa fa-info-circle"></i>
-                            Detail
                         </a>`;
           detail=detail.replace(':id', data);
-          return detail;
+          
+          var edit = `<a href="{{url('backend/categories/edit/'. ':id')}}" type="button" style=" width: 40px;" class=" btn btn-info btn-sm mr-2">
+                          <i class="fa fa-edit"></i>
+                      </a>`;
+          edit=edit.replace(':id', data);
+
+          if(row['def'] != 1) {
+            var del = `<a onclick="Delete(:id)" type="button" style=" width: 40px;" class=" btn btn-danger btn-sm">
+                          <i class="fa fa-trash"></i>
+                          <form id="delete_form:id"
+                              action="{{ url('backend/categories/delete') }}"
+                              method="POST"
+                              style="display: none;">
+                            @csrf
+                            <input type="hidden" name="id" value= ":id" />
+                          </form>
+                      </a>`;
+          del=del.replaceAll(':id', data);
+          } else {
+            var del = ``;
+          }
+
+          var result = `<div class="d-flex"> ${detail + edit + del} </div>`;
+          return result;
         }
       }
     ],
@@ -174,9 +199,13 @@
       { responsivePriority: 2, targets: 2 },
       { responsivePriority: 3, targets: 3},
       {
-        'targets': [3],
+        'targets': [4],
         'orderable': false,
-      }
+      },
+      {
+        'targets': [2],
+        'visible': false,
+      },
     ],
     language: {
       "search" : '<i class="fa-solid fa-search"></i>',
@@ -187,11 +216,11 @@
       }
     },
 
-    "order": [[ 2, "desc" ]],
+    "order": [[ 3, "desc" ]],
 
   });
 
-  function Delete() {
+  function Delete(id) {
        
        $(function () {
            const swalWithBootstrapButtons = Swal.mixin({
@@ -216,7 +245,7 @@
                }
            }).then((result) => {
                if (result.isConfirmed) {
-                   document.getElementById('delete_form').submit();
+                   document.getElementById('delete_form'+id).submit();
                }
            })
        });

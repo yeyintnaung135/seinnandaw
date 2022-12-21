@@ -1,9 +1,14 @@
 <?php
+
 Route::get('/backend/home', function(){
 return view('backend.home');
 })->middleware('auth:admins');
 Route::get('/table', function(){
     return view('backend.table');
+});
+Route::group(['prefix' => '/backend/customers'], function () {
+  Route::get('/list', 'CustomerController@list');
+  Route::get('/get_all_customers', 'CustomerController@getAllCustomers');
 });
 Route::group(['prefix' => '/backend/categories'],function (){
     Route::get('/list', 'CategoriesController@list');
@@ -54,6 +59,19 @@ Route::group(['prefix' => '/backend/products'],function (){
 
 
 });
+
+Route::group(['prefix' => '/backend/locations'],function (){
+  Route::get('/list', 'LocationsController@list');
+  Route::get('/add', 'LocationsController@add');
+  Route::post('/add', 'LocationsController@save');
+
+  Route::get('/edit/{id}', 'LocationsController@edit');
+  Route::post('/edit', 'LocationsController@update');
+
+  Route::post('/delete', 'LocationsController@delete');
+  Route::get('/detail/{id}', 'LocationsController@detail');
+});
+
 Route::group(['prefix' => '/backend/payments'],function (){
     Route::get('/list', 'BackendPaymentController@list');
     Route::get('/get_payment_lists', 'BackendPaymentController@getPayments')->name('get_payment_lists');

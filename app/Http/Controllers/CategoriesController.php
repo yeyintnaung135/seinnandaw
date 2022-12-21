@@ -111,7 +111,10 @@ class CategoriesController extends Controller
 
     public function save(Request $request){
         $input=$request->except('_token');
-        $validator=Validator::make($input,['name'=>['required','max:1000']]);
+        $validator=Validator::make($input,
+                                   ['name'=>['required','max:1000','unique:categories']], 
+                                   ['name.unique' => 'The category has already been taken.']
+                                  );
         if($validator->fails()){
             return redirect()->back()->withErrors($validator)->withInput();
         }

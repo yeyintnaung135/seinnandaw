@@ -33,7 +33,7 @@ class UserController extends Controller
             $request->validate([
                 'current_password' => ['required','min:8', new MatchOldPassword],
 
-                'new_password' => ['required','min:8'],
+                'new_password' => ['required','min:8','different:current_password'],
     
                 'new_confirm_password' => ['same:new_password'],
             ]);
@@ -54,4 +54,5 @@ class UserController extends Controller
             return redirect()->back()->with('success','Update successfully!');
         }
     }
+
 }

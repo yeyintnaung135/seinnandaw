@@ -29,7 +29,7 @@
     <div class="container-fluid px-3 py-4 px-md-4 py-md-5">
       <div class="sn-products p-3 p-md-5 bg-white">
         <h4>JEWELRY FOR EVERY OCCASION</h4>
-        <h2 class="text-uppercase mb-2">Shop</h2>
+        <h2 class="text-uppercase mb-2">Promotions</h2>
         <div class="text-right">
             <select name="" class="orderby" aria-label="Shop Order" id="sort_id">
                 <option hidden selected>Default Sorting</option>
@@ -40,9 +40,9 @@
             </select>
         </div>
         <div class="sn-home-products d-flex flex-wrap mt-5" id="product_space">
-          @include('frontend/shop_product')
-       </div>
-
+           @include('frontend/promotion_product')
+        </div>
+                    
         <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
       </div>
     </div>
@@ -56,7 +56,7 @@
        {
         // alert("Sort Type = "+sort_type);
         $.ajax({
-         url:"/shoppagination/fetch_data?page="+page+"&sorttype="+sort_type,
+         url:"/shoppagination/fetch_promotion_data?page="+page+"&sorttype="+sort_type,
          success:function(data)
          {
           console.log(data);
@@ -88,39 +88,5 @@
        });
 
     })
-    // function get_sort()
-    // {
-    //     var sortid = $('#sort_id').val();
-    //     // alert(sortid);
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: '/get_product_sortall_ajax',
-    //         data: {
-    //           "_token": "{{csrf_token()}}",
-    //           "sort_id": sortid,
-    //         },
-    //         success: function (data) {
-    //             console.log(data);
-    //             var html = "";
-    //             var htmllink="";
-    //             var i=0;
-
-    //             for(i=0;i<data.products.data.length;i++)
-    //             {
-    //                html+= `
-    //                 <a href="{{url('/product/1')}}" class="mb-4">
-    //                     <img src="${data.products.data[i].photo}" alt="">
-    //                     <span class="sn-category my-2">${data.products.data[i].category.name}</span>
-    //                     <h3 class="sn-product-title">${data.products.data[i].name}</h3>
-    //                     <span class="sn-price">${data.products.data[i].price} Ks</span>
-    //                 </a>
-    //                 `
-    //             }
-
-    //             $('#product_space').html(html);
-
-    //       }
-    //     });
-    // }
 </script>
 @endpush

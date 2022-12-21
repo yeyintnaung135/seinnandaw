@@ -159,11 +159,11 @@ class FrontprivateController extends Controller
     public function storeproducttocart(Request $request)
     {
         if (count(Addtocart::where('userid', Auth::guard('web')->user()->id)->where('product_id', $request->id)->get()) == 0) {
-            Addtocart::create(['userid' => Auth::guard('web')->user()->id, 'product_id' => $request->id, 'count' => 1]);
-            $combineoldandnewcount = 1;
+            Addtocart::create(['userid' => Auth::guard('web')->user()->id, 'product_id' => $request->id, 'count' => $request->qty]);
+            $combineoldandnewcount = $request->qty;
         } else {
             $getoldata = Addtocart::where('userid', Auth::guard('web')->user()->id)->where('product_id', $request->id);
-            $combineoldandnewcount = $getoldata->first()->count + 1;
+            $combineoldandnewcount = $getoldata->first()->count + $request->qty;
             $getoldata->update(['count' => $combineoldandnewcount]);
         }
         return response()->json(['counts' => $combineoldandnewcount]);

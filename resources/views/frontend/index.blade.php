@@ -100,9 +100,11 @@
             <div
                 class="sn-main-info d-flex justify-content-around flex-column flex-md-row my-5 py-1 py-md-5 text-center">
                 <div class="mb-3">
-                    <i class="fa fa-tag"></i>
-                    <h4>PROMOTIONS</h4>
-                    <p>Follow our Facebook page<br/> for best deals</p>
+                    <a style="color: inherit;" href="{{url('/promotions')}}">
+                      <i class="fa fa-tag"></i>
+                      <h4>PROMOTIONS</h4>
+                      <p>Follow our Facebook page<br/> for best deals</p>
+                    </a>
                 </div>
                 <div>
                     <i class="fa fa-truck"></i>
@@ -111,9 +113,9 @@
                 </div>
                 <div>
                     <a style="color: inherit;" href="{{url('/location')}}">
-                    <i class="fa fa-map-marker"></i>
-                    <h4>LOCATIONS</h4>
-                    <p>11 store locations<br/>countrywide</p>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <h4>LOCATIONS</h4>
+                      <p>11 store locations<br/>countrywide</p>
                     </a>
                 </div>
             </div>

@@ -43,6 +43,14 @@
       .active a {
         color: #8d021f !important;
       }
+      .sn-brand-logo {
+        flex-grow: 1;
+        margin: 0;
+      }
+      .sn-brand-logo img {
+        display: block;
+        margin: 0 auto;
+      }
       /* end of Menu */
       .shopping-bag-badge {
         background: #fff;
@@ -189,6 +197,10 @@
       }
       .sn-main-banner  {
         height: 100% !important;
+        aspect-ratio: 5/2;
+      }
+      .sn-main-banner img {
+        object-fit: cover;
       }
       .swiper-slide {
         background-size: cover;
@@ -242,6 +254,17 @@
       .swiper-pagination-bullet-active-main {
         background: #8d0220;
       }
+      .sn-sale-badge {
+        position: absolute;
+        background: #269fb7;
+        color: #fff;
+        right: 4px;
+        top: -6px;
+        padding: 10px 5px 8px;
+        border-radius: 50%;
+        font-size: 13px;
+        font-weight: 600;
+      }
 
       /* Cart */
       .ast-close-svg {
@@ -275,6 +298,8 @@
         .navbar-light .navbar-toggler {
           border-color: #0000;
           font-size: 16px;
+          position: absolute;
+          right: 15px;
         }
         .sn-nav {
           position: absolute;

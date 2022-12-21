@@ -1,6 +1,6 @@
 <template>
     <div class="sn-pd-input d-flex">
-        <input type="number" name="" id="" value="1">
+        <input type="number" min="1" name="" id="" v-model.number="product_qty">
         <button @click="clickfunction()">ADD TO CART</button>
     </div>
 </template>
@@ -9,7 +9,8 @@ export default {
     props: ['product', 'logined'],
     data: function () {
         return {
-            host: ''
+            host: '',
+            product_qty: 1,
         }
     },
     mounted() {
@@ -20,7 +21,7 @@ export default {
 
             return new Promise((resolve, reject) => {
                 axios
-                    .post(this.$hostname + "/storeproducttocart", {id: data})
+                    .post(this.$hostname + "/storeproducttocart", {id: data, qty: this.product_qty})
                     .then((response) => {
                         resolve(response);
                     });
@@ -30,7 +31,7 @@ export default {
             if (window.authuser == 'yes') {
                 const afterstore = await this.sendaddtocart(this.product.id);
 
-                let tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + 1;
+                let tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + this.product_qty;
                 localStorage.setItem('addtocartcount', JSON.stringify(tempcount));
 
                 this.$parent.addtocartcount = JSON.parse(localStorage.getItem('addtocartcount'));
@@ -49,15 +50,15 @@ export default {
                 })
                 if (ind == -1) {
 
-                    this.product.count= 1;
+                    this.product.count= this.product_qty;
 
                     temparray.push(this.product);
                 } else {
                     if(temparray[ind].count == null){
-                        temparray[ind].count = 1;
+                        temparray[ind].count = this.product_qty;
 
                     }else{
-                        temparray[ind].count += 1;
+                        temparray[ind].count += this.product_qty;
 
                     }
                 }
@@ -66,7 +67,7 @@ export default {
 
 
                 if (localStorage.getItem('addtocartcount') != null) {
-                    let tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + 1;
+                    let tempcount = JSON.parse(localStorage.getItem('addtocartcount')) + this.product_qty;
                     localStorage.setItem('addtocartcount', JSON.stringify(tempcount));
 
                 } else {

@@ -35,7 +35,25 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-th"></i>
+                      <p>
+                          Users
+                          <i class="fas fa-angle-left right"></i>
+                      </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a href="{{url('backend/customers/list')}}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>List</p>
+                          </a>
+                      </li>
 
+                  </ul>
+
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -65,7 +83,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-Products
+                            Products
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
@@ -111,6 +129,31 @@ Products
                     </ul>
 
                 </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-th"></i>
+                      <p>
+                          Locations
+                          <i class="fas fa-angle-left right"></i>
+                      </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a href="{{url('backend/locations/list')}}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>List</p>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a href="{{url('backend/locations/add')}}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Add New</p>
+                          </a>
+                      </li>
+
+                  </ul>
+
+              </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>

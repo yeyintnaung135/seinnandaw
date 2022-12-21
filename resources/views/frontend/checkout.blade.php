@@ -92,15 +92,15 @@
                                     <thead>
                                     <tr>
                                         <th scope="col" class="border-top-0">Product</th>
-                                        <th scope="col" class="border-top-0"></th>
-                                        <th scope="col" class="border-top-0">Total</th>
+                                        <th scope="col" class="border-top-0 text-center">Quantity</th>
+                                        <th scope="col" class="border-top-0 text-center">Total</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <th scope="row">{{$product->name}}</th>
-                                        <td>{{$data['count']}}</td>
-                                        <td>{{$price}}</td>
+                                        <td class="text-center">{{$data['count']}}</td>
+                                        <td class="text-center">{{$price}}</td>
                                     </tr>
 
                                     </tbody>
