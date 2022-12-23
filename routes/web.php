@@ -20,6 +20,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/', 'FrontController@index');
+    Route::get('/location', 'FrontController@location');
     Route::get('/shop', 'FrontController@shop');
     Route::get('/category/{category}/{id}/{sub?}', 'FrontController@showbycategory');
     Route::get('/categorypagination/fetch_data', 'FrontController@category_fetch_data');
@@ -30,7 +31,7 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/checkout', 'FrontController@checkout');
     Route::get('/account', 'FrontController@account');
     Route::get('/account/orders', 'FrontController@orders');
-    Route::get('/account/view-order', 'FrontController@view_order');
+    Route::get('/account/view-order/{id}', 'FrontController@view_order');
     Route::get('/account/downloads', 'FrontController@downloads');
     Route::get('/account/edit-address', 'FrontController@edit_address');
     Route::get('/account/edit-address/billing', 'FrontController@edit_billing');
@@ -66,4 +67,6 @@ Route::group(['middleware' => ['web']], function () {
 Route::post('/checkoutmpukbzsuccess', 'PaymentController@checkoutmpukbzsuccess');
 Route::get('/checkoutmpukbzsuccess/{data?}', 'PaymentController@getsuccess');
 Route::post('/checkoutmpukbzsuccessbk', 'PaymentController@checkoutmpukbzsuccessbk');
-Route::post('/done.php', 'PaymentController@checkoutmvsuccess');
+Route::post('/done.php', function(){
+    return print_r($_POST);
+});
