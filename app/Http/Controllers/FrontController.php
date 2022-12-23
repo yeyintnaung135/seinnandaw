@@ -7,6 +7,7 @@ use App\Point;
 use App\Products;
 use App\Addtocart;
 use App\Categories;
+use App\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +23,12 @@ class FrontController extends Controller
     public function index()
     {
 
-      $data = Products::where('feature', 'yes')->get();
-      $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
-      return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
+        $data = Products::where('feature', 'yes')->get();
+        $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
+        return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
+    }
+    public function location(){
+        return view('frontend.location');
     }
 
     public function shop()
@@ -36,34 +40,34 @@ class FrontController extends Controller
     {
         // logger("fetch Data");
         // logger($request->all());
-     if($request->ajax())
-     {
-        $sort_type = $request->get('sorttype');
-        if($sort_type == 2)
+        if($request->ajax())
         {
-            $products = Products::latest()->paginate(4);
-        }
-        elseif($sort_type == 3)
-        {
-            logger("low");
-            $products = Products::orderBy('price','asc')->paginate(4);
-        }
-        elseif($sort_type == 4)
-        {
-            $products = Products::orderBy('price','desc')->paginate(4);
-        }
-        else
-        {
-            $products = DB::table('products')
-                            ->paginate(4);
-        }
+            $sort_type = $request->get('sorttype');
+            if($sort_type == 2)
+            {
+                $products = Products::latest()->paginate(4);
+            }
+            elseif($sort_type == 3)
+            {
+                logger("low");
+                $products = Products::orderBy('price','asc')->paginate(4);
+            }
+            elseif($sort_type == 4)
+            {
+                $products = Products::orderBy('price','desc')->paginate(4);
+            }
+            else
+            {
+                $products = DB::table('products')
+                    ->paginate(4);
+            }
 
-    //   $products = DB::table('products')
-    //                 ->orderBy('price','asc')
-    //                 ->paginate(4);
-                    logger($products);
-      return view('frontend.shop_product', compact('products'))->render();
-     }
+            //   $products = DB::table('products')
+            //                 ->orderBy('price','asc')
+            //                 ->paginate(4);
+            logger($products);
+            return view('frontend.shop_product', compact('products'))->render();
+        }
     }
 
     public function showbycategory($category, $id,$sub=null)
@@ -88,31 +92,31 @@ class FrontController extends Controller
     {
         logger("cate fetch Data");
         // logger($request->all());
-     if($request->ajax())
-     {
-        $sort_type = $request->get('sorttype');
-        if($sort_type == 2)
+        if($request->ajax())
         {
-            $data = Products::where('category_id',$request->cate_id)->latest()->paginate(4);
+            $sort_type = $request->get('sorttype');
+            if($sort_type == 2)
+            {
+                $data = Products::where('category_id',$request->cate_id)->latest()->paginate(4);
+            }
+            elseif($sort_type == 3)
+            {
+                logger("low");
+                $data = Products::where('category_id',$request->cate_id)->orderBy('price','asc')->paginate(4);
+            }
+            elseif($sort_type == 4)
+            {
+                $data = Products::where('category_id',$request->cate_id)->orderBy('price','desc')->paginate(4);
+            }
+            else
+            {
+                $data = DB::table('products')
+                    ->where('category_id',4)
+                    ->paginate(4);
+            }
+            logger($data);
+            return view('frontend.category_product', compact('data'))->render();
         }
-        elseif($sort_type == 3)
-        {
-            logger("low");
-            $data = Products::where('category_id',$request->cate_id)->orderBy('price','asc')->paginate(4);
-        }
-        elseif($sort_type == 4)
-        {
-            $data = Products::where('category_id',$request->cate_id)->orderBy('price','desc')->paginate(4);
-        }
-        else
-        {
-            $data = DB::table('products')
-                            ->where('category_id',4)
-                            ->paginate(4);
-        }
-        logger($data);
-      return view('frontend.category_product', compact('data'))->render();
-     }
     }
     public function product_detail($id)
     {
@@ -144,65 +148,67 @@ class FrontController extends Controller
 
     public function orders()
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.orders');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            $orders = Payment::where('userid', Auth::guard('web')->user()->id)->get();
+            return view('frontend.orders', ['orders' => $orders]);
+        } else {
+            return redirect('/account');
+        }
     }
 
-    public function view_order()
+    public function view_order($id)
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.view_order');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            $order = Payment::where('id', $id)->first();
+            return view('frontend.view_order', ['order' => $order]);
+        } else {
+            return redirect('/account');
+        }
     }
 
     public function downloads()
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.downloads');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            return view('frontend.downloads');
+        } else {
+            return redirect('/account');
+        }
     }
 
     public function edit_address()
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_address');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            return view('frontend.edit_address');
+        } else {
+            return redirect('/account');
+        }
     }
 
     public function edit_billing()
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_billing');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            return view('frontend.edit_billing');
+        } else {
+            return redirect('/account');
+        }
     }
 
     public function edit_shipping()
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_shipping');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            return view('frontend.edit_shipping');
+        } else {
+            return redirect('/account');
+        }
     }
 
     public function edit_account()
     {
-      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_account');
-      } else {
-        return redirect('/account');
-      }
+        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            return view('frontend.edit_account');
+        } else {
+            return redirect('/account');
+        }
     }
 
     public function checkoutform(Request $request)
@@ -224,7 +230,7 @@ class FrontController extends Controller
 
             return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
         } else {
-        //return 'noo';
+            //return 'noo';
 
             $hascc = checkout::where('userid', $request->guestid);
             if (count($hascc->get()) > 0) {
@@ -242,7 +248,7 @@ class FrontController extends Controller
 
     public function getcheckout()
     {
-      //return 'get';
+        //return 'get';
         if (Auth::guard('web')->user() and Auth::guard('web')->user()->role == 'user') {
 
 
@@ -266,8 +272,8 @@ class FrontController extends Controller
 
     }
 
-    public function orderReceived() 
+    public function orderReceived()
     {
-      return view('frontend.order_received');
+        return view('frontend.order_received');
     }
 }
