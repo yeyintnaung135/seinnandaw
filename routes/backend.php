@@ -46,6 +46,10 @@ Route::group(['prefix' => '/backend/products'],function (){
     Route::post('/add', 'ProductsController@save');
     Route::post('/edit/{id}', 'ProductsController@update');
     Route::get('/detail/{id}', 'ProductsController@detail');
+
+    Route::get('/discount/{id}', 'ProductsController@discount');
+    Route::post('/discount', 'ProductsController@setdiscount');
+    
     /** Product Delete Routes */
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/trash', 'ProductsController@trash')->name('product.trash');

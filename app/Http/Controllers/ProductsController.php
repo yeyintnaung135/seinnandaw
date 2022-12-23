@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Categories;
 use App\Products;
+use App\Discount;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
@@ -113,100 +114,100 @@ class ProductsController extends Controller
             'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
             'photo_four'=>['mimes:jpeg,bmp,png,jpg'],'price'=>['required','max:1000000000000000']]);
         if($validator->fails()){
-//            return $validator->errors();
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
-        if ($request->file('photo')){
-            if (File::exists(public_path($product->photo))) {
-                File::delete(public_path($product->photo));
-            }
-            $img = $input['photo'];
+      // return $validator->errors();
+                  return redirect()->back()->withErrors($validator)->withInput();
+              }
+              if ($request->file('photo')){
+                  if (File::exists(public_path($product->photo))) {
+                      File::delete(public_path($product->photo));
+                  }
+                  $img = $input['photo'];
 
-            $imageNameone = time().'img'.'.'.$img->getClientOriginalExtension();
+                  $imageNameone = time().'img'.'.'.$img->getClientOriginalExtension();
 
-            $lpath=$img->move(public_path('images/products/'),$imageNameone);
-            $input['photo']='images/products/'.$imageNameone;
-        }else{
-            $input['photo']=$product->photo;
-        }
-        if ($request->file('photo_one')){
-            if (File::exists(public_path($product->photo_one))) {
-                File::delete(public_path($product->photo_one));
-            }
-            $photo_one = $input['photo_one'];
+                  $lpath=$img->move(public_path('images/products/'),$imageNameone);
+                  $input['photo']='images/products/'.$imageNameone;
+              }else{
+                  $input['photo']=$product->photo;
+              }
+              if ($request->file('photo_one')){
+                  if (File::exists(public_path($product->photo_one))) {
+                      File::delete(public_path($product->photo_one));
+                  }
+                  $photo_one = $input['photo_one'];
 
-            $photo_oneimageNameone = time().'photo_one'.'.'.$photo_one->getClientOriginalExtension();
+                  $photo_oneimageNameone = time().'photo_one'.'.'.$photo_one->getClientOriginalExtension();
 
-            $photo_one->move(public_path('images/products/'),$photo_oneimageNameone);
-            $input['photo_one']='images/products/'.$photo_oneimageNameone;
-        }else{
-            $input['photo_one']=$product->photo_one;
-        }
-        if ($request->file('photo_two')){
-            if (File::exists(public_path($product->photo_two))) {
-                File::delete(public_path($product->photo_two));
-            }
-            $photo_two = $input['photo_two'];
+                  $photo_one->move(public_path('images/products/'),$photo_oneimageNameone);
+                  $input['photo_one']='images/products/'.$photo_oneimageNameone;
+              }else{
+                  $input['photo_one']=$product->photo_one;
+              }
+              if ($request->file('photo_two')){
+                  if (File::exists(public_path($product->photo_two))) {
+                      File::delete(public_path($product->photo_two));
+                  }
+                  $photo_two = $input['photo_two'];
 
-            $photo_twoimageNameone = time().'photo_two'.'.'.$photo_two->getClientOriginalExtension();
+                  $photo_twoimageNameone = time().'photo_two'.'.'.$photo_two->getClientOriginalExtension();
 
-            $photo_two->move(public_path('images/products/'),$photo_twoimageNameone);
-            $input['photo_two']='images/products/'.$photo_twoimageNameone;
-        }else{
-            $input['photo_two']=$product->photo_two;
-        }
-        if ($request->file('photo_three')){
-            if (File::exists(public_path($product->photo_three))) {
-                File::delete(public_path($product->photo_three));
-            }
-            $photo_three = $input['photo_three'];
+                  $photo_two->move(public_path('images/products/'),$photo_twoimageNameone);
+                  $input['photo_two']='images/products/'.$photo_twoimageNameone;
+              }else{
+                  $input['photo_two']=$product->photo_two;
+              }
+              if ($request->file('photo_three')){
+                  if (File::exists(public_path($product->photo_three))) {
+                      File::delete(public_path($product->photo_three));
+                  }
+                  $photo_three = $input['photo_three'];
 
-            $photo_threeimageNameone = time().'photo_three'.'.'.$photo_three->getClientOriginalExtension();
+                  $photo_threeimageNameone = time().'photo_three'.'.'.$photo_three->getClientOriginalExtension();
 
-            $photo_three->move(public_path('images/products/'),$photo_threeimageNameone);
-            $input['photo_three']='images/products/'.$photo_threeimageNameone;
-        }else{
-            $input['photo_three']=$product->photo_three;
-        }
-        if ($request->file('photo_four')){
-            if (File::exists(public_path($product->photo_four))) {
-                File::delete(public_path($product->photo_four));
-            }
-            $photo_four = $input['photo_four'];
+                  $photo_three->move(public_path('images/products/'),$photo_threeimageNameone);
+                  $input['photo_three']='images/products/'.$photo_threeimageNameone;
+              }else{
+                  $input['photo_three']=$product->photo_three;
+              }
+              if ($request->file('photo_four')){
+                  if (File::exists(public_path($product->photo_four))) {
+                      File::delete(public_path($product->photo_four));
+                  }
+                  $photo_four = $input['photo_four'];
 
-            $photo_fourimageNameone = time().'photo_four'.'.'.$photo_four->getClientOriginalExtension();
+                  $photo_fourimageNameone = time().'photo_four'.'.'.$photo_four->getClientOriginalExtension();
 
-            $photo_four->move(public_path('images/products/'),$photo_fourimageNameone);
-            $input['photo_four']='images/products/'.$photo_fourimageNameone;
-        }else{
-            $input['photo_four']=$product->photo_four;
-        }
+                  $photo_four->move(public_path('images/products/'),$photo_fourimageNameone);
+                  $input['photo_four']='images/products/'.$photo_fourimageNameone;
+              }else{
+                  $input['photo_four']=$product->photo_four;
+              }
 
-        Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],
-            'photo'=>$input['photo'],'subcategory'=>$input['subcategory'],
-            'photo_one'=>$input['photo_one'],
-            'photo_two'=>$input['photo_two'],
-            'photo_three'=>$input['photo_three'],
-            'photo_four'=>$input['photo_four'],
-            'feature'=>$input['feature'],
-            'new_arrival'=>$input['new_arrival'],
-            'category_id'=>$input['category_id']]);
-        Session::flash('message', 'Your product was successfully edited');
+              Products::where('id',$input['id'])->update(['name'=>$input['name'],'price'=>$input['price'],'description'=>$input['description'],
+                  'photo'=>$input['photo'],'subcategory'=>$input['subcategory'],
+                  'photo_one'=>$input['photo_one'],
+                  'photo_two'=>$input['photo_two'],
+                  'photo_three'=>$input['photo_three'],
+                  'photo_four'=>$input['photo_four'],
+                  'feature'=>$input['feature'],
+                  'new_arrival'=>$input['new_arrival'],
+                  'category_id'=>$input['category_id']]);
+              Session::flash('message', 'Your product was successfully edited');
 
-        return redirect(url('backend/products/list'));
+              return redirect(url('backend/products/list'));
 
-    }
-    public function save(Request $request){
-        $input=$request->except('_token');
+          }
+          public function save(Request $request){
+              $input=$request->except('_token');
 
-        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg'],
-            'photo_one'=>['mimes:jpeg,bmp,png,jpg'],
-            'photo_two'=>['mimes:jpeg,bmp,png,jpg'],
-            'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
-            'photo_four'=>['mimes:jpeg,bmp,png,jpg'],
-        ]);
-        if($validator->fails()){
-//            return $validator->errors();
+              $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg'],
+                  'photo_one'=>['mimes:jpeg,bmp,png,jpg'],
+                  'photo_two'=>['mimes:jpeg,bmp,png,jpg'],
+                  'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
+                  'photo_four'=>['mimes:jpeg,bmp,png,jpg'],
+              ]);
+              if($validator->fails()){
+      // return $validator->errors();
             return redirect()->back()->withErrors($validator)->withInput();
         }
         if ($request->file('photo_one')){
@@ -253,6 +254,28 @@ class ProductsController extends Controller
 
         return redirect(url('backend/products/list'));
 
+    }
+
+    public function discount($id) {
+      $data=Products::where('id',$id)->first();
+      // dd($data, $data->discount);
+      return view('backend.products.discount',['data'=>$data]);
+    }
+    public function setdiscount(Request $request) {
+      $input=$request->except('_token');
+      $validator=Validator::make($input,[
+        'price' => ['required'],
+        'discount_price'=>['required', 'lt:price']
+      ],
+      ['discount_price.lt' => 'The discount price must be less than current price.']);
+      if($validator->fails()){
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+      unset($input['price']);
+      Discount::updateOrCreate(['product_id' => $input['product_id']], $input);
+      Session::flash('message', 'Your product was successfully discounted');
+
+      return redirect(url('backend/products/list'));
     }
 
     /** Product Delete Section */

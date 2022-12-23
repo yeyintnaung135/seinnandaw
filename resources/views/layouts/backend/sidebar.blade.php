@@ -100,6 +100,12 @@
                                 <p>Add New</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                          <a href="{{url('backend/products/trash')}}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Trash</p>
+                          </a>
+                        </li>
 
                     </ul>
 

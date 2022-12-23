@@ -26,8 +26,11 @@
                 <p>Shop fine jewelry creations of timeless beauty</p>
                 <div class="sn-home-products d-flex flex-wrap mt-5">
                     @foreach($data as $d)
-                        <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4">
-                            <img src="{{ url($d->photo) }}" alt=""><br>
+                        <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4 position-relative">
+                          @if (isset($d->discount->discount_price))
+                            <div class="sn-sale-badge">Sale!</div>
+                          @endif
+                          <img src="{{ url($d->photo) }}" alt=""><br>
 
                        @php
                        $cat = \App\Categories::where('id', $d->category_id)->first();

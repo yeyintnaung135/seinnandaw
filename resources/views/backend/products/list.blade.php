@@ -205,13 +205,18 @@
                             <i class="fa fa-info-circle"></i>
                             Detail
                         </a>`;
-              var edit = `<a href="{{url('backend/products/edit/'.':id')}}" type="button" style=" width: 81px;" class="btn btn-info btn-sm ">
-                  <i class="fa fa-edit"></i>
-                  Edit
-              </a>`;
+            var edit = `<a href="{{url('backend/products/edit/'.':id')}}" type="button" style=" width: 81px;" class="btn btn-info btn-sm mr-2">
+                            <i class="fa fa-edit"></i>
+                            Edit
+                        </a>`;
+            var discount = `<a href="{{url('backend/products/discount/'.':id')}}" type="button" style=" width: 90px; background: darkcyan;" class="btn btn-info btn-sm ">
+                                <i class="fa fa-percent"></i>
+                                Discount
+                            </a>`;
             detail=detail.replace(':id', data);
             edit=edit.replace(':id', data);
-            return detail + edit;
+            discount=discount.replace(':id', data);
+            return detail + edit + discount;
           }
         }
       ],

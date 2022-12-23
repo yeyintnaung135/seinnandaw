@@ -254,16 +254,24 @@
       .swiper-pagination-bullet-active-main {
         background: #8d0220;
       }
-      .sn-sale-badge {
+      .sn-sale-badge, .sn-sale-badge-detail {
         position: absolute;
         background: #269fb7;
         color: #fff;
-        right: 4px;
-        top: -6px;
         padding: 10px 5px 8px;
         border-radius: 50%;
         font-size: 13px;
         font-weight: 600;
+        z-index: 999;
+      }
+      .sn-sale-badge {
+        right: 4px;
+        top: -6px;
+      }
+      .sn-sale-badge-detail {
+        left: -10px;
+        top: -10px;
+        padding: 13px 8px 10px;
       }
 
       /* Cart */
