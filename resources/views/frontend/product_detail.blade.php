@@ -5,7 +5,10 @@
             <div class="p-1 p-md-4">
                 <div class="row">
                     <div class="col-12 col-md-6">
-                        <div>
+                        <div class="position-relative">
+                          @if (isset($data->discount->discount_price))
+                            <div class="sn-sale-badge-detail">Sale!</div>
+                          @endif
                             <div class="swiper productDetailSwiper">
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide" data-src="{{ url($data->photo) }}"
@@ -88,7 +91,14 @@
                             @endif
                            
                             <h4 class="font-weight-bold">{{$data->name}}</h4>
-                            <p class="sn-pd-price font-weight-bold mt-3">{{$data->price}} <span>Ks</span></p>
+                            @if (isset($data->discount->discount_price))
+                              <div class="d-flex">
+                                <p class="sn-pd-price mt-3 mr-3 text-muted"><del>{{$data->price}} <span>Ks</span></del></p>
+                                <p class="sn-pd-price font-weight-bold mt-3">{{$data->discount->discount_price}} <span>Ks</span></p>
+                              </div>
+                            @else
+                              <p class="sn-pd-price font-weight-bold mt-3">{{$data->price}} <span>Ks</span></p>
+                            @endif
                             <p class="sn-pd-desc pb-2">
                                 {!! $data->short_desc !!}
                             </p>
@@ -119,7 +129,7 @@
                                             Edit
                                         </a>
                                     </div>
-                                    <div>
+                                    <div class="mr-2">
 
                                         <button onclick="Delete()" type="button" style=" width: 81px;"
                                                 class=" btn btn-danger btn-sm btn-block">
@@ -133,6 +143,16 @@
                                             @csrf
                                             <input type="hidden" name="id" value="{{$data->id}}"/>
                                         </form>
+                                    </div>
+                                    <div>
+                                      <div class="mr-2">
+                                        <a href="{{url('backend/products/discount/'.$data->id)}}"
+                                           type="button" style=" width: 120px; background: darkcyan; color:#fff;"
+                                           class=" btn btn-info btn-sm btn-block">
+                                            <i class="fa fa-percent"></i>
+                                            Set Discount
+                                        </a>
+                                      </div>
                                     </div>
                                 </div>
                             @endif

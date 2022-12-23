@@ -26,12 +26,21 @@
                 <p>Shop fine jewelry creations of timeless beauty</p>
                 <div class="sn-home-products d-flex flex-wrap mt-5">
                     @foreach($data as $d)
-                        <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4">
-                            <img src="{{ url($d->photo) }}" alt=""><br>
+                        <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4 position-relative">
+                          @if (isset($d->discount->discount_price))
+                            <div class="sn-sale-badge">Sale!</div>
+                          @endif
+                          <img src="{{ url($d->photo) }}" alt=""><br>
 
+<<<<<<< HEAD
                             @php
                                 $cat = \App\Categories::where('id', $d->category_id)->first();
                             @endphp
+=======
+                       @php
+                       $cat = \App\Categories::where('id', $d->category_id)->first();
+                       @endphp
+>>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
                             @if (!empty($cat))
                                 <span class="sn-category my-2">
                                 {{strtoupper($cat->name)}}
@@ -61,6 +70,7 @@
                         <a href="{{url('/shop')}}" class="position-absolute sn-shop-now-button">SHOP NOW</a>
                     </div>
                 </div>
+
             @endif
 
             {{-- RECOMMENDED FOR YOU --}}
@@ -100,9 +110,11 @@
             <div
                 class="sn-main-info d-flex justify-content-around flex-column flex-md-row my-5 py-1 py-md-5 text-center">
                 <div class="mb-3">
-                    <i class="fa fa-tag"></i>
-                    <h4>PROMOTIONS</h4>
-                    <p>Follow our Facebook page<br/> for best deals</p>
+                    <a style="color: inherit;" href="{{url('/promotions')}}">
+                      <i class="fa fa-tag"></i>
+                      <h4>PROMOTIONS</h4>
+                      <p>Follow our Facebook page<br/> for best deals</p>
+                    </a>
                 </div>
                 <div>
                     <i class="fa fa-truck"></i>
@@ -111,9 +123,11 @@
                 </div>
                 <div>
                     <a style="color: inherit;" href="{{url('/location')}}">
+
                         <i class="fa fa-map-marker"></i>
                         <h4>LOCATIONS</h4>
                         <p>11 store locations<br/>countrywide</p>
+
                     </a>
                 </div>
             </div>

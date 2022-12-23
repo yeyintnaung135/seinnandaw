@@ -22,4 +22,7 @@ class Products extends Model
         public function category() {
             return $this->belongsTo('App\Categories','category_id');
         }
+        public function discount() {
+          return $this->hasOne('App\Discount','product_id');
+        }
 }

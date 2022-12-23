@@ -20,6 +20,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/', 'FrontController@index');
+
+    Route::get('/promotions', 'FrontController@promotions');
+
     Route::get('/location', 'FrontController@location');
     Route::get('/shop', 'FrontController@shop');
     Route::get('/category/{category}/{id}/{sub?}', 'FrontController@showbycategory');
@@ -60,6 +63,7 @@ Route::group(['middleware' => ['web']], function () {
     //shop page sort
     // Route::post('/get_product_sortall_ajax', 'FrontController@get_product_sortall')->name('get_product_sortall_ajax');
     Route::get('/shoppagination/fetch_data', 'FrontController@fetch_data');
+    Route::get('/shoppagination/fetch_promotion_data', 'FrontController@fetch_promotion_data');
 
     require "backend.php";
 

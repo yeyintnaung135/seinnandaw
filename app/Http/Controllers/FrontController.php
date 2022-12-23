@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\checkout;
 use App\Point;
 use App\Products;
+use App\Discount;
 use App\Addtocart;
 use App\Categories;
+<<<<<<< HEAD
+=======
+use App\Locations;
+>>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
 use App\Payment;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +34,16 @@ class FrontController extends Controller
     }
     public function location(){
         return view('frontend.location');
+    }
+    public function promotions() {
+      $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('discount.created_at', 'desc')->paginate(4);
+      // dd($products);
+      return view('frontend.promotions',['products' => $products]);
+    }
+
+    public function location(){
+        $locs = Locations::all();
+        return view('frontend.location', ['locs' => $locs]);
     }
 
     public function shop()
@@ -68,6 +83,32 @@ class FrontController extends Controller
             logger($products);
             return view('frontend.shop_product', compact('products'))->render();
         }
+    }
+
+    function fetch_promotion_data(Request $request) {
+      if($request->ajax())
+      {
+          $sort_type = $request->get('sorttype');
+          if($sort_type == 2)
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('discount.created_at', 'desc')->paginate(4);
+          }
+          elseif($sort_type == 3)
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('price','asc')->paginate(4);
+              
+          }
+          elseif($sort_type == 4)
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('price','desc')->paginate(4);
+          }
+          else
+          {
+              $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->paginate(4);
+          }
+
+          return view('frontend.promotion_product', compact('products'))->render();
+      }
     }
 
     public function showbycategory($category, $id,$sub=null)
@@ -148,22 +189,40 @@ class FrontController extends Controller
 
     public function orders()
     {
+<<<<<<< HEAD
         if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
             $orders = Payment::where('userid', Auth::guard('web')->user()->id)->get();
             return view('frontend.orders', ['orders' => $orders]);
         } else {
             return redirect('/account');
         }
+=======
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        $orders = Payment::where('userid', Auth::guard('web')->user()->id)->get();
+        return view('frontend.orders', ['orders' => $orders]);
+      } else {
+        return redirect('/account');
+      }
+>>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
     }
 
     public function view_order($id)
     {
+<<<<<<< HEAD
         if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
             $order = Payment::where('id', $id)->first();
             return view('frontend.view_order', ['order' => $order]);
         } else {
             return redirect('/account');
         }
+=======
+      if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+        $order = Payment::where('id', $id)->first();
+        return view('frontend.view_order', ['order' => $order]);
+      } else {
+        return redirect('/account');
+      }
+>>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
     }
 
     public function downloads()

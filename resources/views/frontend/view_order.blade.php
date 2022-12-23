@@ -11,7 +11,7 @@
                     @include('layouts.frontend.profile_menu')
                   </div>
                   <div class="col-12 col-md-8 view-order-container">
-                    <p>Order #<span style="color: #000;">1598</span> was placed on <span style="color: #000;">November 25, 2022</span> and is currently <span style="color: #000;">On hold</span>.</p>
+                    <p>Order #<span style="color: #000;">{{ $order->id }}</span> was placed on <span style="color: #000;">{{ \Carbon\Carbon::parse($order->created_at)->toFormattedDateString() }}</span> and is <span style="color: #000;">{{ $order->status }}</span>.</p>
                     <h2 class="text-uppercase mb-3 mt-4 text-left" style="color: #000;">ORDER DETAILS</h2>
                     <table class="table mb-0">
                       <tbody class="border">
@@ -20,24 +20,24 @@
                           <th class="px-3 bg-white">Total</th>
                         </tr>
                         <tr>
-                          <td class="px-3 border"><a href="#">Sein Nan Daw 18K White Gold Women's Necklaces</a></td>
-                          <td class="border">507,800Ks</td>
+                          <td class="px-3 border"><a href="{{url('/product/detail/'.$order->product_id)}}">{{ $order->product->name }}</a> x {{ $order->counts }}</td>
+                          <td class="border">{{ number_format($order->amount) }} Ks</td>
                         </tr>
                         <tr>
                           <td class="border">Subtotal:</td>
-                          <td class="border">507,800Ks</td>
+                          <td class="border">{{ number_format($order->amount) }} Ks</td>
                         </tr>
                         <tr>
                           <td class="border">Shipping:</td>
-                          <td class="border">Local pickup</td>
+                          <td class="border text-muted">Local pickup (static data)</td>
                         </tr>
                         <tr>
                           <td class="border">Payment method:</td>
-                          <td class="border">Direct bank transfer</td>
+                          <td class="border text-muted">Direct bank transfer (static data)</td>
                         </tr>
                         <tr>
                           <td class="border">Total:</td>
-                          <td class="border">507,800Ks</td>
+                          <td class="border">{{ number_format($order->amount) }} Ks</td>
                         </tr>
                       </tbody>
                     </table>
@@ -49,13 +49,13 @@
                         <tr>
                           <td class="px-3">
                             <ul class="list-unstyled d-flex flex-column">
-                              <li class="my-1">Swe Nyein</li>
-                              <li class="my-1">Street address</li>
-                              <li class="my-1">Town / City</li>
-                              <li class="my-1">State / County</li>
-                              <li class="my-1">Postcode / ZIP</li>
-                              <li class="my-1"><i class="fa fa-phone mr-2"></i>123321123</li>
-                              <li class="my-1"><i class="fa fa-envelope mr-2"></i>sweswe123@gmail.com</li>
+                              <li class="my-1">{{ $order->user->name }}</li>
+                              <li class="my-1 text-muted">Street address (static data)</li>
+                              <li class="my-1 text-muted">Town / City (static data)</li>
+                              <li class="my-1 text-muted">State / County (static data)</li>
+                              <li class="my-1 text-muted">Postcode / ZIP (static data)</li>
+                              <li class="my-1 text-muted"><i class="fa fa-phone mr-2"></i>123321123 (static data)</li>
+                              <li class="my-1"><i class="fa fa-envelope mr-2"></i>{{ $order->user->email }}</li>
                             </ul>
                           </td>
                         </tr>
