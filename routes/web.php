@@ -67,6 +67,4 @@ Route::group(['middleware' => ['web']], function () {
 Route::post('/checkoutmpukbzsuccess', 'PaymentController@checkoutmpukbzsuccess');
 Route::get('/checkoutmpukbzsuccess/{data?}', 'PaymentController@getsuccess');
 Route::post('/checkoutmpukbzsuccessbk', 'PaymentController@checkoutmpukbzsuccessbk');
-Route::post('/done.php', function(){
-    return print_r($_POST);
-});
+Route::post('/done.php', 'PaymentController@checkoutmvsuccess');
