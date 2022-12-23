@@ -63,9 +63,9 @@
               <div class="px-2">
                   <a class="text-dark" href="{{url('account')}}"><i class="fa fa-user"></i></a>
               </div>
-{{--              <div class="px-2">--}}
-{{--                  <a class="text-dark" href="#"><i class="fa fa-search"></i></a>--}}
-{{--              </div>--}}
+              <div class="px-2">
+                  <a class="text-dark" href="#"><i class="fa fa-search"></i></a>
+              </div>
               <div class="px-2">
                   <a class="text-dark" href="{{url('/cart')}}"><i
                           class="fa fa-shopping-bag position-relative"><span v-if="addtocartcount > 0"

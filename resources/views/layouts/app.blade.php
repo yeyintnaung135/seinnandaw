@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -20,6 +19,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+<<<<<<< HEAD
         .eye{
             position: absolute;
             top: 11px;
@@ -37,6 +37,8 @@
             box-shadow: 0px 0px 3px 0px #e1e1e1;
         }
 =======
+=======
+>>>>>>> parent of 6baedf6 (added location)
       .sn-login-banner img{
         width: 100%;
         height: calc(100vh);
@@ -74,7 +76,7 @@
           background: none;
         }
       }
-
+      
       /* Tablet */
       @media only screen and (min-width: 600px) {
 >>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
@@ -119,11 +121,9 @@
 
       }
       @media only screen and (min-width: 768px) {
-
+        
       }
     </style>
-    <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
-
 </head>
 <body>
 <div id="app">
@@ -168,6 +168,7 @@
                     @endguest
                 </ul>
             </div>
+<<<<<<< HEAD
         </div>
     </nav>
 
@@ -210,5 +211,13 @@
 
 
 
+=======
+        </nav>
+
+        <main class="">
+            @yield('content')
+        </main>
+    </div>
+>>>>>>> parent of 6baedf6 (added location)
 </body>
 </html>

@@ -1039,6 +1039,7 @@
     });
 
 
+<<<<<<< HEAD
     function toggleSubMenu(subcat) {
         $("#"+subcat).toggleClass("d-none");
     }
@@ -1046,6 +1047,10 @@
 </script>
 
 @stack('styles')
+=======
+    </script>
+
+>>>>>>> parent of 6baedf6 (added location)
 @stack('scripts')
 </body>
 </html>
