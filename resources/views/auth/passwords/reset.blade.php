@@ -7,15 +7,11 @@
                 <div class="card">
                     <div class="card-header">{{ __('Reset Password') }}</div>
 
-<<<<<<< HEAD
+
                     <div class="card-body">
                         <form method="POST" id='login' action="{{ route('password.update') }}">
                             @csrf
-=======
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
->>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
+
 
                             <input type="hidden" name="token" value="{{ $token }}">
 
@@ -36,20 +32,11 @@
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
                                 <div class="col-md-6 position-relative" id="reg">
                                     <input id="password" type="password" class="form-control @error('password') is-invalid @enderror topas" name="password" required autocomplete="new-password">
                                     <i  class="fas fa-eye-slash eye toggleeye"></i>
-=======
-                            <div class="col-md-6 position-relative" id="reg">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror topas" name="password" required autocomplete="new-password">
-                                <i  class="fas fa-eye-slash eye toggleeye"></i>
->>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
-=======
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
->>>>>>> parent of 6baedf6 (added location)
+
 
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">

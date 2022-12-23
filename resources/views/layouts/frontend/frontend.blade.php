@@ -33,121 +33,7 @@
     <script src="{{url('test/js/swiper-bundle.min.js')}}"></script>
     <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
     <style>
-<<<<<<< HEAD
-        .eye{
-            position: absolute;
-            top: 44px;
-            right: 12px;
-        }
 
-        /* Menu */
-        .active a {
-            color: #8d021f !important;
-        }
-        /* end of Menu */
-        .shopping-bag-badge {
-            background: #fff;
-            box-shadow: 1px 1px 2px 0px #b9b9b9;
-            padding: 6px 7px 5px 8px;
-            border-radius: 50%;
-            font-size: 10px;
-            font-weight: 600;
-            position: absolute;
-            top: -13px;
-            right: -20px;
-        }
-
-        .sn-pd-cat {
-            color: #269fb7;
-            font-size: 18px;
-            text-decoration: none !important;
-        }
-        .sn-pd-price {
-            color: #565656;
-            font-size: 22px;
-        }
-        .sn-pd-desc {
-            font-size: 16px;
-            word-wrap: break-word;
-        }
-        .sn-pd-input input {
-            width: 60px;
-            border: 1px solid #c7c7c7;
-            padding: 6px 5px;
-            text-align: center;
-            margin-right: 15px;
-        }
-        .sn-pd-input button, .sn-place-order-button {
-            background: #8d021f;
-            color: #fff;
-            border: #8d021f;
-            width: 276px;
-            font-weight: 600;
-            padding: 6px 0;
-            font-size: 16px;
-            letter-spacing: 2px;
-        }
-
-        .sn-cart-table button:hover,
-        .sn-cart-total-table .sn-to-checkout:hover,
-        .sn-pd-input button:hover,
-        .sn-place-order-button:hover {
-            background: #000;
-        }
-
-        .form-control {
-            border-radius: 0 !important;
-            padding: 20px 15px;
-        }
-        .sn-place-order-button {
-            border-radius: 0 !important;
-            padding: 12px 7px;
-            width: 100%
-        }
-        .sn-products .sn-category {
-            display: block;
-        }
-        .sn-home-products a {
-            width: 50%;
-            padding: 0 10px;
-        }
-        .sn-shop-now-button {
-            text-decoration: none !important;
-            transition: 0.3s;
-            color: #000;
-            border: 1px solid;
-            padding: 13px 32px;
-            left: 32%;
-            margin-top: 15px;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-        .sn-shop-now-button:hover{
-            background: #000;
-            color: #fff;
-        }
-
-        /* Sub Menu */
-        .sn-chevron-down {
-            background: none;
-            border: none;
-            height: 35px;
-        }
-        .sn-chevron-down:before, .sn-chevron-down:after {
-            content: "";
-            position: absolute;
-            background-color: #000000;
-            width: 1px;
-            height: 7px;
-            transition: transform 0.25s ease-in-out;
-        }
-        .sn-chevron-down:before {
-            transform: translateX(2px) rotate(45deg);
-        }
-        .sn-chevron-down:after {
-            transform: translateX(-2px) rotate(-45deg);
-=======
 .eye{
     position: absolute;
     top: 44px;
@@ -447,7 +333,6 @@
         }
         .active {
           background: #f7f7f7;
->>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
         }
 
         .sn-sub-menu {
