@@ -50067,9 +50067,10 @@ Vue.component('cart', __webpack_require__(/*! ./components/cart.vue */ "./resour
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-// Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
+Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
 // Vue.prototype.$hostname = "https://" + window.location.hostname ;
-Vue.prototype.$hostname = "http://" + window.location.hostname;
+// Vue.prototype.$hostname = "http://" + window.location.hostname ;
+
 var app = new Vue({
   el: '#app',
   data: function data() {
@@ -50398,8 +50399,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/sweswe/Swe/MOE/seinnandaw/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/sweswe/Swe/MOE/seinnandaw/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\seinnandaw\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\seinnandaw\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

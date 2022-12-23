@@ -31,7 +31,7 @@ class FrontController extends Controller
         $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
         return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
     }
-<<<<<<< HEAD
+
 
     public function promotions() {
       $products = Products::rightjoin('discount', 'discount.product_id', '=', 'products.id')->with('category')->orderBy('discount.created_at', 'desc')->paginate(4);
@@ -43,8 +43,7 @@ class FrontController extends Controller
         $locs = Locations::all();
         return view('frontend.location', ['locs' => $locs]);
     }
-=======
->>>>>>> parent of 6baedf6 (added location)
+
 
     public function shop()
     {
@@ -315,7 +314,7 @@ class FrontController extends Controller
 
     }
 
-    public function orderReceived() 
+    public function orderReceived()
     {
         return view('frontend.order_received');
     }

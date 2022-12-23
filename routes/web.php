@@ -20,13 +20,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/', 'FrontController@index');
-<<<<<<< HEAD
+
 
     Route::get('/promotions', 'FrontController@promotions');
 
     Route::get('/location', 'FrontController@location');
-=======
->>>>>>> parent of 6baedf6 (added location)
+
     Route::get('/shop', 'FrontController@shop');
     Route::get('/category/{category}/{id}/{sub?}', 'FrontController@showbycategory');
     Route::get('/categorypagination/fetch_data', 'FrontController@category_fetch_data');

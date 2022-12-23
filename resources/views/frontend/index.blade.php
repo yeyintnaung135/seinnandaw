@@ -32,20 +32,11 @@
                           @endif
                           <img src="{{ url($d->photo) }}" alt=""><br>
 
-<<<<<<< HEAD
+
                             @php
                                 $cat = \App\Categories::where('id', $d->category_id)->first();
                             @endphp
-=======
-                       @php
-<<<<<<< HEAD
-                       $cat = \App\Categories::where('id', $d->category_id)->first();
-                       @endphp
->>>>>>> c3ffe62006fa2fbcd4a4449dbb83364dd4b46ed7
-=======
-                       $cat = \App\Categories::where('id', $d->category_id)->first(); 
-                       @endphp     
->>>>>>> parent of 6baedf6 (added location)
+
                             @if (!empty($cat))
                                 <span class="sn-category my-2">
                                 {{strtoupper($cat->name)}}
@@ -75,11 +66,9 @@
                         <a href="{{url('/shop')}}" class="position-absolute sn-shop-now-button">SHOP NOW</a>
                     </div>
                 </div>
-<<<<<<< HEAD
 
-=======
-            </div>                
->>>>>>> parent of 6baedf6 (added location)
+
+
             @endif
 
             {{-- RECOMMENDED FOR YOU --}}
@@ -131,7 +120,7 @@
                     <p>We offer complimentary shipping and easy<br/> returns on all orders</p>
                 </div>
                 <div>
-<<<<<<< HEAD
+
                     <a style="color: inherit;" href="{{url('/location')}}">
 
                         <i class="fa fa-map-marker"></i>
@@ -139,11 +128,7 @@
                         <p>11 store locations<br/>countrywide</p>
 
                     </a>
-=======
-                    <i class="fa fa-map-marker"></i>
-                    <h4>LOCATIONS</h4>
-                    <p>11 store locations<br/>countrywide</p>
->>>>>>> parent of 6baedf6 (added location)
+
                 </div>
             </div>
 
