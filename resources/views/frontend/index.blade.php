@@ -11,13 +11,13 @@
             <?php
             $banners=\App\Banners::all();
             ?>
-          <div class="swiper-wrapper">
-              @foreach($banners as $b)
-            <img src="{{ url($b->photo) }}" alt="SeinNanDaw" class="swiper-slide">
-              @endforeach
+            <div class="swiper-wrapper">
+                @foreach($banners as $b)
+                    <img src="{{ url($b->photo) }}" alt="SeinNanDaw" class="swiper-slide">
+                @endforeach
 
-          </div>
-          <div class="swiper-pagination d-none"></div>
+            </div>
+            <div class="swiper-pagination d-none"></div>
         </div>
         <div class="container-fluid">
             {{-- Featured Products --}}
@@ -29,15 +29,15 @@
                         <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4">
                             <img src="{{ url($d->photo) }}" alt=""><br>
 
-                       @php
-                       $cat = \App\Categories::where('id', $d->category_id)->first(); 
-                       @endphp     
+                            @php
+                                $cat = \App\Categories::where('id', $d->category_id)->first();
+                            @endphp
                             @if (!empty($cat))
-                            <span class="sn-category my-2">
+                                <span class="sn-category my-2">
                                 {{strtoupper($cat->name)}}
                             </span>
                             @else
-                            <span class="sn-category my-2">
+                                <span class="sn-category my-2">
                               Uncategorized
                             </span>
                             @endif
@@ -52,15 +52,15 @@
 
             {{-- New Arrival Banner --}}
             @if ($new_arrival)
-            <div class="sn-new-arrival my-5 py-3 row mx-1 mb-2 position-relative">
-                <div class="sn-new-banner col-12 col-md-6 m-0 p-0 mb-5">
-                    <img src="{{ url($new_arrival->photo) }}" alt="New Arrival">
+                <div class="sn-new-arrival my-5 py-3 row mx-1 mb-2 position-relative">
+                    <div class="sn-new-banner col-12 col-md-6 m-0 p-0 mb-5">
+                        <img src="{{ url($new_arrival->photo) }}" alt="New Arrival">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <h1 class="sn-new-title position-absolute">NEW<br/> ARRIVALS</h1>
+                        <a href="{{url('/shop')}}" class="position-absolute sn-shop-now-button">SHOP NOW</a>
+                    </div>
                 </div>
-                <div class="col-12 col-md-6">
-                    <h1 class="sn-new-title position-absolute">NEW<br/> ARRIVALS</h1>
-                    <a href="{{url('/shop')}}" class="position-absolute sn-shop-now-button">SHOP NOW</a>
-                </div>
-            </div>                
             @endif
 
             {{-- RECOMMENDED FOR YOU --}}
@@ -110,9 +110,11 @@
                     <p>We offer complimentary shipping and easy<br/> returns on all orders</p>
                 </div>
                 <div>
-                    <i class="fa fa-map-marker"></i>
-                    <h4>LOCATIONS</h4>
-                    <p>11 store locations<br/>countrywide</p>
+                    <a style="color: inherit;" href="{{url('/location')}}">
+                        <i class="fa fa-map-marker"></i>
+                        <h4>LOCATIONS</h4>
+                        <p>11 store locations<br/>countrywide</p>
+                    </a>
                 </div>
             </div>
 
