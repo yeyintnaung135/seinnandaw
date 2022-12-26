@@ -123,7 +123,7 @@
 
                     <a style="color: inherit;" href="{{url('/location')}}">
 
-                        <i class="fa fa-map-marker"></i>
+                        <i class="fa fa-map-marker-alt"></i>
                         <h4>LOCATIONS</h4>
                         <p>11 store locations<br/>countrywide</p>
 

@@ -318,7 +318,7 @@
         }
         .sn-nav {
           position: absolute;
-          top: 98px;
+          top: 95px;
           width: 100%;
           left: 0px;
           background: rgb(255, 255, 255);
@@ -507,7 +507,7 @@
             width: 250px;
             box-shadow: 0 4px 10px -2px rgb(0 0 0 / 10%);
             border-top: 2px solid #269fb7;
-            top: 45px;
+            top: 39px;
         }
 
         .sn-sub-menu a {
