@@ -38,6 +38,13 @@
     top: 44px;
     right: 12px;
 }
+.sn-login-button {
+  background: #8d021f;
+  border: 1px solid #8d021f;
+  color: #fff;
+  border-radius: 3px;
+  padding: 6px 15px;
+}
 
       /* Menu */
       .active a {
@@ -1068,6 +1075,37 @@
     function toggleSubMenu(subcat) {
         $("#"+subcat).toggleClass("d-none");
     }
+
+    $(document).ready(function () {
+
+      $('#reg .toggleeye').click(function (){
+          if($('#reg  .toggleeye').hasClass('fa-eye-slash')){
+              $('#reg  .toggleeye').removeClass('fa-eye-slash');
+              $('#reg  .toggleeye').addClass('fa-eye');
+              $('#reg  .topas').attr('type','text');
+          }else{
+              $('#reg  .toggleeye').removeClass('fa-eye');
+              $('#reg  .toggleeye').addClass('fa-eye-slash');
+              $('#reg  .topas').attr('type','password');
+          }
+
+
+      })
+      $('#con .toggleeye').click(function (){
+          if($('#con  .toggleeye').hasClass('fa-eye-slash')){
+              $('#con  .toggleeye').removeClass('fa-eye-slash');
+              $('#con  .toggleeye').addClass('fa-eye');
+              $('#con  .topas').attr('type','text');
+          }else{
+              $('#con  .toggleeye').removeClass('fa-eye');
+              $('#con  .toggleeye').addClass('fa-eye-slash');
+              $('#con  .topas').attr('type','password');
+          }
+
+
+      })
+
+});
 
 </script>
 @stack('styles')

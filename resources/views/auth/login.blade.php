@@ -77,18 +77,6 @@
 
 @push('scripts')
   <script>
-    $(document).ready(function () {
-      $('#adminLogin .toggleeye').click(function (){
-          if($('#adminLogin .toggleeye').hasClass('fa-eye-slash')){
-              $('#adminLogin .toggleeye').removeClass('fa-eye-slash');
-              $('#adminLogin .toggleeye').addClass('fa-eye');
-              $('#adminLogin .topas').attr('type','text');
-          }else{
-              $('#adminLogin .toggleeye').removeClass('fa-eye');
-              $('#adminLogin .toggleeye').addClass('fa-eye-slash');
-              $('#adminLogin .topas').attr('type','password');
-          }
-      })
-    });
+    
   </script>
 @endpush

@@ -12,7 +12,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
+                            <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -22,7 +22,13 @@
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+
+          <div class="container-fluid">
+            <img src="{{url('images/logo.png')}}" alt="SeinNanDaw" class="d-block" style="width: 200px;">
+          </div>
+          </div>
+
+            <div class="container-fluid d-none">
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-lg-3 col-6">
@@ -606,3 +612,8 @@
     </div>
     <!-- /.content-wrapper -->
 @endsection
+@push('scripts')
+  <script>
+    
+  </script>
+@endpush

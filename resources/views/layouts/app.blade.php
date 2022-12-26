@@ -46,7 +46,7 @@
         border: 1px solid #bdbdbd;
         box-shadow: 0px 0px 3px 0px #e1e1e1;
       }
-      .sn-login-form #email, .sn-login-form #password {
+      .sn-login-form #email, .sn-login-form #password, .sn-login-form #name, .sn-login-form #password-confirm {
         width: 100%;
         border-radius: unset;
         border: 1px solid #ddd;
@@ -85,13 +85,6 @@
             padding: 3px;
             height: 40px;
             margin-bottom: 13px;
-        }
-        .sn-login-button {
-            background: #8d021f;
-            border: 1px solid #8d021f;
-            color: #fff;
-            border-radius: 3px;
-            padding: 6px 15px;
         }
         .sn-login-container {
             background-image: url("http://127.0.0.1/images/banner/login-banner.png");
@@ -200,6 +193,17 @@
             }
 
 
+        })
+        $('#adminLogin .toggleeye').click(function (){
+            if($('#adminLogin .toggleeye').hasClass('fa-eye-slash')){
+                $('#adminLogin .toggleeye').removeClass('fa-eye-slash');
+                $('#adminLogin .toggleeye').addClass('fa-eye');
+                $('#adminLogin .topas').attr('type','text');
+            }else{
+                $('#adminLogin .toggleeye').removeClass('fa-eye');
+                $('#adminLogin .toggleeye').addClass('fa-eye-slash');
+                $('#adminLogin .topas').attr('type','password');
+            }
         })
         
     });
