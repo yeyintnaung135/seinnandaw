@@ -15,17 +15,17 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="inputEmail4">First name <span class="text-danger">*</span></label>
-                                    <input type="text" name="firstname" class="form-control" id="inputEmail4" placeholder="First Name" required>
+                                    <input type="text" name="firstname" class="form-control" id="inputEmail4" placeholder="First Name" value="{{old('firstname',isset($billing_address->first_name) ? $billing_address->first_name : '')}}" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="inputPassword4">Last name <span class="text-danger">*</span></label>
                                     <input type="text" name="lastname" class="form-control" id="inputPassword4"
-                                           placeholder="Last name " required>
+                                           placeholder="Last name " value="{{old('lastname',isset($billing_address->last_name) ? $billing_address->last_name : '')}}" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputAddress">Company name (optional)</label>
-                                <input type="text" class="form-control" id="inputAddress">
+                                <input type="text" name="company_name" class="form-control" id="inputAddress" value="{{old('company_name',isset($billing_address->company_name) ? $billing_address->company_name : '')}}">
                             </div>
                             <div class="form-group">
                                 <label >Country / Region <span class="text-danger">*</span></label>
@@ -37,9 +37,10 @@
                                         @foreach($allcountry as $cou)
                                             @if($cou->code == 'MM')
                                                 <option value="{{$cou->code}}" selected>{{$cou->name}}</option>
+                                            @elseif (isset($billing_address->country))
+                                                <option value="{{$cou->code}}" {{ $cou->code == $billing_address->country ? 'selected' : '' }}>{{$cou->name}}</option>
                                             @else
                                                 <option value="{{$cou->code}}">{{$cou->name}}</option>
-
                                             @endif
                                         @endforeach
                                     </select>
@@ -48,28 +49,30 @@
                             <div class="form-group">
                                 <label for="inputAddress2">Street address <span class="text-danger">*</span></label>
                                 <input type="text" name="address_one" class="form-control" id="inputAddress2"
-                                       placeholder="House number and street name" required>
+                                       placeholder="House number and street name" value="{{old('address_one',isset($billing_address->street) ? $billing_address->street : '')}}" required>
+                                <input type="text" class="form-control mt-2" id="inputAddress2" name="apartment"
+                                        placeholder="Apartment, suite, unit, etc. (optional)" value="{{old('apartment',isset($billing_address->apartment) ? $billing_address->apartment : '')}}">
 
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Town / City <span class="text-danger">*</span></label>
-                                <input type="text" name='city' class="form-control" id="inputPassword4" required>
+                                <input type="text" name='city' class="form-control" id="inputPassword4" value="{{old('city',isset($billing_address->city) ? $billing_address->city : '')}}" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">State / County </label>
-                                <input type="text" name='state' class="form-control" id="inputPassword4" >
+                                <input type="text" name='state' class="form-control" id="inputPassword4" value="{{old('state',isset($billing_address->state) ? $billing_address->state : '')}}" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Postcode / ZIP </label>
-                                <input type="text" name="postcode" class="form-control" id="inputPassword4">
+                                <input type="text" name="postcode" class="form-control" id="inputPassword4" value="{{old('postcode',isset($billing_address->postcode) ? $billing_address->postcode : '')}}">
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Phone <span class="text-danger">*</span></label>
-                                <input type="text" name='phone' class="form-control" id="inputPassword4" required>
+                                <input type="text" name='phone' class="form-control" id="inputPassword4" value="{{old('phone',isset($billing_address->phone) ? $billing_address->phone : '')}}" required>
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Email address <span class="text-danger">*</span></label>
-                                <input type="text" name="email" class="form-control" id="inputPassword4">
+                                <input type="text" name="email" class="form-control" id="inputPassword4" value="{{old('email',isset($billing_address->email) ? $billing_address->email : '')}}">
                             </div>
 {{--                            <div class="form-group mt-4 border-bottom pb-3">--}}
 {{--                                <div class="form-check">--}}

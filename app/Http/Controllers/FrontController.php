@@ -10,8 +10,12 @@ use App\Addtocart;
 use App\Categories;
 use App\Locations;
 use App\Payment;
+use App\BillingAddress;
+use App\ShippingAddress;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Request;
 
 class FrontController extends Controller
@@ -71,9 +75,9 @@ class FrontController extends Controller
                             ->paginate(4);
         }
 
-    //   $products = DB::table('products')
-    //                 ->orderBy('price','asc')
-    //                 ->paginate(4);
+      //   $products = DB::table('products')
+      //                 ->orderBy('price','asc')
+      //                 ->paginate(4);
                     logger($products);
       return view('frontend.shop_product', compact('products'))->render();
      }
@@ -213,7 +217,9 @@ class FrontController extends Controller
     public function edit_address()
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_address');
+        $billing_address = BillingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
+        $shipping_address = ShippingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
+        return view('frontend.edit_address', ['billing_address' => $billing_address,'shipping_address' => $shipping_address]);
       } else {
         return redirect('/account');
       }
@@ -222,19 +228,67 @@ class FrontController extends Controller
     public function edit_billing()
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_billing');
+        $billing_address = BillingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
+        return view('frontend.edit_billing', ['billing_address' => $billing_address]);
       } else {
         return redirect('/account');
       }
     }
 
+    public function save_billing(Request $request)
+    {
+      $input=$request->except('_token');
+      $billing_address = BillingAddress::where('user_id', $input['user_id'])->first();
+      $validator=Validator::make($input,[
+        'first_name' => ['required','string','max:255'],
+        'last_name' => ['required','string','max:255'],
+        'street' => ['required','string','max:100'],
+        'city' => ['required','string','max:1000'],
+        'state' => ['required','string','max:1000'],
+        'postcode' => ['regex:/^[0-9]{3,7}$/'],
+        // 'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/','unique:billing_address'],
+        'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('billing_address')->ignore(isset($billing_address->id) ? $billing_address->id: 0)],
+        // 'email' => ['required','string','email','max:255','unique:users'],
+        'email' => ['required','string','email','max:255',Rule::unique('users')->ignore($input['user_id']),Rule::unique('billing_address')->ignore(isset($billing_address->id) ? $billing_address->id: 0)],
+        
+      ]);
+      if($validator->fails()){
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+      BillingAddress::updateOrCreate(['user_id' => $input['user_id']], $input);
+
+      return redirect('/account/edit-address');
+    }
+
     public function edit_shipping()
     {
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        return view('frontend.edit_shipping');
+        $shipping_address = ShippingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
+        return view('frontend.edit_shipping', ['shipping_address' => $shipping_address]);
       } else {
         return redirect('/account');
       }
+    }
+
+    public function save_shipping(Request $request)
+    {
+      $input=$request->except('_token');
+      $validator=Validator::make($input,[
+        'first_name' => ['required','string','max:255'],
+        'last_name' => ['required','string','max:255'],
+        'street' => ['required','string','max:100'],
+        'city' => ['required','string','max:1000'],
+        'state' => ['required','string','max:1000'],
+        'postcode' => ['regex:/^[0-9]{3,7}$/'],
+        'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/'],
+        'email' => ['required','string','email','max:255'],
+      ]);
+      if($validator->fails()){
+        return redirect()->back()->withErrors($validator)->withInput();
+      }
+      ShippingAddress::updateOrCreate(['user_id' => $input['user_id']], $input);
+
+      return redirect('/account/edit-address');
     }
 
     public function edit_account()
@@ -262,8 +316,9 @@ class FrontController extends Controller
 
             }
             $checkoutdata=checkout::create(['userid' => Auth::guard('web')->user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
+            $billing_address = BillingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
 
-            return view('frontend.checkout', ['data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
+            return view('frontend.checkout', ['billing_address' => $billing_address, 'data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
         } else {
         //return 'noo';
 
@@ -294,9 +349,9 @@ class FrontController extends Controller
 
                 $totalprice = $getprice->price * $getcheckoutdata->counts;
 
+
                 return view('frontend.checkout', ['addational'=>'hey from checkout','checkoutid'=>$getcheckoutdata->id,'data' => ['productid' => $getcheckoutdata->productid, 'count' => $getcheckoutdata->counts], 'price' => $totalprice, 'product' => $getprice]);
             }else{
-
                 return view('frontend.checkout', ['data' => 'empty']);
 
             }

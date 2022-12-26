@@ -262,7 +262,7 @@
         border-radius: 50%;
         font-size: 13px;
         font-weight: 600;
-        z-index: 999;
+        z-index: 9;
       }
       .sn-sale-badge {
         right: 4px;
@@ -311,7 +311,7 @@
         }
         .sn-nav {
           position: absolute;
-          top: 112px;
+          top: 98px;
           width: 100%;
           left: 0px;
           background: rgb(255, 255, 255);

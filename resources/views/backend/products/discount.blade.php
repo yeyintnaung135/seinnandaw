@@ -32,7 +32,7 @@
                                   </div>
                                   <div class="form-group">
                                     <label for="discount_price">Discount Price</label>
-                                    <input type="text" name="discount_price" class="form-control  @error('discount_price') is-invalid @enderror" id="discount_price" value="{{old('discount_price',$data->discount->discount_price)}}" required>
+                                    <input type="text" name="discount_price" class="form-control  @error('discount_price') is-invalid @enderror" id="discount_price" value="{{old('discount_price',isset($data->discount->discount_price) ? $data->discount->discount_price : '')}}" required>
                                     @error('discount_price')
                                       <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -36,7 +36,9 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/account/downloads', 'FrontController@downloads');
     Route::get('/account/edit-address', 'FrontController@edit_address');
     Route::get('/account/edit-address/billing', 'FrontController@edit_billing');
+    Route::post('/account/edit-address/billing', 'FrontController@save_billing');
     Route::get('/account/edit-address/shipping', 'FrontController@edit_shipping');
+    Route::post('/account/edit-address/shipping', 'FrontController@save_shipping');
     Route::get('/account/edit-account', 'FrontController@edit_account');
 
     /**user Account */
