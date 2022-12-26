@@ -73,7 +73,7 @@ class BackendPaymentController extends Controller
         foreach ($records as $record) {
           $data_arr[] = array(
               "id" => $record->id,
-              "product" => $record->product->name,
+              "product" => isset($record->product->name) ? $record->product->name : '',
               "amount" => $record->amount,
               "pay_name" => $record->pay_name,
               "bank" => $record->bank_name,

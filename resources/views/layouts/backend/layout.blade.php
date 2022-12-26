@@ -26,6 +26,24 @@
     <link rel="stylesheet" href="{{url('backend/plugins/daterangepicker/daterangepicker.css')}}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{url('backend/plugins/summernote/summernote-bs4.min.css')}}">
+    <style>
+      .sn-dashboard-component > div {
+        background: #122c42;
+        margin: 10px;
+        box-shadow: 0px 0px 5px 0px #c9c9c9;
+        color: #fff;
+      }
+      .sn-dashboard-component div div {
+        padding: 10px 20px;
+      }
+      .sn-dashboard-component a {
+        display: block;
+        background: #00000078;
+        text-decoration: none;
+        color: #269fb7;
+        padding: 7px 15px;
+      }
+    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

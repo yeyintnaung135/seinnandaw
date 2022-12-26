@@ -31,11 +31,11 @@
                     </div>
                 </div>
 
-                <div class="">
+                <div class="position-relative">
                     <label for="password" class="mb-1">{{ __('Password') }}</label>
 
 
-                    <div class="position-relative" id="reg">
+                    <div class="" id="reg">
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror topas" name="password" required autocomplete="new-password">
                         <i  class="fas fa-eye-slash eye toggleeye"></i>
 
@@ -49,10 +49,10 @@
                 </div>
 
 
-            <div class="">
+              <div class="position-relative">
                 <label for="password-confirm" class="mb-1">{{ __('Confirm Password') }}</label>
 
-                <div class="position-relative" id="con">
+                <div class="" id="con">
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                     <i  class="fas fa-eye-slash eye toggleeye"></i>
                 </div>
@@ -64,6 +64,7 @@
                         </button>
                     </div>
                 </div>
+              </div>
             </form>
           </div>
         </div>
