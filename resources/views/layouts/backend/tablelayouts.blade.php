@@ -1,15 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title')</title>
+@extends('layouts.backend.tablelayouts')
+@section('content')
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>DataTables</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">DataTables</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" type="text/css" href="{{url('backend/plugins/jquery-ui/jquery-ui.min.css')}}">
-
     <link rel="stylesheet" href="{{url('backend/plugins/fontawesome-free/css/all.min.css')}}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{url('backend/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
@@ -18,7 +30,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{url('backend/dist/css/adminlte.min.css')}}">
     <!-- Daterange picker -->
-{{--    <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">--}}
+    <link rel="stylesheet" href="{{asset('backend/plugins/daterangepicker/daterangepicker.css')}}">
     @stack('css')
 
 </head>
@@ -43,8 +55,6 @@
 
 <!-- jQuery -->
 <script src="{{url('backend/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{url('backend/plugins/jquery-ui/jquery-ui.min.js')}}"></script>
-
 <!-- Bootstrap 4 -->
 <script src="{{url('backend/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <!-- DataTables  & Plugins -->

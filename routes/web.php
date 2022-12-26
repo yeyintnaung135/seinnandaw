@@ -20,8 +20,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::get('/', 'FrontController@index');
+
+
     Route::get('/promotions', 'FrontController@promotions');
+
     Route::get('/location', 'FrontController@location');
+
     Route::get('/shop', 'FrontController@shop');
     Route::get('/category/{category}/{id}/{sub?}', 'FrontController@showbycategory');
     Route::get('/categorypagination/fetch_data', 'FrontController@category_fetch_data');

@@ -71,7 +71,7 @@ export default {
                     localStorage.setItem('addtocartcount', JSON.stringify(tempcount));
 
                 } else {
-                    localStorage.setItem('addtocartcount', JSON.stringify(1));
+                    localStorage.setItem('addtocartcount', JSON.stringify(this.product_qty));
 
                 }
 

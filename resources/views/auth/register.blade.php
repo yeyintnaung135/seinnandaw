@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url($url)}}">
+                    <form method="POST" action="{{ url($url)}}" id="adminRegister">
                         @csrf
 
                         <div class="form-group row">
@@ -39,12 +39,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" id="reg">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                                <input id="password" type="password" class="form-control topas @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <i  class="fas fa-eye-slash eye toggleeye"></i>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -53,11 +53,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
+                        <div class="form-group row" id="con">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control topas" name="password_confirmation" required autocomplete="new-password">
+                                <i  class="fas fa-eye-slash eye toggleeye"></i>
                             </div>
                         </div>
 
@@ -75,3 +76,11 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+  <script>
+    $(document).ready(function () {
+      
+    });
+  </script>
+@endpush
