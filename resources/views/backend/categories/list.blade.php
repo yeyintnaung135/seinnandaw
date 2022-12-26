@@ -5,7 +5,7 @@
       cursor: help;
     }
   </style>
-  
+
 @endpush
 @section('content')
     <div class="content-wrapper">
@@ -94,18 +94,18 @@
    let data = new Array();
      localData = localStorage.setItem("localData", JSON.stringify(data));
     function checkbox(e) {
-       
+
             if ($(e).is(':checked')) {
 
-               
+
                 $("#multipleDelete").removeClass('d-none');
                 data.push(e.value);
 
                 $("#itemId").val(data);
                 localData = localStorage.setItem("localData", JSON.stringify(data));
-               
+
             } else {
-              
+
                 const index = data.indexOf(e.value);
                 if (index > -1) {
                     data.splice(index, 1);
@@ -116,11 +116,11 @@
                 $("#itemId").val(data);
 
                 localData = localStorage.removeItem("localData", JSON.stringify(data));
-            
+
             }
     }
 
-    
+
   var categoriesTable = $('#categoriesTable').DataTable({
     processing: true,
     serverSide: true,
@@ -161,7 +161,7 @@
                             <i class="fa fa-info-circle"></i>
                         </a>`;
           detail=detail.replace(':id', data);
-          
+
           var edit = `<a href="{{url('backend/categories/edit/'. ':id')}}" type="button" style=" width: 40px;" class=" btn btn-info btn-sm mr-2">
                           <i class="fa fa-edit"></i>
                       </a>`;
@@ -221,7 +221,7 @@
   });
 
   function Delete(id) {
-       
+
        $(function () {
            const swalWithBootstrapButtons = Swal.mixin({
                customClass: {
