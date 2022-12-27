@@ -72,7 +72,7 @@ class BackendPaymentController extends Controller
         logger($records);
         foreach ($records as $record) {
           $data_arr[] = array(
-              "id" => $record->id,
+              "start" => $start,
               "product" => isset($record->product->name) ? $record->product->name : '',
               "amount" => $record->amount,
               "pay_name" => $record->pay_name,
@@ -80,7 +80,9 @@ class BackendPaymentController extends Controller
               "email" => $record->email,
               "user" => $record->user->name,
               "country" => $record->country,
-              "created_at" => date('F d, Y ( h:i A )',strtotime($record->created_at)),
+              "created_at" => date('F d, Y',strtotime($record->created_at)),
+              "id" => $record->id,
+
               // "created_at" => $record->created_at,
           );
         }

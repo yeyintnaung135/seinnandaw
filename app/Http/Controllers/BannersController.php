@@ -64,9 +64,9 @@ class BannersController extends Controller
 
       foreach ($records as $record) {
           $data_arr[] = array(
-              "id" => $record->id,
+              "start" => $start,
               "photo" => $record->photo,
-              "created_at" => date('F d, Y ( h:i A )', strtotime($record->created_at)),
+              "created_at" => date('F d, Y', strtotime($record->created_at)),
               "id" => $record->id,
           );
       }

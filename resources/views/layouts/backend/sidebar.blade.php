@@ -27,6 +27,31 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Banners
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{url('backend/banners/list')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>List</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{url('backend/banners/add')}}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Add New</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li>
+                <li class="nav-item">
                   <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
@@ -37,6 +62,25 @@
                   <ul class="nav nav-treeview">
                       <li class="nav-item">
                           <a href="{{url('backend/customers/list')}}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>List</p>
+                          </a>
+                      </li>
+
+                  </ul>
+
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-th"></i>
+                      <p>
+                          Admins
+                          <i class="fas fa-angle-left right"></i>
+                      </p>
+                  </a>
+                  <ul class="nav nav-treeview">
+                      <li class="nav-item">
+                          <a href="{{url('backend/admin/list')}}" class="nav-link">
                               <i class="far fa-circle nav-icon"></i>
                               <p>List</p>
                           </a>
@@ -101,36 +145,12 @@
                     </ul>
 
                 </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Banners
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{url('backend/banners/list')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{url('backend/banners/add')}}" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Add New</p>
-                            </a>
-                        </li>
-
-                    </ul>
-
-                </li>
+                
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-th"></i>
                       <p>
-                          Locations
+                          Locations Address
                           <i class="fas fa-angle-left right"></i>
                       </p>
                   </a>
@@ -150,7 +170,7 @@
 
                   </ul>
 
-              </li>
+                </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -186,11 +206,34 @@
     <!-- /.sidebar -->
 </aside>
 <script>
-function logout(){
-var te=  confirm("Are you sure ?");
-if(te){
-    document.getElementById('logout-form').submit();
-}
 
+function logout () {
+  $(function () {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-danger ml-2',
+            cancelButton: 'btn btn-info'
+        },
+        buttonsStyling: false
+    })
+
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You Are About to Logout.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById('logout-form').submit();
+        }
+    })
+});
 }
 </script>

@@ -125,7 +125,7 @@
 
                                                 <input type="file" name="photo_three" class="custom-file-input"
                                                        id="customFile" >
-                                                <label class="custom-file-label" for="customFile">Photo One</label>
+                                                <label class="custom-file-label" for="customFile">Photo Three</label>
                                                 @error('photo_three')
                                                 <span class="invalid-feedback" role="alert">
                                               <strong>{{ $message }}</strong>

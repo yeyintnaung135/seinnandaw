@@ -24,14 +24,6 @@
                                     <h3 class="card-title">Categories list</h3>
                                     <div>
                                        <a type="button" href="{{url('backend/categories/add')}}" class="btn btn-primary btn-sm">create new</a>
-                                       <button id="multipleDelete" onclick="Delete()" type="button" class=" btn btn-danger btn-sm d-none ">
-                                            <i class="fa fa-trash"></i>
-                                                Multiple Delete
-                                        </button>
-                                        <form id="delete_form" action="{{ route('category.multiple.trash') }}"method="POST">
-                                            @csrf
-                                            <input type="hidden" name="id" value="" id="itemId"/>
-                                        </form>
                                      </div>
                                 </div>
                             </div>
@@ -55,10 +47,11 @@
                                   </div>
                                 </div>
 
-                                <table id="categoriesTable" class="table table-borderless">
+                                <table id="categoriesTable" class="table table-borderless table-hover">
                                   <thead>
                                     <tr>
-                                      <th>Select</th>
+                                      <th>Id</th>
+                                      <th>Id</th>
                                       <th>Name</th>
                                       <th>def</th>
                                       <th>Create Date</th>
@@ -67,7 +60,8 @@
                                   </thead>
                                   <tfoot>
                                     <tr>
-                                      <th>Select</th>
+                                      <th>Id</th>
+                                      <th>Id</th>
                                       <th>Name</th>
                                       <th>def</th>
                                       <th>Create Date</th>
@@ -93,33 +87,6 @@
  <script>
    let data = new Array();
      localData = localStorage.setItem("localData", JSON.stringify(data));
-    function checkbox(e) {
-
-            if ($(e).is(':checked')) {
-
-
-                $("#multipleDelete").removeClass('d-none');
-                data.push(e.value);
-
-                $("#itemId").val(data);
-                localData = localStorage.setItem("localData", JSON.stringify(data));
-
-            } else {
-
-                const index = data.indexOf(e.value);
-                if (index > -1) {
-                    data.splice(index, 1);
-                }
-                if (data.length === 0) {
-                    $("#multipleDelete").addClass('d-none');
-                }
-                $("#itemId").val(data);
-
-                localData = localStorage.removeItem("localData", JSON.stringify(data));
-
-            }
-    }
-
 
   var categoriesTable = $('#categoriesTable').DataTable({
     processing: true,
@@ -138,19 +105,11 @@
     },
     columns: [
       {
-          data: 'id',
-          render: function (data, type,row) {
-            console.log(row)
-              if(row.def === 1){
-                return `<i class="fas fa-exclamation-circle cursor" title="This is the default category and it cannot be deleted.It will be automatically assigned to products with no category"></i>`;
-              }
-              let localRetri = JSON.parse(window.localStorage.getItem("localData")) || [];
-              return (localRetri.length == 0) ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
-                  : (localRetri.find(element => element == data) == data)
-                      ? `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}" checked>`
-                      : `<input type="checkbox" value="${data}" onclick='checkbox(this)' id="1_${data}">`
-            }
-        },
+        title: 'id',
+        data: null,
+        render: (data, type, row, meta) => meta.row + 1 + Number(row['start'])
+      },
+      {data: 'start'},
       {data: 'name'},
       {data: 'def'},
       {data: 'created_at'},
@@ -199,17 +158,17 @@
       { responsivePriority: 2, targets: 2 },
       { responsivePriority: 3, targets: 3},
       {
-        'targets': [4],
+        'targets': [0,5],
         'orderable': false,
       },
       {
-        'targets': [2],
+        'targets': [1,3],
         'visible': false,
       },
     ],
     language: {
-      "search" : '<i class="fa-solid fa-search"></i>',
-      "searchPlaceholder": 'Search',
+      // "search" : '<i class="fa fa-search"></i>',
+      "searchPlaceholder": 'Search ...',
       paginate: {
         next: '<i class="fa fa-angle-right"></i>', // or '→'
         previous: '<i class="fa fa-angle-left"></i>' // or '←'

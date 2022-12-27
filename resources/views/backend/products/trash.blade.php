@@ -49,7 +49,7 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="productTrashedTable" class="table table-borderless table-hover">
+                                <table id="productTrashedTable" class="table table-borderless table-hover table-hover">
                                     <thead>
                                     <tr>
                                         <th>ID</th>
@@ -72,7 +72,7 @@
                                             <td>{{$d->price}} Ks</td>
 
                                             <td>
-                                                {{date('F d, Y ( h:i A )', strtotime($d->created_at))}}
+                                                {{date('F d, Y', strtotime($d->created_at))}}
                                             </td>
                                             <td>
                                      
@@ -235,7 +235,7 @@
                 }
             ],
             language: {
-                "search": '<i class="fa-solid fa-search"></i>',
+                // "search": '<i class="fa fa-search"></i>',
                 "searchPlaceholder": 'Search...',
                 paginate: {
                     next: '<i class="fa fa-angle-right"></i>', // or '→'

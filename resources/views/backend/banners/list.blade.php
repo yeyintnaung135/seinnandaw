@@ -12,14 +12,10 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header row no-gutters">
-                                <div class="col-6 col-md-8">
+                                <div class="col-12  d-flex justify-content-between">
                                     <h3 class="card-title">Banners list</h3>
-
-                                </div>
-
-                                <div class="col-6 col-md-4" style="width:122px;">
                                     <a type="button" href="{{url('backend/banners/add')}}"
-                                       class="btn btn-block btn-primary btn-sm">create new</a>
+                                       class="btn btn-primary btn-sm">create new</a>
                                 </div>
 
                             </div>
@@ -43,10 +39,11 @@
                                   </div>
                                 </div>
 
-                                <table id="bannersTable" class="table table-borderless">
+                                <table id="bannersTable" class="table table-borderless table-hover">
                                   <thead>
                                     <tr>
-                                      <th>ID</th>
+                                      <th>Id</th>
+                                      <th>start</th>
                                       <th>Photo</th>
                                       <th>Create Date</th>
                                       <th>Action</th>
@@ -54,7 +51,8 @@
                                   </thead>
                                   <tfoot>
                                     <tr>
-                                      <th>ID</th>
+                                      <th>Id</th>
+                                      <th>start</th>
                                       <th>Photo</th>
                                       <th>Create Date</th>
                                       <th>Action</th>
@@ -93,7 +91,12 @@
         }
       },
       columns: [
-        {data: 'id'},
+        {
+          title: 'id',
+          data: null,
+          render: (data, type, row, meta) => meta.row + 1 + Number(row['start'])
+        },
+        {data: 'start'},
         {
           data: 'photo',
           render: function(data, type) {
@@ -114,11 +117,17 @@
                             <i class="fa fa-edit"></i>
                         </a>`;
             edit=edit.replace(':id', data);
-            var dlt = `<button type="button" onclick="deleteShop(this)" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Move To Trash">
+            var dlt = `<button type="button" onclick="deleteShop(:id)" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top" title="Move To Trash">
                               <i class="fa fa-trash"></i>
                           </button>`;
-            dlt=dlt.replace(':id', data);
-            return detail + edit + dlt;
+            dlt=dlt.replaceAll(':id', data);
+            var form = `<form action="{{url('/backend/banners/delete')}}" id="deleteform_:id" method="post">
+                            @csrf
+                            <input type="hidden" name="id" value=":id">
+                        </form>`;
+            form=form.replaceAll(':id', data);
+
+            return detail + edit + dlt + form;
           }
         }
       ],
@@ -133,13 +142,17 @@
         { responsivePriority: 2, targets: 2 },
         { responsivePriority: 3, targets: 3},
         {
-          'targets': [3],
+          'targets': [0,4],
           'orderable': false,
+        },
+        {
+          'targets': [1],
+          'visible': false,
         }
       ],
       language: {
-        "search" : '<i class="fa-solid fa-search"></i>',
-        "searchPlaceholder": 'Search',
+        // "search" : '<i class="fa fa-search"></i>',
+        "searchPlaceholder": 'Search ...',
         paginate: {
           next: '<i class="fa fa-angle-right"></i>', // or '→'
           previous: '<i class="fa fa-angle-left"></i>' // or '←'
@@ -174,10 +187,34 @@
     });
   });
 
-  function deleteShop(e){
-    if (window.confirm("Are you sure to delete?")) {
-    $('#deleteform').submit();
-    }
+  function deleteShop(id) {
+    $(function () {
+      const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+              confirmButton: 'btn btn-danger ml-2',
+              cancelButton: 'btn btn-info'
+          },
+          buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, cancel!',
+          reverseButtons: true,
+          didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+          }
+      }).then((result) => {
+          if (result.isConfirmed) {
+            $('#deleteform_'+id).submit();
+          }
+      })
+  });
   }
   </script>
 @endpush

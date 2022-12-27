@@ -12,15 +12,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header row no-gutters">
-                                <div class="col-6 col-md-8">
+                                <div class="col-12  d-flex justify-content-between">
                                     <h3 class="card-title">Payment list</h3>
-
+                                    {{-- <a type="button" href=""
+                                       class="btn btn-primary btn-sm">create new</a> --}}
                                 </div>
-
-                                {{-- <div class="col-6 col-md-4" style="width:122px;">
-                                    <a type="button" href=""
-                                       class="btn btn-block btn-primary btn-sm">create new</a>
-                                </div> --}}
 
                             </div>
                             <!-- /.card-header -->
@@ -42,10 +38,11 @@
                                         <input type='button' id="shopact_search_button" value="Search" class="btn bg-info" style="margin-top: 42px;">
                                     </div>
                                 </div> --}}
-                                <table id="payment_table" class="table table-bordered table-hover">
+                                <table id="payment_table" class="table table-borderless table-hover table-hover">
                                     <thead>
                                     <tr>
                                         <th>id</th>
+                                        <th>start</th>
                                         <th>Username</th>
                                         <th>Product</th>
                                         <th>PayName</th>
@@ -61,6 +58,7 @@
                                     <tfoot>
                                     <tr>
                                         <th>id</th>
+                                        <th>start</th>
                                         <th>Username</th>
                                         <th>Product</th>
                                         <th>PayName</th>
@@ -106,7 +104,12 @@
        }
      },
      columns: [
-       {data: 'id'},
+        {
+          title: 'id',
+          data: null,
+          render: (data, type, row, meta) => meta.row + 1 + Number(row['start'])
+        },
+       {data: 'start'},
        {data: 'user'},
        {data: 'product'},
        {data: 'pay_name'},
@@ -138,8 +141,16 @@
      dom: 'Blfrtip',
      buttons: ["copy", "csv", "excel", "pdf", "print"],
      columnDefs: [
-       { responsivePriority: 1, targets: 1 },
-       { responsivePriority: 2, targets: 2 },
+      { responsivePriority: 1, targets: 1 },
+      { responsivePriority: 2, targets: 2 },
+      {
+        'targets': [0,2,3,8],
+        'orderable': false
+      },
+      {
+        'targets': [1],
+        'visible': false
+      }
      ],
      language: {
        "searchPlaceholder": 'Search ...',
@@ -148,7 +159,7 @@
          previous: '<i class="fa fa-angle-left"></i>' // or '←'
        }
      },
-     "order": [[ 3, "desc" ]],
+     "order": [[ 9, "desc" ]],
 
  });
  $(document).ready(function() {

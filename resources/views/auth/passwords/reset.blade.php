@@ -53,7 +53,7 @@
                 <label for="password-confirm" class="mb-1">{{ __('Confirm Password') }}</label>
 
                 <div class="" id="con">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                    <input id="password-confirm" type="password" class="form-control topas" name="password_confirmation" required autocomplete="new-password">
                     <i  class="fas fa-eye-slash eye toggleeye"></i>
                 </div>
 

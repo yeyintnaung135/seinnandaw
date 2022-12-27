@@ -11,7 +11,7 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <x-alert></x-alert>
-        <x-minibackheader :maintext="'Customers list'" :subtext="'customers list'"/>
+        <x-minibackheader :maintext="'Admin list'" :subtext="'Admin list'"/>
 
         <!-- Main content -->
         <section class="content">
@@ -21,7 +21,7 @@
                         <div class="card">
                             <div class="card-header row no-gutters">
                                 <div class="col-12 d-flex justify-content-between">
-                                    <h3 class="card-title">Customers list</h3>
+                                    <h3 class="card-title">Admin list</h3>
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -30,21 +30,21 @@
                                   <div class="form-group m-0 mr-1">
                                     <fieldset>
                                       <legend class="small m-0">From Date</legend>
-                                      <input type="text" id='search_fromdate_customers' class="customersdatepicker form-control" placeholder='Choose date' autocomplete="off"/>
+                                      <input type="text" id='search_fromdate_admin' class="admindatepicker form-control" placeholder='Choose date' autocomplete="off"/>
                                     </fieldset>
                                   </div>
                                   <div class="form-group m-0 mr-1">
                                     <fieldset>
                                       <legend class="small m-0">To Date</legend>
-                                      <input type="text" id='search_todate_customers' class="customersdatepicker form-control" placeholder='Choose date' autocomplete="off"/>
+                                      <input type="text" id='search_todate_admin' class="admindatepicker form-control" placeholder='Choose date' autocomplete="off"/>
                                     </fieldset>
                                   </div>
                                   <div class="pr-md-4">
-                                    <input type='button' id="customers_search_button" value="Search" class="btn bg-info"  >
+                                    <input type='button' id="admin_search_button" value="Search" class="btn bg-info"  >
                                   </div>
                                 </div>
 
-                                <table id="customersTable" class="table table-borderless table-hover">
+                                <table id="adminTable" class="table table-borderless table-hover">
                                   <thead>
                                     <tr>
                                       <th>Id</th>
@@ -82,15 +82,15 @@
 @endsection
 @push('scripts')
   <script>
-    var customersTable = $('#customersTable').DataTable({
+    var adminTable = $('#adminTable').DataTable({
       processing: true,
       serverSide: true,
       ajax: {
-      "url": "{{ url('backend/customers/get_all_customers') }}",
+      "url": "{{ url('backend/admin/get_all_admin') }}",
       'data': function(data){
             // Read values
-            var from_date = $('#search_fromdate_customers').val() ? $('#search_fromdate_customers').val() + " 00:00:00" : null;
-            var to_date = $('#search_todate_customers').val() ? $('#search_todate_customers').val() + " 23:59:59" : null;
+            var from_date = $('#search_fromdate_admin').val() ? $('#search_fromdate_admin').val() + " 00:00:00" : null;
+            var to_date = $('#search_todate_admin').val() ? $('#search_todate_admin').val() + " 23:59:59" : null;
 
             // Append to data
             data.searchByFromdate = from_date;
@@ -142,25 +142,25 @@
     })
 
     $(document).ready(function() {
-      $( ".customersdatepicker" ).datepicker({
+      $( ".admindatepicker" ).datepicker({
           "dateFormat": "yy-mm-dd",
           changeYear: true
       });
 
-      $('#customers_search_button').click(function(){
-        if($('#search_fromdate_customers').val() != null && $('#search_todate_customers').val() != null) {
-          customersTable.draw();
+      $('#admin_search_button').click(function(){
+        if($('#search_fromdate_admin').val() != null && $('#search_todate_admin').val() != null) {
+          adminTable.draw();
         }
       });
 
-      $( ".customersactdatepicker" ).datepicker({
+      $( ".adminactdatepicker" ).datepicker({
           "dateFormat": "yy-mm-dd",
           changeYear: true
       });
 
-      $('#customersact_search_button').click(function(){
-        if($('#search_fromdate_customersact').val() != null && $('#search_todate_customersact').val() != null) {
-          customersTable.draw();
+      $('#adminact_search_button').click(function(){
+        if($('#search_fromdate_adminact').val() != null && $('#search_todate_adminact').val() != null) {
+          adminTable.draw();
         }
       });
     });

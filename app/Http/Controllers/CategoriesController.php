@@ -69,10 +69,10 @@ class CategoriesController extends Controller
 
       foreach ($records as $record) {
           $data_arr[] = array(
-              "id" => $record->id,
+              "start" => $start,
               "name" => $record->name,
               "def" => $record->def,
-              "created_at" => date('F d, Y ( h:i A )', strtotime($record->created_at)),
+              "created_at" => date('F d, Y', strtotime($record->created_at)),
               "id" => $record->id,
           );
       }
@@ -203,7 +203,7 @@ class CategoriesController extends Controller
             $data_arr[] = array(
                 "checkbox" => $record->id,
                 "name" => $record->name,
-                "created_at" => date('F d, Y ( h:i A )', strtotime($record->created_at)),
+                "created_at" => date('F d, Y ', strtotime($record->created_at)),
                 "action" => $record->id,
             );
         }

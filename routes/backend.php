@@ -10,6 +10,10 @@ Route::group(['prefix' => '/backend/customers'], function () {
   Route::get('/list', 'CustomerController@list');
   Route::get('/get_all_customers', 'CustomerController@getAllCustomers');
 });
+Route::group(['prefix' => '/backend/admin'], function () {
+  Route::get('/list', 'AdminController@list');
+  Route::get('/get_all_admin', 'AdminController@getAllAdmin');
+});
 Route::group(['prefix' => '/backend/categories'],function (){
     Route::get('/list', 'CategoriesController@list');
     Route::get('/add', 'CategoriesController@add');

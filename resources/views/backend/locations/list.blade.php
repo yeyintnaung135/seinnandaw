@@ -12,21 +12,17 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header row no-gutters">
-                                <div class="col-6 col-md-8">
+                                <div class="col-12 d-flex justify-content-between">
                                     <h3 class="card-title">Locations list</h3>
-
-                                </div>
-
-                                <div class="col-6 col-md-4" style="width:122px;">
                                     <a type="button" href="{{url('backend/locations/add')}}"
-                                       class="btn btn-block btn-primary btn-sm">create new</a>
+                                       class="btn btn-primary btn-sm">create new</a>
                                 </div>
 
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
 
-                                <table id="locationsTable" class="table table-borderless">
+                                <table id="locationsTable" class="table table-borderless table-hover">
                                   <thead>
                                     <tr>
                                       <th>ID</th>
@@ -37,9 +33,12 @@
                                     </tr>
                                   </thead>
                                   <tbody>
+                                    @php
+                                        $i = 1;
+                                    @endphp
                                     @foreach ( $loc as $l )
                                       <tr>
-                                        <td>{{ $l->id }}</td>
+                                        <td>{{ $i++ }}</td>
                                         <td>{{ $l->branch_name }}</td>
                                         <td>{{ $l->address }}</td>
                                         <td>{{ $l->phone_number }}</td>

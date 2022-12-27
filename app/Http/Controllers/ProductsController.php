@@ -79,7 +79,7 @@ class ProductsController extends Controller
               "name" => $record->name,
               "photo" => $record->photo,
               "price" => $record->price,
-              "created_at" => date('F d, Y ( h:i A )', strtotime($record->created_at)),
+              "created_at" => date('F d, Y', strtotime($record->created_at)),
               "id" => $record->id,
           );
       }
@@ -330,7 +330,7 @@ class ProductsController extends Controller
               "name" => $record->name,
               "image" => $record->photo,
               "price" => $record->price,
-              "created_at" =>  date('F d, Y ( h:i A )', strtotime($record->deleted_at)),
+              "created_at" =>  date('F d, Y', strtotime($record->deleted_at)),
               "action" => $record->id,
           );
         }

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Admins;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 
-class CustomerController extends Controller
+class AdminController extends Controller
 {
     //
     public function __construct(){
@@ -17,10 +17,10 @@ class CustomerController extends Controller
     }
 
     function list(){
-      return view('backend.users.list');
+      return view('backend.admin.list');
     }
 
-    function getAllCustomers(Request $request) {
+    function getAllAdmin(Request $request) {
       $draw = $request->get('draw');
       $start = $request->get("start");
       $rowperpage = $request->get("length"); // total number of rows per page
@@ -45,7 +45,7 @@ class CustomerController extends Controller
         $searchByTodate = Carbon::now();
       }
 
-      $totalRecords = User::select('count(*) as allcount')
+      $totalRecords = Admins::select('count(*) as allcount')
                       ->where(function ($query) use ($searchValue) {
                         $query->where('id', 'like', '%' . $searchValue . '%')
                             ->orWhere('name', 'like', '%' . $searchValue . '%')
@@ -54,7 +54,7 @@ class CustomerController extends Controller
                       ->whereBetween('created_at', [$searchByFromdate, $searchByTodate])->count();
       $totalRecordswithFilter = $totalRecords;
 
-      $records = User::orderBy($columnName, $columnSortOrder)
+      $records = Admins::orderBy($columnName, $columnSortOrder)
           ->orderBy('created_at', 'desc')
           ->where(function ($query) use ($searchValue) {
               $query->where('id', 'like', '%' . $searchValue . '%')
@@ -62,7 +62,7 @@ class CustomerController extends Controller
                   ->orWhere('email', 'like', '%' . $searchValue . '%');
           })
           ->whereBetween('created_at', [$searchByFromdate, $searchByTodate])
-          ->select('users.*')
+          ->select('admins.*')
           ->skip($start)
           ->take($rowperpage)
           ->get();
