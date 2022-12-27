@@ -93,7 +93,15 @@
   <script>
     $(document).ready(function () {
         $('#locationsTable').DataTable({
-          responsive: true
+          responsive: true,
+          language: {
+            // "search" : '<i class="fa fa-search"></i>',
+            "searchPlaceholder": 'Search ...',
+            paginate: {
+              next: '<i class="fa fa-angle-right"></i>', // or '→'
+              previous: '<i class="fa fa-angle-left"></i>' // or '←'
+            }
+          },
         });
     });
     function Delete(id) {

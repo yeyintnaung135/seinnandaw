@@ -17,7 +17,7 @@ class LocationsController extends Controller
   }
 
   public function list() {
-    $loc = Locations::all();
+    $loc = Locations::orderBy('id')->get();
     return view('backend.locations.list',['loc'=> $loc]);
   }
   

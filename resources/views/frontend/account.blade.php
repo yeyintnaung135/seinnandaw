@@ -100,44 +100,18 @@
     <script>
         $(document).ready(function () {
             $('#login .toggleeye').click(function (){
-                if($('#login  .toggleeye').hasClass('fa-eye-slash')){
-                    $('#login  .toggleeye').removeClass('fa-eye-slash');
-                    $('#login  .toggleeye').addClass('fa-eye');
-                    $('#login  .topas').attr('type','text');
+                if($('#login .toggleeye').hasClass('fa-eye-slash')){
+                    $('#login .toggleeye').removeClass('fa-eye-slash');
+                    $('#login .toggleeye').addClass('fa-eye');
+                    $('#login .topas').attr('type','text');
                 }else{
-                    $('#login  .toggleeye').removeClass('fa-eye');
-                    $('#login  .toggleeye').addClass('fa-eye-slash');
-                    $('#login  .topas').attr('type','password');
+                    $('#login .toggleeye').removeClass('fa-eye');
+                    $('#login .toggleeye').addClass('fa-eye-slash');
+                    $('#login .topas').attr('type','password');
                 }
 
-
             })
-            $('#reg .toggleeye').click(function (){
-                if($('#reg  .toggleeye').hasClass('fa-eye-slash')){
-                    $('#reg  .toggleeye').removeClass('fa-eye-slash');
-                    $('#reg  .toggleeye').addClass('fa-eye');
-                    $('#reg  .topas').attr('type','text');
-                }else{
-                    $('#reg  .toggleeye').removeClass('fa-eye');
-                    $('#reg  .toggleeye').addClass('fa-eye-slash');
-                    $('#reg  .topas').attr('type','password');
-                }
-
-
-            })
-            $('#con .toggleeye').click(function (){
-                if($('#con  .toggleeye').hasClass('fa-eye-slash')){
-                    $('#con  .toggleeye').removeClass('fa-eye-slash');
-                    $('#con  .toggleeye').addClass('fa-eye');
-                    $('#con  .topas').attr('type','text');
-                }else{
-                    $('#con  .toggleeye').removeClass('fa-eye');
-                    $('#con  .toggleeye').addClass('fa-eye-slash');
-                    $('#con  .topas').attr('type','password');
-                }
-
-
-            })
+            
             console.log(JSON.parse(localStorage.getItem('addtocartlist')));
 
             $('[name="addtocart"]').val(localStorage.getItem('addtocartlist'));
