@@ -49,7 +49,7 @@
                     <h3>{{ $admin_count }}</h3>
                     <p>Admin</p>
                   </div>
-                  <a href="http://" class="d-none">More Info</a>
+                  <a href="{{url('backend/admin/list')}}" class="">More Info</a>
                 </div>
                 <div class="col-sm col-md-3 p-0">
                   <div>
