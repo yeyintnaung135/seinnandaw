@@ -111,6 +111,7 @@
                                 <div class="m-2">
                                         <input type="hidden" name="_token" value="{{csrf_token()}}">
                                         <input type="hidden" name="pname" value="{{$product->name}}">
+                                        <input type="hidden" name="pid" value="{{$product->id}}">
                                         <input type="hidden" name="checkoutid" value="{{$checkoutid}}">
                                         <input type="hidden" name="pcount" value="{{$data['count']}}">
                                         <input type="hidden" name="pprice" value="{{$price}}">

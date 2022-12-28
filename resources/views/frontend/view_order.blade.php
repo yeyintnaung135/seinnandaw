@@ -29,11 +29,11 @@
                         </tr>
                         <tr>
                           <td class="border">Shipping:</td>
-                          <td class="border text-muted">Local pickup (static data)</td>
+                          <td class="border text-muted">Local pickup</td>
                         </tr>
                         <tr>
                           <td class="border">Payment method:</td>
-                          <td class="border text-muted">Direct bank transfer (static data)</td>
+                          <td class="border">{{ $order->bank_name }}</td>
                         </tr>
                         <tr>
                           <td class="border">Total:</td>
@@ -49,19 +49,19 @@
                         <tr>
                           <td class="px-3">
                             <ul class="list-unstyled d-flex flex-column">
-                              <li class="my-1">{{ $order->user->name }}</li>
-                              <li class="my-1 text-muted">Street address (static data)</li>
-                              <li class="my-1 text-muted">Town / City (static data)</li>
-                              <li class="my-1 text-muted">State / County (static data)</li>
-                              <li class="my-1 text-muted">Postcode / ZIP (static data)</li>
-                              <li class="my-1 text-muted"><i class="fa fa-phone mr-2"></i>123321123 (static data)</li>
-                              <li class="my-1"><i class="fa fa-envelope mr-2"></i>{{ $order->user->email }}</li>
+                              <li class="my-1">{{ $order->pay_name }}</li>
+                              <li class="my-1">{{ $order->address }}</li>
+                              <li class="my-1">{{ $order->city }}</li>
+                              <li class="my-1">{{ $order->state }}</li>
+                              {{-- <li class="my-1">{{ $order->address }}</li> --}}
+                              <li class="my-1"><i class="fa fa-phone mr-2"></i>{{ $order->phone }}</li>
+                              <li class="my-1"><i class="fa fa-envelope mr-2"></i>{{ $order->email }}</li>
                             </ul>
                           </td>
                         </tr>
                       </tbody>
                     </table>
-                    <table class="table table-bordered mt-4">
+                    <table class="table table-bordered mt-4 d-none">
                       <tbody>
                         <tr>
                           <td class="px-3 bg-white" colspan="2">ငွေလွှဲထားသော Screenshotအားပေးပို့ရန်</td>

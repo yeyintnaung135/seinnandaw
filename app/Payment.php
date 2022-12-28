@@ -22,7 +22,8 @@ class Payment extends Model
         'city',
         'tran_id',
         'status',
-        'bank_name'
+        'bank_name',
+        'payment_screenshot'
     ];
 
     public function user() {

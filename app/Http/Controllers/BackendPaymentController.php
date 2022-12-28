@@ -80,6 +80,7 @@ class BackendPaymentController extends Controller
               "email" => $record->email,
               "user" => $record->user->name,
               "country" => $record->country,
+              "payment_screenshot" => $record->payment_screenshot,
               "created_at" => date('F d, Y',strtotime($record->created_at)),
               "id" => $record->id,
 

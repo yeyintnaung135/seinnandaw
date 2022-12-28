@@ -6,10 +6,12 @@ use App\Categories;
 use App\checkout;
 use App\Payment;
 use App\Products;
+use App\Addtocart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
@@ -67,7 +69,7 @@ class PaymentController extends Controller
                             ->where('product_id', $request->userDefined2)
                             ->where('userid', Auth::guard('web')->user()->id)
                             ->first();
-//        so we need to redirect
+      //  so we need to redirect
         return redirect('checkoutmpukbzsuccess/'.$payment_success->id);
     }
 
@@ -252,7 +254,8 @@ class PaymentController extends Controller
         $data['pname'] = $tocheckproductdata->name;
 
         if ($request->payment == '0') {
-            return 'driect bank view';
+          $user_info = $request->except('_token');
+          return view('frontend.order_received', ['user_info' => (object)$user_info, 'payment' => 'pending']);
         }
         if ($request->payment == '1') {
 
@@ -266,6 +269,46 @@ class PaymentController extends Controller
         }
 
 
+    }
+
+    public function directbank(Request $request)
+    {
+      $input=$request->except('_token');
+      $validator=Validator::make($input,[
+        'payment_screenshot' => ['required','mimes:jpeg,bmp,png,jpg']
+      ]);
+      if($validator->fails()){
+        return view('frontend.order_received', ['payment' => 'required_screenshot', 'user_info' => (object)$input]);
+        // return redirect('')->back()->withErrors($validator)->withInput();
+      }
+      $img = $input['payment_screenshot'];
+      $imageNameone = time().'img'.'.'.$img->getClientOriginalExtension();
+      $lpath=$img->move(public_path('images/payments/'),$imageNameone);
+      $input['payment_screenshot']='images/payments/'.$imageNameone;
+      $invno=rand(1000, 999999) . $input['pid'];
+
+      Payment::create([
+        'userid' => Auth::guard('web')->user()->id,
+        'product_id' => $input['pid'],
+        'amount' =>$input['pprice'],
+        'counts' => $input['pcount'],
+        'pay_name' => $input['firstname'] . ' ' . $input['lastname'],
+        'phone' => $input['phone'],
+        'email' => $input['email'],
+        'address' => $input['address_one'],
+        'country' => $input['country'],
+        'state' => $input['state'],
+        'city' => $input['city'],
+        'bank_name' => 'Direct Bank',
+        'payment_screenshot' => $input['payment_screenshot'],
+        'invoiceNo' => $invno,
+        'tran_id' =>$invno,
+        'status' => 'pending',
+      ]);
+
+      $res=Addtocart::where('userid','=', Auth::guard('web')->user()->id)->where('product_id','=',$input['pid'])->delete();
+
+      return view('frontend.order_received', ['payment' => 'success', 'product_id' => $input['pid']]);
     }
 
 }

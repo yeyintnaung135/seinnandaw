@@ -143,9 +143,12 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @if (isset($payment->payment_screenshot))
+                                      <img src="{{ url($payment->payment_screenshot) }}" style="width:80%;height:auto;"/>
+                                    @endif
+
                                 </div>
                                 <!-- /.card-body -->
-
 
 
                             </form>

@@ -48,6 +48,7 @@
                                         <th>PayName</th>
                                         <th>Email</th>
                                         <th>Country</th>
+                                        <th>Payment</th>
                                         <th>Amount</th>
                                         <th>Bank</th>
                                         <th>Created_date</th>
@@ -64,6 +65,7 @@
                                         <th>PayName</th>
                                         <th>Email</th>
                                         <th>Country</th>
+                                        <th>Payment</th>
                                         <th>Amount</th>
                                         <th>Bank</th>
                                         <th>Created_date</th>
@@ -115,6 +117,18 @@
        {data: 'pay_name'},
        {data: 'email'},
        {data: 'country'},
+       {
+        data: 'payment_screenshot',
+        render: function(data) {
+          if(!data) {
+            var image = `<div></div>`;
+          } else {
+            var image = `<img style="width:200px;height:100px;" src="{{url(':img')}}">`;
+            image = image.replace(':img', data);
+          }
+          return image;
+        }
+       },
        {data: 'amount'},
        {data: 'bank'},
        {data: 'created_at'},
@@ -159,7 +173,7 @@
          previous: '<i class="fa fa-angle-left"></i>' // or '←'
        }
      },
-     "order": [[ 9, "desc" ]],
+     "order": [[ 10, "desc" ]],
 
  });
  $(document).ready(function() {

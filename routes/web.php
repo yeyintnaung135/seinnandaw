@@ -64,6 +64,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/checkout/order-received', 'FrontController@orderReceived');
     Route::post('/connectwithbank', 'PaymentController@startgotobank');
+    Route::post('/directbank', 'PaymentController@directbank');
     //shop page sort
     // Route::post('/get_product_sortall_ajax', 'FrontController@get_product_sortall')->name('get_product_sortall_ajax');
     Route::get('/shoppagination/fetch_data', 'FrontController@fetch_data');
