@@ -369,13 +369,13 @@
                           Choose File
                       </label> --}}
                       <label class="mb-0">
-                        <input type="file" name="payment_screenshot" class="" accept=".jpg,.jpeg,.png">
+                        <input type="file" name="payment_screenshot" class="" accept=".jpg,.jpeg,.png" style="width: 250px;">
                       </label>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <button type="submit" class="btn btn-primary sn-place-order-button w-25 mt-2">PLACE ORDER
+              <button type="submit" class="btn btn-primary sn-place-order-button mt-2" style="width: 200px;">PLACE ORDER
               </button>
             </form>
           </div>
