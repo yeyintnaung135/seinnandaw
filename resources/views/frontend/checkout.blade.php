@@ -60,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">State / County </label>
-                                <input type="text" name='state' class="form-control" id="inputPassword4" value="{{old('state',isset($billing_address->state) ? $billing_address->state : '')}}" required>
+                                <input type="text" name='state' class="form-control" id="inputPassword4" value="{{old('state',isset($billing_address->state) ? $billing_address->state : '')}}">
                             </div>
                             <div class="form-group">
                                 <label for="inputPassword4">Postcode / ZIP </label>
