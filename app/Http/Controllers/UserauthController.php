@@ -44,11 +44,11 @@ class UserauthController extends Controller
             //  return view('frontend.checkout', ['data' => ['count'=>$getuseridchangedcount->first()->counts], 'price' => $totalprice, 'product' => $checkproductisinstock->first()]);
 
             } else {
-                return 'something wrong';
+                return view('frontend.checkout', ['data' => 'Deleted Product']);
             }
 
         } else {
-            return 'something wrong';
+            return view('frontend.checkout', ['data' => 'empty']);
         }
 
     }
@@ -98,6 +98,7 @@ class UserauthController extends Controller
 
     protected function register(Request $request)
     {
+
         $input = $request->except('_token');
         $regval = $this->regvalidate($input);
         if ($regval->fails()) {
@@ -109,14 +110,36 @@ class UserauthController extends Controller
             'password' => Hash::make($input['password']),
             'role' => 'user'
         ]);
-        Auth::attempt(['email' => $input['email'], 'password' => $input['password'], 'role' => 'user']);
-        return redirect()->back();
+                Auth::attempt(['email' => $input['email'], 'password' => $input['password'], 'role' => 'user']);
+
+        if (!empty($input['addtocart'])) {
+            foreach (json_decode($input['addtocart'], true) as $atc) {
+                if (!empty(Products::where('id', $atc['id'])->first())) {
+
+                    if (count(Addtocart::where('userid', Auth::user()->id)->where('product_id', $atc['id'])->get()) == 0) {
+                        Addtocart::create(['userid' => Auth::user()->id, 'product_id' => $atc['id'], 'count' => $atc['count']]);
+
+                    } else {
+                        $getoldata = Addtocart::where('userid', Auth::user()->id)->where('product_id', $atc['id']);
+                        $combineoldandnewcount = $getoldata->first()->count + $atc['count'];
+                        $getoldata->update(['count' => $combineoldandnewcount]);
+                    }
+                }
+            }
+            if (!empty($request->addational) and $request->addational == 'hey from checkout') {
+                return $this->checkoutlogin($request);
+            }
+        }
+
+        return redirect(url('/'));
 
     }
 
     public function userlogout()
     {
         Auth::guard('web')->logout();
+        Session::put('loguserout', 'yes');
+
         return redirect(url('user/login'));
     }
 }

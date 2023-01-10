@@ -18,6 +18,15 @@
         window.csrf="{{csrf_token()}}"
 
     </script>
+
+    @if(Session::has('loguserout'))
+        <script>
+        window.logout='yes';
+        </script>
+        <?php
+        session()->forget('loguserout');
+        ?>
+    @endif
     @if(Auth::check() and Auth::user()->role == 'user')
         <script>
             window.authuser = 'yes';
@@ -25,6 +34,7 @@
     @else
         <script>
             window.authuser = 'no';
+
         </script>
     @endif
 

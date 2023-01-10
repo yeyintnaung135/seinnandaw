@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Addtocart;
 use App\Categories;
+use App\checkout;
 use App\Products;
 use App\Discount;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class ProductsController extends Controller
         return view('backend.products.list');
     }
 
-    
+
     public function getAllProducts(Request $request) {
       $draw = $request->get('draw');
       $start = $request->get("start");
@@ -281,7 +283,7 @@ class ProductsController extends Controller
     /** Product Delete Section */
 
     public function trash(){
-   
+
         return view('backend.products.trash');
     }
 
@@ -289,27 +291,27 @@ class ProductsController extends Controller
         $draw = $request->get('draw');
         $start = $request->get("start");
         $rowperpage = $request->get("length"); // total number of rows per page
-  
+
         $columnIndex_arr = $request->get('order');
         $columnName_arr = $request->get('columns');
         $order_arr = $request->get('order');
         $search_arr = $request->get('search');
-  
-        $columnIndex = $columnIndex_arr[0]['column']; 
+
+        $columnIndex = $columnIndex_arr[0]['column'];
         $columnName = $columnName_arr[$columnIndex]['data']; // Column name
         $columnSortOrder = $order_arr[0]['dir']; // asc or desc
         $searchValue = $search_arr['value']; // Search value
-  
-    
-  
+
+
+
         $totalRecords = Products::select('count(*) as allcount')
                         ->where(function ($query) use($searchValue) {
                           $query->where('name', 'like', '%' . $searchValue . '%')
                                 ->orWhere('created_at', 'like', '%' . $searchValue . '%');
-                            
+
                         })->count();
         $totalRecordswithFilter = $totalRecords;
-  
+
         $records = Products::orderBy($columnName, $columnSortOrder)
             ->orderBy('created_at', 'desc')
             ->where(function ($query) use($searchValue) {
@@ -321,9 +323,9 @@ class ProductsController extends Controller
             ->skip($start)
             ->take($rowperpage)
             ->get();
-  
+
         $data_arr = array();
-  
+
         foreach ($records as $record) {
           $data_arr[] = array(
               "checkbox" => $record->id,
@@ -334,7 +336,7 @@ class ProductsController extends Controller
               "action" => $record->id,
           );
         }
-  
+
         $response = array(
           "draw" => intval($draw),
           "iTotalRecords" => $totalRecords,
@@ -358,16 +360,24 @@ class ProductsController extends Controller
         return redirect(url('backend/products/list'));
     }
     public function delete(Request $request){
+
+        Addtocart::where('product_id',$request->id)->delete();
+        checkout::where('productid',$request->id)->delete();
+
         Products::where('id',$request->id)->delete();
         Session::flash('message', 'Your Product was successfully Deleted');
 
         return redirect(url('backend/products/list'));
     }
     public function multiple_trashed(Request $request){
+
         $array = explode(',',$request->id);
          foreach($array as $arr){
             Products::where('id',$arr)->delete();
+             Addtocart::where('product_id',$arr)->delete();
+             checkout::where('productid',$arr)->delete();
          }
+
         // Products::onlyTrashed()->find($request->id)->forcedelete();
         Session::flash('message', 'Your Product was successfully Deleted');
         return redirect(url('backend/products/list'));
@@ -382,7 +392,7 @@ class ProductsController extends Controller
         foreach($array as $arr){
             Products::onlyTrashed()->find($arr)->forcedelete();
         }
-       
+
         Session::flash('message', 'Your Product was successfully Deleted');
         return redirect(url('backend/products/list'));
     }
