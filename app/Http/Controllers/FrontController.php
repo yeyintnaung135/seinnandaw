@@ -194,7 +194,7 @@ class FrontController extends Controller
     {
 
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        $orders = Payment::where('userid', Auth::guard('web')->user()->id)->get();
+        $orders = Payment::where('userid', Auth::guard('web')->user()->id)->orderBy('id','desc')->get();
         return view('frontend.orders', ['orders' => $orders]);
       } else {
         return redirect('/account');
@@ -257,7 +257,7 @@ class FrontController extends Controller
         'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('billing_address')->ignore(isset($billing_address->id) ? $billing_address->id: 0)],
         // 'email' => ['required','string','email','max:255','unique:users'],
         'email' => ['required','string','email','max:255',Rule::unique('users')->ignore($input['user_id']),Rule::unique('billing_address')->ignore(isset($billing_address->id) ? $billing_address->id: 0)],
-        
+
       ]);
       if($validator->fails()){
         return redirect()->back()->withErrors($validator)->withInput();

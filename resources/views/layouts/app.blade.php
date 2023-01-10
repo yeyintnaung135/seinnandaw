@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Seinnandaw</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -74,7 +74,7 @@
           background: none;
         }
       }
-      
+
       /* Tablet */
       @media only screen and (min-width: 600px) {
         .sn-login-form #email, .sn-login-form #password {
@@ -111,7 +111,7 @@
 
       }
       @media only screen and (min-width: 768px) {
-        
+
       }
     </style>
 </head>
@@ -205,7 +205,7 @@
                 $('#adminLogin .topas').attr('type','password');
             }
         })
-        
+
     });
 </script>
 
