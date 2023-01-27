@@ -16,7 +16,8 @@
       <td class="px-3"><a href="{{ route('user.edit') }}">Account Details</a></td>
     </tr>
     <tr class="pf-link">
-      <td class="px-3"><a href="{{ route('user.logout')}}">Logout</a></td>
+      <td class="px-3"><a href="" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">Logout</a></td>
     </tr>
   </tbody>
 </table>

@@ -194,7 +194,7 @@ class FrontController extends Controller
     {
 
       if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
-        $orders = Payment::where('userid', Auth::guard('web')->user()->id)->get();
+        $orders = Payment::where('userid', Auth::guard('web')->user()->id)->orderBy('id','desc')->get();
         return view('frontend.orders', ['orders' => $orders]);
       } else {
         return redirect('/account');
@@ -257,7 +257,7 @@ class FrontController extends Controller
         'phone' => ['required','regex:/^([0-9\s\-\+\(\)]*)$/',Rule::unique('billing_address')->ignore(isset($billing_address->id) ? $billing_address->id: 0)],
         // 'email' => ['required','string','email','max:255','unique:users'],
         'email' => ['required','string','email','max:255',Rule::unique('users')->ignore($input['user_id']),Rule::unique('billing_address')->ignore(isset($billing_address->id) ? $billing_address->id: 0)],
-        
+
       ]);
       if($validator->fails()){
         return redirect()->back()->withErrors($validator)->withInput();
@@ -312,35 +312,43 @@ class FrontController extends Controller
         //return $request->all();
 
         $getprice = Products::where('id', $request->productid)->first();
-        $totalprice = $getprice->price * $request->count;
+        if(!empty($getprice)){
+            $totalprice = $getprice->price * $request->count;
 
 
-        if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
+            if (Auth::guard('web')->check() and Auth::guard('web')->user()->role == 'user') {
 
-            $hascc = checkout::where('userid', Auth::guard('web')->user()->id);
-            if (count($hascc->get()) > 0) {
-                $hascc->delete();
+                $hascc = checkout::where('userid', Auth::guard('web')->user()->id);
+                if (count($hascc->get()) > 0) {
+                    $hascc->delete();
+
+                }
+                $checkoutdata=checkout::create(['userid' => Auth::guard('web')->user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
+                $billing_address = BillingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
+
+                return view('frontend.checkout', ['billing_address' => $billing_address, 'data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
+            } else {
+                //return 'noo';
+
+                $hascc = checkout::where('userid', $request->guestid);
+                if (count($hascc->get()) > 0) {
+                    $hascc->delete();
+
+                }
+
+                checkout::create(['userid' => $request->guestid, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
+
+
+
+
+                return view('frontend.account', ['addational'=>'hey from checkout']);
+
 
             }
-            $checkoutdata=checkout::create(['userid' => Auth::guard('web')->user()->id, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
-            $billing_address = BillingAddress::where('user_id', Auth::guard('web')->user()->id)->first();
-
-            return view('frontend.checkout', ['billing_address' => $billing_address, 'data' => $request->all(), 'price' => $totalprice, 'product' => $getprice,'checkoutid'=>$checkoutdata->id]);
-        } else {
-            //return 'noo';
-
-            $hascc = checkout::where('userid', $request->guestid);
-            if (count($hascc->get()) > 0) {
-                $hascc->delete();
-
-            }
-            checkout::create(['userid' => $request->guestid, 'counts' => $request->count, 'productid' => $request->productid, 'status' => 'start']);
-
-
-            return view('frontend.account', ['addational'=>'hey from checkout']);
-
-
+        }else{
+            return view('customerrors.customerrors',['data'=>'Deleted Product']);
         }
+
     }
 
     public function getcheckout()
@@ -349,7 +357,7 @@ class FrontController extends Controller
         if (Auth::guard('web')->user() and Auth::guard('web')->user()->role == 'user') {
 
 
-            $getcheckoutdata = checkout::where('userid', Auth::guard('web')->user()->id)->first();
+            $getcheckoutdata = checkout::where('userid', Auth::guard('web')->user()->id)->orderBy('id','desc')->first();
             if (!empty($getcheckoutdata)) {
 
                 $getprice = Products::where('id', $getcheckoutdata->productid)->first();

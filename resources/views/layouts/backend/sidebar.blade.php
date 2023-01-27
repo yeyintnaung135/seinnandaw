@@ -145,7 +145,7 @@
                     </ul>
 
                 </li>
-                
+
                 <li class="nav-item">
                   <a href="#" class="nav-link">
                       <i class="nav-icon fas fa-th"></i>
@@ -222,8 +222,8 @@ function logout () {
         text: "You Are About to Logout.",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
+        confirmButtonText: 'Yes!',
+        cancelButtonText: 'No',
         reverseButtons: true,
         didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)

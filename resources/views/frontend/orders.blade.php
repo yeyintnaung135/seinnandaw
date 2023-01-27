@@ -17,6 +17,7 @@
                           <td class="px-3 bg-white">Order</td>
                           <td class="px-3 bg-white">Date</td>
                           <td class="px-3 bg-white">Status</td>
+                          <td class="px-3 bg-white">Bank</td>
                           <td class="px-3 bg-white">Total</td>
                           <td class="px-3 bg-white">Actions</td>
                         </tr>
@@ -31,7 +32,9 @@
                             @else
                               <td class="border py-4 font-weight-bold status-error"> <span>{{ $order->status }}</span> </td>
                             @endif
-                            <td class="border py-4">{{ number_format($order->amount) }} KS for {{ $order->counts }} item</td>
+                              <td class="border py-4 font-weight-bold"> <span>{{ strtoupper($order->bank_name) }}</span> </td>
+
+                              <td class="border py-4">{{ number_format($order->amount) }} KS for {{ $order->counts }} item</td>
                             <td class="border py-4"><a href="{{ url('/account/view-order/'.$order->id) }}" class="sn-view-order">VIEW</a></td>
                           </tr>
                         @endforeach

@@ -52,7 +52,7 @@ Route::group(['middleware' => ['web']], function () {
     /** User Login Section  */
     Route::post('/user/login', 'UserauthController@login');
     Route::get('/user/login', 'UserauthController@getlogin');
-    Route::get('/user/logout', 'UserauthController@userlogout')->name('user.logout');
+    Route::post('/user/logout', 'UserauthController@userlogout')->name('user.logout');
 
     Route::get('/getatccounts','FrontprivateController@getatccounts' );
     Route::post('/user/register', 'UserauthController@register');

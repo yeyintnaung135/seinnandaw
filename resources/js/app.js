@@ -29,9 +29,9 @@ Vue.component('cart', require('./components/cart.vue').default);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-// Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
+Vue.prototype.$hostname = "http://" + window.location.hostname + "/seinnandaw/public";
 // Vue.prototype.$hostname = "https://" + window.location.hostname ;
-Vue.prototype.$hostname = "http://" + window.location.hostname ;
+// Vue.prototype.$hostname = "http://" + window.location.hostname ;
 
 
 const app = new Vue({
@@ -41,9 +41,16 @@ const app = new Vue({
             addtocartcount:0
         }
     },
-   async mounted() {
+    async mounted() {
         if(window.authuser == 'no'){
-            this.addtocartcount=JSON.parse(localStorage.getItem('addtocartcount'));
+            if(window.logout != null){
+                this.addtocartcount=0;
+                localStorage.clear();
+
+            }else{
+                this.addtocartcount=JSON.parse(localStorage.getItem('addtocartcount'));
+
+            }
 
         }else{
             const counts=await this.getatccounts();

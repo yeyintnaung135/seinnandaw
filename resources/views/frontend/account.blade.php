@@ -21,6 +21,9 @@
                       @if(!empty($addational))
                               <input type="hidden" name="addational" value="{{$addational}}"/>
                           @endif
+                          @if(!empty($checkoutid))
+                              <input type="hidden" name="cid" value="{{$checkoutid}}"/>
+                          @endif
                           <div class="form-group">
                               <label for="inputAddress">Email</label>
                               <input type="text" name='usernameoremail' value="{{old('usernameoremail')}}"
@@ -83,6 +86,9 @@
                               <i  class="fas fa-eye-slash eye toggleeye"></i>
 
                           </div>
+                          @if(!empty($addational))
+                              <input type="hidden" name="addational" value="{{$addational}}"/>
+                          @endif
                           <div class="form-group">
                               <button type="submit" class="btn btn-primary sn-place-order-button">Register</button>
                           </div>
@@ -111,7 +117,7 @@
                 }
 
             })
-            
+
             console.log(JSON.parse(localStorage.getItem('addtocartlist')));
 
             $('[name="addtocart"]').val(localStorage.getItem('addtocartlist'));
