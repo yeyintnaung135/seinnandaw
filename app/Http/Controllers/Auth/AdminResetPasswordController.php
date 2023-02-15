@@ -16,7 +16,7 @@ use ResetsPasswords;
 *
 * @var string
 */
-protected $redirectTo = '/backend/dashboard';
+protected $redirectTo = '/backend/home';
 
 /**
 * Create a new controller instance.
@@ -30,7 +30,7 @@ $this->middleware('guest:admin');
 
 public function showResetForm(Request $request, $token = null)
 {
-return view('auth.passwords.adminsreset')
+return view('auth.passwords.adminreset')
 ->with(['token' => $token, 'email' => $request->email]);
 }
 
@@ -38,7 +38,7 @@ return view('auth.passwords.adminsreset')
 //defining which guard to use in our case, it's the admin guard
 protected function guard()
 {
-return Auth::guard('admin');
+return Auth::guard('admins');
 }
 
 //defining our password broker function

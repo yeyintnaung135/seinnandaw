@@ -53,7 +53,7 @@ Route::group(['prefix' => '/backend/products'],function (){
 
     Route::get('/discount/{id}', 'ProductsController@discount');
     Route::post('/discount', 'ProductsController@setdiscount');
-    
+
     /** Product Delete Routes */
     Route::post('/delete', 'ProductsController@delete');
     Route::get('/trash', 'ProductsController@trash')->name('product.trash');
@@ -95,6 +95,9 @@ Route::get('/adminforgot', 'Auth\AdminsForgotPasswordController@showLinkRequestF
     ->name('admin.password.request');
 Route::post('/adminsendemail', 'Auth\AdminsForgotPasswordController@sendResetLinkEmail')
     ->name('admin.password.email');
+Route::get('/password/adminreset/{token}', 'Auth\AdminResetPasswordController@showResetForm')
+    ->name('admin.password.reset');
+Route::post('/password/adminreset', 'Auth\AdminResetPasswordController@reset');
 
 ?>
 
