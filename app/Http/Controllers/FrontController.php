@@ -31,9 +31,10 @@ class FrontController extends Controller
     public function index()
     {
 
-        $data = Products::where('feature', 'yes')->get();
+        $data = Products::where('feature', 'yes')->limit(4)->get();
         $new_arrival = Products::where('new_arrival', 'yes')->latest()->first();
-        return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival]);
+        $rc_4u = Products::latest()->limit(4)->get();
+        return view('frontend.index', ['data' => $data,'new_arrival' => $new_arrival, 'rc_4u' => $rc_4u]);
     }
 
 
