@@ -32,7 +32,7 @@ In case JS is disabled, show a visible Submit button with msg
 <body>
 <h1>Redirecting to MPU Payment Gateway ...</h1>
 
-<form id="hidden_form" name="hidden_form" method="post" action="<?php echo $pgw_test_url; ?>">
+<form id="hidden_form" name="hidden_form" method="post" action="<?php echo $pgw_live_url; ?>">
 {{--    <input type="submit" value="Click here if it is taking too long to redirect!" />--}}
      <div style="visibility: hidden;">
       <div>

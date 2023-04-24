@@ -176,7 +176,8 @@ class PaymentController extends Controller
 
     public function paywithmpu($data, $bankname)
     {
-        $bankamount = $this->changebankamountformat($data['totalprice']);
+//        $bankamount = $this->changebankamountformat($data['totalprice']);
+        $bankamount = $this->changebankamountformat(100);
         if ($bankname == 'kbz') {
             $merchantid = env('KBZ_MERCHANTID');
             $src = env('KBZ_SEC');
@@ -189,7 +190,8 @@ class PaymentController extends Controller
         Payment::create([
             'userid' => Auth::guard('web')->user()->id,
             'product_id' => $data['pid'],
-            'amount' =>$data['totalprice'],
+            'amount' =>100,
+//            'amount' =>$data['totalprice'],
             'counts' => $data['pcount'],
             'pay_name' => $data['firstname'] . ' ' . $data['lastname'],
             'phone' => $data['phone'],

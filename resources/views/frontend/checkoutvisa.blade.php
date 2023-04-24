@@ -3,9 +3,8 @@
 
 // replace with actual Secret Key provided by the Bank or MPU
 //$secret_key = "W21TFCTIJBMITOFF4EQXMA4AI0AI41XS";
-
+//https://secureacceptance.cybersource.com/pay
 $pgw_test_url = 'https://testsecureacceptance.cybersource.com/pay';
-//$pgw_live_url = "https://www.mpu-ecommerce.com/Payment/Payment/pay";
 
 
 
