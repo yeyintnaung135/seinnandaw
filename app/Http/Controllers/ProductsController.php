@@ -199,19 +199,19 @@ class ProductsController extends Controller
               return redirect(url('backend/products/list'));
 
           }
-          public function save(Request $request){
-              $input=$request->except('_token');
+    public function save(Request $request){
+        $input=$request->except('_token');
 
-              $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg'],
-                  'photo_one'=>['mimes:jpeg,bmp,png,jpg'],
-                  'photo_two'=>['mimes:jpeg,bmp,png,jpg'],
-                  'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
-                  'photo_four'=>['mimes:jpeg,bmp,png,jpg'],
-              ]);
-              if($validator->fails()){
+        $validator=Validator::make($input,['name'=>['required','max:1000'],'price'=>['required','max:1000000000000000'],'photo'=>['required','mimes:jpeg,bmp,png,jpg'],
+            'photo_one'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_two'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_three'=>['mimes:jpeg,bmp,png,jpg'],
+            'photo_four'=>['mimes:jpeg,bmp,png,jpg'],
+        ]);
+        if($validator->fails()){
       // return $validator->errors();
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+          return redirect()->back()->withErrors($validator)->withInput();
+      }
         if ($request->file('photo_one')){
             $photo_one = $input['photo_one'];
             $photonameone = time().'photo_one'.'.'.$photo_one->getClientOriginalExtension();

@@ -77,30 +77,33 @@
                 <h2 class="my-3">RECOMMENDED FOR YOU</h2>
                 <p>Our Bestsellers</p>
                 <div class="sn-home-products d-flex flex-wrap mt-5">
-                    <a href="{{url('/product/1')}}" class="mb-4">
-                        <img src="{{ url('images/products/14.jpg') }}" alt="">
-                        <span class="sn-category my-2">Necklace</span>
-                        <h3 class="sn-product-title">White Gold Women's Necklace</h3>
-                        <span class="sn-price">502,000 Ks</span>
+                  @foreach($rc_4u as $d)
+                    <a href="{{url('/product/detail/'.$d->id)}}" class="mb-4 position-relative">
+                      @if (isset($d->discount->discount_price))
+                        <div class="sn-sale-badge">Sale!</div>
+                      @endif
+                      <img src="{{ url($d->photo) }}" alt=""><br>
+
+
+                        @php
+                            $cat = \App\Categories::where('id', $d->category_id)->first();
+                        @endphp
+
+                        @if (!empty($cat))
+                            <span class="sn-category my-2">
+                            {{strtoupper($cat->name)}}
+                        </span>
+                        @else
+                            <span class="sn-category my-2">
+                          Uncategorized
+                        </span>
+                        @endif
+                        <h3 class="sn-product-title">
+                            {{strtoupper($d->name)}}
+                        </h3>
+                        <span class="sn-price">{{$d->price}} Ks</span>
                     </a>
-                    <a href="{{url('/product/1')}}" class="mb-4">
-                        <img src="{{ url('images/products/15.jpg') }}" alt="">
-                        <span class="sn-category my-2">Necklace</span>
-                        <h3 class="sn-product-title">White Gold Women's Necklace</h3>
-                        <span class="sn-price">502,000 Ks</span>
-                    </a>
-                    <a href="{{url('/product/1')}}" class="mb-4">
-                        <img src="{{ url('images/products/16.jpg') }}" alt="">
-                        <span class="sn-category my-2">Necklace</span>
-                        <h3 class="sn-product-title">White Gold Women's Necklace</h3>
-                        <span class="sn-price">502,000 Ks</span>
-                    </a>
-                    <a href="{{url('/product/1')}}" class="mb-4">
-                        <img src="{{ url('images/products/17.jpg') }}" alt="">
-                        <span class="sn-category my-2">Necklace</span>
-                        <h3 class="sn-product-title">White Gold Women's Necklace</h3>
-                        <span class="sn-price">502,000 Ks</span>
-                    </a>
+                @endforeach
                 </div>
             </div>
 

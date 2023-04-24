@@ -20,6 +20,7 @@ class AdminsForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+    
     public function __construct()
     {
         $this->middleware('guest:admins');
